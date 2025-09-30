@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:24:55 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/09/16 18:27:55 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/09/29 16:51:33 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,12 @@ int texture_img(char *av)
 {
 	void	*init;
 	void	*img;
+	int img_x;
+	int img_y;
 	init = mlx_init();
 	if(!init)
 		return (printf("Parsing init failed, try again.\n"), ft_free(game()->info), exit(1), 1);
-	img = mlx_xpm_file_to_image(init, av, &game()->img.img_x, &game()->img.img_y);
+	img = mlx_xpm_file_to_image(init, av, &img_x, &img_y);
 	if(!img)
 		return (mlx_destroy_display(init), free(init), ft_free(game()->info), printf("Invalid texture content.\n"), exit(1), 1);
 	mlx_destroy_image(init, img);
@@ -66,7 +68,7 @@ int	map_colors(void)
 		var++;
 	}
 	if (check != 2 || var > 11 || var < 5)
-		return(printf("Invalid row \"F %s\". Example \"F 255,255,255\".\n", game()->info[5]), singleton_free(), 1);
+		return(printf("Invalid row \"F %s\". Example \"F 255,255,255\".\n", game()->info[4]), singleton_free(), 1);
 	var = 0;
 	check = 0;
 	while (game()->info[5][var])

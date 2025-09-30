@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:24:40 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/09/20 14:57:17 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/09/25 16:10:08 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ int map_walls(char *av)
 			line = get_next_line(fd);
 			continue;
 		}
-		game()->map[var] = ft_strdup(line);
+		game()->map[var] = ft_strdupnonl(line);
 		var++;
         free(line);
         line = get_next_line(fd);

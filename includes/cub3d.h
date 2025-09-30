@@ -24,10 +24,23 @@
 # include "../minilibx-linux/mlx.h"
 # include "../includes/libft/libft.h"
 
+typedef struct s_player
+{
+	float	player_x;
+	float	player_y;
+}				t_player;
+
 typedef struct s_img
 {
+	void *img;
+	char *addr;
 	int	img_x;
 	int	img_y;
+	int		w;
+	int		h;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
 }				t_img;
 
 typedef struct s_game
@@ -37,7 +50,13 @@ typedef struct s_game
 	char **map_F;
 	char **map_C;
 	int		max_y;
-	t_img	img;
+	void	*mlx;
+	void	*win;
+	t_img	canvas;
+	t_img	wall;
+	t_img	floor;
+	t_img	person;
+	t_player	player;
 }				t_game;
 
 //GNL

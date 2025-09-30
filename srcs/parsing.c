@@ -6,11 +6,37 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:54 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/09/16 18:23:03 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/09/25 17:05:04 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+void	rewrite_map(void)
+{
+	int	var;
+	int	var2;
+
+	var2 = 0;
+	while(game()->map[var2])
+	{
+		var = 0;
+		while(game()->map[var2][var])
+		{
+			if (game()->map[var2][var] == 'o')
+				game()->map[var2][var] = '0';
+			if (game()->map[var2][var] == 'n' || game()->map[var2][var] == 's' || game()->map[var2][var] == 'e' || game()->map[var2][var] == 'w')
+			{
+				game()->map[var2][var] -= 32;
+				game()->player.player_x = var;
+				game()->player.player_y = var2;
+			}
+			var++;
+		}
+		var2++;
+	}
+	printf("PLAYER X: %f\nPLAYER Y: %f\n", game()->player.player_x, game()->player.player_y);
+}
 
 int parsing(char **av)
 {
@@ -28,10 +54,11 @@ int parsing(char **av)
 		return (1);
 	if (map_walls(av[1]))
         return(1);
+	rewrite_map();
 	int var = 0;
 	while(game()->map[var])
 	{
-		printf("map %s", game()->map[var]);
+		printf("map %s\n", game()->map[var]);
 		var++;
 	}
 	var = 0;
@@ -52,7 +79,7 @@ int parsing(char **av)
 		printf("map_C %s&\n", game()->map_C[var]);
 		var++;
 	}
-	singleton_free();
+	//singleton_free();
     return(0);
 }
 
