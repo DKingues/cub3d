@@ -22,6 +22,7 @@
 # include <fcntl.h>
 # include <limits.h>
 # include "../minilibx-linux/mlx.h"
+# include "../minilibx-linux/mlx_int.h"
 # include "../includes/libft/libft.h"
 
 typedef struct s_player
@@ -30,7 +31,7 @@ typedef struct s_player
 	float	player_y;
 }				t_player;
 
-typedef struct s_img
+typedef struct s_data
 {
 	void *img;
 	char *addr;
@@ -41,10 +42,14 @@ typedef struct s_img
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-}				t_img;
+}				t_data;
 
 typedef struct s_game
 {
+	int  moving_w;
+	int  moving_a;
+	int  moving_s;
+	int  moving_d;
 	char **map;
 	char **info;
 	char **map_F;
@@ -52,10 +57,10 @@ typedef struct s_game
 	int		max_y;
 	void	*mlx;
 	void	*win;
-	t_img	canvas;
-	t_img	wall;
-	t_img	floor;
-	t_img	person;
+	t_data	canvas;
+	t_data	wall;
+	t_data	floor;
+	t_data	person;
 	t_player	player;
 }				t_game;
 

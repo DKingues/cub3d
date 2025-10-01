@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:54 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/09/25 17:05:04 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/01 14:26:18 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	rewrite_map(void)
 			if (game()->map[var2][var] == 'n' || game()->map[var2][var] == 's' || game()->map[var2][var] == 'e' || game()->map[var2][var] == 'w')
 			{
 				game()->map[var2][var] -= 32;
-				game()->player.player_x = var;
-				game()->player.player_y = var2;
+				game()->player.player_x = var + 0.5;
+				game()->player.player_y = var2 + 0.5;
 			}
 			var++;
 		}
