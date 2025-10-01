@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 17:47:04 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/01 14:27:20 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/01 16:29:11 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,35 @@
 #include <math.h>
 #include "../includes/cub3d.h"
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+
+void draw_line(int x0, int y0, int x1, int y1)
+{
+    int dx = abs(x1 - x0);
+    int dy = abs(y1 - y0);
+    int sx = x0 < x1 ? 1 : -1;
+    int sy = y0 < y1 ? 1 : -1;
+    int err = dx - dy;
+    int e2;
+
+    while (1)
+    {
+        my_mlx_pixel_put(&game()->canvas, (x0), (y0), 0x0096FF);
+        if (x0 == x1 && y0 == y1)
+            break;
+        e2 = 2 * err;
+        if (e2 > -dy)
+        {
+            err -= dy;
+            x0 += sx;
+        }
+        if (e2 < dx)
+        {
+            err += dx;
+            y0 += sy;
+        }
+    }
+}
+
 void dda_test(void)
 {
 	double posX = game()->player.player_x, posY = game()->player.player_y;
@@ -42,7 +71,6 @@ void dda_test(void)
 	    stepY = 1;
 	    sideDistY = (mapY + 1.0 - posY) * deltaDistY;
 	}
-	
 	int hit = 0;
 	int var = 0;
 	int side;
@@ -59,7 +87,7 @@ void dda_test(void)
 	    }
 	    if (game()->map[mapY][mapX] == '1') 
 			hit = 1;
-		my_mlx_pixel_put(&game()->canvas, (mapX + game()->player.player_x * 64), (mapY + game()->player.player_y * 64), 0x0096FF);
+        //my_mlx_pixel_put(&game()->canvas, (mapX + game()->player.player_x * 64), (mapY + game()->player.player_y * 64), 0x0096FF);
 	}
 	
 	double perpWallDist;
@@ -68,6 +96,9 @@ void dda_test(void)
 	else
 	    perpWallDist = (mapY - posY + (1 - stepY) / 2) / rayDirY;
 	printf("SIDE WALL DIST: %f\n", perpWallDist);
+	
+	//if (mapY == )
+	draw_line(game()->player.player_x * 64, game()->player.player_y * 64, mapX * 64, mapY * 64);
 }
 
 int exit1(void * nada)
@@ -168,22 +199,16 @@ int	move(t_game *nada)
 	float change = 0.05;
 	//mlx_clear_window(game()->mlx, game()->win);
 	printf("GAME_X %f\nGAME_Y %f\n", game()->player.player_x, game()->player.player_y);
-	if (game()->moving_d == 1)
-	{
+	if(game()->diff == 1)
+		change = 0.009;
+	if (game()->moving_d == 1 && game()->map[(int)(game()->player.player_y)][(int)(game()->player.player_x + 0.1)] != '1')
 		game()->player.player_x += change;
-	}
-	if (game()->moving_s == 1)
-	{
+	if (game()->moving_s == 1 && game()->map[(int)(game()->player.player_y + 0.1)][(int)game()->player.player_x] != '1')
 		game()->player.player_y += change;
-	}
-	if (game()->moving_a == 1)
-	{
+	if (game()->moving_a == 1 && game()->map[(int)(game()->player.player_y)][(int)(game()->player.player_x - 0.1)] != '1')
 		game()->player.player_x -= change;
-	}
-	if (game()->moving_w == 1)
-	{
+	if (game()->moving_w == 1 && game()->map[(int)(game()->player.player_y - 0.1)][(int)game()->player.player_x] != '1')
 		game()->player.player_y -= change;
-	}
 	mlx_destroy_image(game()->mlx, game()->canvas.img);
 	game()->canvas.img = mlx_new_image(game()->mlx, (1920), (1024));
 	game()->canvas.addr = mlx_get_data_addr(game()->canvas.img,
@@ -197,6 +222,8 @@ int	move(t_game *nada)
 int	press(int keycode, t_game *nada)
 {
 	(void)nada;
+	if (keycode == XK_Shift_L)
+		game()->diff = 1;
 	if (keycode == XK_Escape)
 		exit(0);
 	if (keycode == XK_d)
@@ -221,6 +248,8 @@ int	press(int keycode, t_game *nada)
 int	release(int keycode, t_game *nada)
 {
 	(void)nada;
+	if (keycode == XK_Shift_L)
+		game()->diff = 0;
 	if (keycode == XK_d)
 	{
 		game()->moving_d = 0;
@@ -263,6 +292,7 @@ int main(int ac, char **av)
 	game()->mlx = mlx_init();
 	game()->win = mlx_new_window(game()->mlx, 1920, 1024, "cub3d");
 	init();
+	game()->diff = 0;
 	game()->moving_w = 0;
 	game()->moving_a = 0;
 	game()->moving_s = 0;
