@@ -46,6 +46,8 @@ typedef struct s_data
 
 typedef struct s_game
 {
+	double ray_x;
+	double ray_y;
 	int diff;
 	int  moving_w;
 	int  moving_a;

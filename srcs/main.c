@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 17:47:04 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/01 16:29:11 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/02 18:11:52 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,18 @@
 #include "../includes/cub3d.h"
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
-void draw_line(int x0, int y0, int x1, int y1)
+void draw_line(float x0, float y0, float x1, float y1)
 {
-    int dx = abs(x1 - x0);
-    int dy = abs(y1 - y0);
-    int sx = x0 < x1 ? 1 : -1;
-    int sy = y0 < y1 ? 1 : -1;
-    int err = dx - dy;
-    int e2;
-
-    while (1)
-    {
+    float dx = fabs(x1 - x0);
+    float dy = fabs(y1 - y0);
+    float sx = x0 < x1 ? 1 : -1;
+    float sy = y0 < y1 ? 1 : -1;
+    float err = dx - dy;
+    float e2;
+    while (1)    
+	{
         my_mlx_pixel_put(&game()->canvas, (x0), (y0), 0x0096FF);
-        if (x0 == x1 && y0 == y1)
+        if (game()->map[(int)(y0 / 64)][(int)(x0 / 64)] == '1')
             break;
         e2 = 2 * err;
         if (e2 > -dy)
@@ -43,62 +42,122 @@ void draw_line(int x0, int y0, int x1, int y1)
     }
 }
 
-void dda_test(void)
+void dda_test2(void)
 {
-	double posX = game()->player.player_x, posY = game()->player.player_y;
-	double rayDirX = 0.7, rayDirY = 0.4;
-	
-	int mapX = (int)posX;
-	int mapY = (int)posY;
-	
-	double deltaDistX = fabs(1.0 / rayDirX);
-	double deltaDistY = fabs(1.0 / rayDirY);
-	
-	int stepX, stepY;
-	double sideDistX, sideDistY;
-	
-	if (rayDirX < 0) {
-	    stepX = -1;
-	    sideDistX = (posX - mapX) * deltaDistX;
-	} else {
-	    stepX = 1;
-	    sideDistX = (mapX + 1.0 - posX) * deltaDistX;
-	}
-	if (rayDirY < 0) {
-	    stepY = -1;
-	    sideDistY = (posY - mapY) * deltaDistY;
-	} else {
-	    stepY = 1;
-	    sideDistY = (mapY + 1.0 - posY) * deltaDistY;
-	}
-	int hit = 0;
-	int var = 0;
-	int side;
-	while (!hit) {
-		var = 0;
-	    if (sideDistX < sideDistY) {
-	        sideDistX += deltaDistX;
-	        mapX += stepX;
-	        side = 0;
-	    } else {
-	        sideDistY += deltaDistY;
-	        mapY += stepY;
-	        side = 1;
-	    }
-	    if (game()->map[mapY][mapX] == '1') 
-			hit = 1;
-        //my_mlx_pixel_put(&game()->canvas, (mapX + game()->player.player_x * 64), (mapY + game()->player.player_y * 64), 0x0096FF);
-	}
-	
-	double perpWallDist;
-	if (side == 0)
-	    perpWallDist = (mapX - posX + (1 - stepX) / 2) / rayDirX;
-	else
-	    perpWallDist = (mapY - posY + (1 - stepY) / 2) / rayDirY;
-	printf("SIDE WALL DIST: %f\n", perpWallDist);
-	
-	//if (mapY == )
-	draw_line(game()->player.player_x * 64, game()->player.player_y * 64, mapX * 64, mapY * 64);
+    double posX = game()->player.player_x, posY = game()->player.player_y;
+    double rayDirX = 0.5, rayDirY = 0.5; // 45 degree (NE direction)
+
+    int mapX = (int)posX;
+    int mapY = (int)posY;
+
+    double deltaDistX = fabs(1.0 / rayDirX);
+    double deltaDistY = fabs(1.0 / rayDirY);
+
+    int stepX, stepY;
+    double sideDistX, sideDistY;
+
+    // Calculate step and initial sideDist
+    if (rayDirX < 0) {
+        stepX = -1;
+        sideDistX = (posX - mapX) * deltaDistX;
+    } else {
+        stepX = 1;
+        sideDistX = (mapX + 1.0 - posX) * deltaDistX;
+    }
+    if (rayDirY < 0) {
+        stepY = -1;
+        sideDistY = (posY - mapY) * deltaDistY;
+    } else {
+        stepY = 1;
+        sideDistY = (mapY + 1.0 - posY) * deltaDistY;
+    }
+
+    int hit = 0;
+    int side;
+    while (!hit) {
+        if (sideDistX < sideDistY) {
+            sideDistX += deltaDistX;
+            mapX += stepX;
+            side = 0;
+        } else {
+            sideDistY += deltaDistY;
+            mapY += stepY;
+            side = 1;
+        }
+        if (game()->map[mapY][mapX] == '1')
+            hit = 1;
+    }
+
+    // Calculate perpendicular wall distance
+    double perpWallDist;
+    if (side == 0)
+        perpWallDist = (mapX - posX + (1 - stepX) / 2.0) / rayDirX;
+    else
+        perpWallDist = (mapY - posY + (1 - stepY) / 2.0) / rayDirY;
+
+    // Calculate exact intersection point (float)
+    double hitX = posX + rayDirX * perpWallDist;
+    double hitY = posY + rayDirY * perpWallDist;
+    draw_line(posX * 64, posY * 64, hitX * 64, hitY * 64);
+}
+
+void dda_test(double rayDirX, double rayDirY)
+{
+    double posX = game()->player.player_x, posY = game()->player.player_y;
+
+    int mapX = (int)posX;
+    int mapY = (int)posY;
+
+    double deltaDistX = fabs(1.0 / rayDirX);
+    double deltaDistY = fabs(1.0 / rayDirY);
+
+    int stepX, stepY;
+    double sideDistX, sideDistY;
+
+    // Calculate step and initial sideDist
+    if (rayDirX < 0) {
+        stepX = -1;
+        sideDistX = (posX - mapX) * deltaDistX;
+    } else {
+        stepX = 1;
+        sideDistX = (mapX + 1.0 - posX) * deltaDistX;
+    }
+    if (rayDirY < 0) {
+        stepY = -1;
+        sideDistY = (posY - mapY) * deltaDistY;
+    } else {
+        stepY = 1;
+        sideDistY = (mapY + 1.0 - posY) * deltaDistY;
+    }
+
+    int hit = 0;
+    int side;
+    while (!hit) {
+        if (sideDistX < sideDistY) {
+            sideDistX += deltaDistX;
+            mapX += stepX;
+            side = 0;
+        } else {
+            sideDistY += deltaDistY;
+            mapY += stepY;
+            side = 1;
+        }
+        if (game()->map[mapY][mapX] == '1')
+            hit = 1;
+    }
+
+    // Calculate perpendicular wall distance
+    double perpWallDist;
+    if (side == 0)
+        perpWallDist = (mapX - posX + (1 - stepX) / 2.0) / rayDirX;
+    else
+        perpWallDist = (mapY - posY + (1 - stepY) / 2.0) / rayDirY;
+
+    // Calculate exact intersection point (float)
+    double hitX = posX + rayDirX * perpWallDist;
+    double hitY = posY + rayDirY * perpWallDist;
+
+    draw_line(posX * 64, posY * 64, hitX * 64, hitY * 64);
 }
 
 int exit1(void * nada)
@@ -153,6 +212,8 @@ void	ins_map(void)
 	var2 = 0;
 	game()->player.player_x -= 0.5;
 	game()->player.player_y -= 0.5;
+	double initial_x = game()->ray_x;
+	double initial_y = game()->ray_y;
 	while (game()->map[var2])
 	{
 		var = 0;
@@ -169,7 +230,20 @@ void	ins_map(void)
 	draw_img(&game()->person, &game()->canvas, (game()->player.player_x * 64), (game()->player.player_y * 64));
 	game()->player.player_x += 0.5;
 	game()->player.player_y += 0.5;
-	dda_test();
+	while(game()->ray_x <= 1)
+	{
+		dda_test(game()->ray_x, game()->ray_y);
+		game()->ray_x += 0.01;
+	}
+	game()->ray_x = initial_x;
+	while(game()->ray_y <= 1)
+	{
+		dda_test(game()->ray_x, game()->ray_y);
+		game()->ray_y += 0.01;
+	}
+	game()->ray_y = initial_y;
+	//dda_test(-1, -1);
+//	dda_test2();
 }
 
 t_data	load_img(char *path)
@@ -198,7 +272,6 @@ int	move(t_game *nada)
 	(void)nada;
 	float change = 0.05;
 	//mlx_clear_window(game()->mlx, game()->win);
-	printf("GAME_X %f\nGAME_Y %f\n", game()->player.player_x, game()->player.player_y);
 	if(game()->diff == 1)
 		change = 0.009;
 	if (game()->moving_d == 1 && game()->map[(int)(game()->player.player_y)][(int)(game()->player.player_x + 0.1)] != '1')
@@ -266,6 +339,16 @@ int	release(int keycode, t_game *nada)
 	{
 		game()->moving_w = 0;
 	}
+	if(keycode == XK_Right)
+	{
+		game()->ray_x -= 0.1;
+		game()->ray_y += 0.1;
+	}
+	if(keycode == XK_Left)
+	{
+		game()->ray_x += 0.1;
+		game()->ray_y -= 0.1;
+	}
 	return 0;
 }
 
@@ -297,6 +380,8 @@ int main(int ac, char **av)
 	game()->moving_a = 0;
 	game()->moving_s = 0;
 	game()->moving_d = 0;
+	game()->ray_x = 1;
+	game()->ray_y = 0;
 	run();
     return (0);
 }
