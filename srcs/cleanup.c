@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 17:20:48 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/09/16 18:23:03 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/08 16:07:12 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,11 @@ void	singleton_free(void)
 		ft_free(game()->map_F);
 	if(game()->map_C)
 		ft_free(game()->map_C);
+}
+
+int exit1(void * nada)
+{
+	(void)nada;
+	exit(0);
+	return 0;
 }

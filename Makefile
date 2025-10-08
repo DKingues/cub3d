@@ -6,13 +6,13 @@
 #    By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/21 15:04:39 by rmota-ma          #+#    #+#              #
-#    Updated: 2025/09/16 17:22:55 by rmota-ma         ###   ########.fr        #
+#    Updated: 2025/10/08 17:53:50 by rmota-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Name and compiler
 
-NAME = cub3d
+NAME = cub3D
 
 CC = cc
 
@@ -22,7 +22,7 @@ CFLAGS = -Wall -Wextra -Werror -g
 
 LIBFT = includes/libft/libft.a
 
-SRCS = main.c init.c parsing.c map_parse.c file_parse.c utils.c cleanup.c
+SRCS = main.c init.c parsing.c map_parse.c file_parse.c mem_utils.c cleanup.c dda.c draw.c draw_utils.c hooks.c
 
 GNL = get_next_line.c get_next_line_utils.c
 

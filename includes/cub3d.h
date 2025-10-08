@@ -13,6 +13,7 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
+# include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -46,6 +47,10 @@ typedef struct s_data
 
 typedef struct s_game
 {
+	double plane_x;
+	double plane_y;
+	int	rot_l;
+	int	rot_r;
 	double ray_x;
 	double ray_y;
 	int diff;
@@ -68,7 +73,6 @@ typedef struct s_game
 }				t_game;
 
 //GNL
-
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
@@ -82,13 +86,16 @@ char	*ft_strdup(const char *s);
 
 //init.c
 void	init_gameinfo(void);
-t_game *game(void);
+void 	init(void);
+void 	set_fov(double fov_deg);
+void	set_rays(char dir);
+t_game	*game(void);
 
 //parsing.c
-
 int parsing(char **av);
 int map_exists(char *av);
 int map_name(char *av);
+void	rewrite_map(void);
 
 //map_parse.c
 int	map_validate(char *av);
@@ -100,7 +107,7 @@ int	map_textures(void);
 int	map_colors(void);
 int texture_img(char *av);
 
-//utils.c
+//mem_utils.c
 void	freeandcopy(int pos, char *line);
 void	set_gameinfo(char *line);
 int	fill(int x, int y);
@@ -109,5 +116,27 @@ char	*ft_strdupnonl(const char *s);
 
 //cleanup.c
 void	singleton_free(void);
+int exit1(void * nada);
+
+//dda.c
+void dda_test(double rayDirX, double rayDirY);
+void dda_fov(void);
+void	rotate_ray(int dir);
+
+//draw.c
+void	draw_img(t_data *src, t_data *dst, int x, int y);
+void draw_line(float x0, float y0, float x1, float y1);
+void	ins_map(void);
+
+//draw_utils.c
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+int	my_mlx_pixel_get(t_data *data, int x, int y);
+t_data	load_img(char *path);
+
+//hooks.c
+void run(void);
+int	move(t_game *nada);
+int	press(int keycode, t_game *nada);
+int	release(int keycode, t_game *nada);
 
 #endif
