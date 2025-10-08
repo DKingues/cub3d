@@ -26,18 +26,31 @@
 # include "../minilibx-linux/mlx_int.h"
 # include "../includes/libft/libft.h"
 
+typedef	struct s_mouse
+{
+	int	x;
+	int	y;
+}				t_mouse;
+
 typedef struct s_player
 {
 	float	player_x;
 	float	player_y;
+	int		diff;
+	int		moving_w;
+	int		moving_a;
+	int		moving_s;
+	int		moving_d;
+	int		rot_r;
+	int		rot_l;
 }				t_player;
 
 typedef struct s_data
 {
-	void *img;
-	char *addr;
-	int	img_x;
-	int	img_y;
+	void	*img;
+	char	*addr;
+	int		img_x;
+	int		img_y;
 	int		w;
 	int		h;
 	int		bits_per_pixel;
@@ -45,37 +58,40 @@ typedef struct s_data
 	int		endian;
 }				t_data;
 
+typedef struct s_ray
+{
+	double	plane_x;
+	double	plane_y;
+	double	ray_x;
+	double	ray_y;
+}				t_ray;
+
+typedef struct s_map
+{
+	char	**map;
+	char	**info;
+	char	**map_F;
+	char	**map_C;
+	int		max_y;
+}				t_map;
+
 typedef struct s_game
 {
-	double plane_x;
-	double plane_y;
-	int	rot_l;
-	int	rot_r;
-	double ray_x;
-	double ray_y;
-	int diff;
-	int  moving_w;
-	int  moving_a;
-	int  moving_s;
-	int  moving_d;
-	char **map;
-	char **info;
-	char **map_F;
-	char **map_C;
-	int		max_y;
-	void	*mlx;
-	void	*win;
-	t_data	canvas;
-	t_data	wall;
-	t_data	floor;
-	t_data	person;
+	void		*mlx;
+	void		*win;
+	t_data		canvas;
+	t_data		wall;
+	t_data		floor;
+	t_data		person;
+	t_ray		raycast;
+	t_map		map;
+	t_mouse		mouse;
 	t_player	player;
 }				t_game;
 
 //GNL
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
-# endif
+# define BUFFER_SIZE 1
+# define PI 3.141592653589793
 
 char	*get_next_line(int fd);
 int		ft_linelen(char *str);
@@ -135,7 +151,7 @@ t_data	load_img(char *path);
 
 //hooks.c
 void run(void);
-int	move(t_game *nada);
+int	move(void *nada);
 int	press(int keycode, t_game *nada);
 int	release(int keycode, t_game *nada);
 

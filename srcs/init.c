@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmota-ma <rmota-ma@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/08 17:58:04 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/08 21:50:33 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ void	init_gameinfo(void)
 	int	var;
 
 	var = 0;
-	game()->info = ft_calloc(7, sizeof(char *));
+	game()->map.info = ft_calloc(7, sizeof(char *));
 	while(var < 6)
 	{
-		game()->info[var] = ft_strdup("init");
+		game()->map.info[var] = ft_strdup("init");
 		var++;
 	}
 }
@@ -28,7 +28,7 @@ void	init_gameinfo(void)
 void init(void)
 {
 	game()->mlx = mlx_init();
-	game()->win = mlx_new_window(game()->mlx, 1920, 1024, "cub3d");
+	game()->win = mlx_new_window(game()->mlx, 1920, 1024, "cub3D");
 	game()->canvas.img = mlx_new_image(game()->mlx, (1920), (1024));
 	game()->wall = load_img("textures/1.xpm");
 	game()->floor = load_img("textures/2.xpm");
@@ -36,14 +36,16 @@ void init(void)
 	game()->canvas.addr = mlx_get_data_addr(game()->canvas.img,
 			&game()->canvas.bits_per_pixel, &game()->canvas.line_length,
 			&game()->canvas.endian);
-	game()->diff = 0;
-	game()->moving_w = 0;
-	game()->moving_a = 0;
-	game()->moving_s = 0;
-	game()->moving_d = 0;
-	game()->rot_l = 0;
-	game()->rot_r = 0;
-	set_rays(game()->map[(int)game()->player.player_y][(int)game()->player.player_x]);
+	game()->player.diff = 0;
+	game()->player.moving_w = 0;
+	game()->player.moving_a = 0;
+	game()->player.moving_s = 0;
+	game()->player.moving_d = 0;
+	game()->player.rot_l = 0;
+	game()->player.rot_r = 0;
+	game()->mouse.x = 0;
+	game()->mouse.y = 0;
+	set_rays(game()->map.map[(int)game()->player.player_y][(int)game()->player.player_x]);
 	set_fov(66.0);
 }
 
@@ -51,33 +53,33 @@ void	set_rays(char dir)
 {
 	if (dir == 'N')
 	{
-		game()->ray_x = 0;
-		game()->ray_y = -1;
+		game()->raycast.ray_x = 0;
+		game()->raycast.ray_y = -1;
 	}
 	else if (dir == 'W')
 	{
-		game()->ray_x = -1;
-		game()->ray_y = 0;
+		game()->raycast.ray_x = -1;
+		game()->raycast.ray_y = 0;
 	}
 	else if (dir == 'E')
 	{
-		game()->ray_x = 1;
-		game()->ray_y = 0;
+		game()->raycast.ray_x = 1;
+		game()->raycast.ray_y = 0;
 	}
 	else if (dir == 'S')
 	{
-		game()->ray_x = 0;
-		game()->ray_y = 1;
+		game()->raycast.ray_x = 0;
+		game()->raycast.ray_y = 1;
 	}
 }
 
 void set_fov(double fov_deg)
 {
-    double fov_rad = fov_deg * 3.141592653589793 / 180.0;
+    double fov_rad = fov_deg * PI / 180.0;
     double plane_len = tan(fov_rad / 2.0);
 
-    game()->plane_x = -game()->ray_y * plane_len;
-    game()->plane_y = game()->ray_x * plane_len;
+    game()->raycast.plane_x = -game()->raycast.ray_y * plane_len;
+    game()->raycast.plane_y = game()->raycast.ray_x * plane_len;
 }
 
 t_game *game(void)

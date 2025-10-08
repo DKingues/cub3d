@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmota-ma <rmota-ma@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:06:18 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/08 16:09:15 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/08 21:28:54 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void dda_test(double rayDirX, double rayDirY)
             mapY += stepY;
             side = 1;
         }
-        if (game()->map[mapY][mapX] == '1')
+        if (game()->map.map[mapY][mapX] == '1')
             hit = 1;
     }
     double perpWallDist;
@@ -68,11 +68,11 @@ void dda_test(double rayDirX, double rayDirY)
 
 void dda_fov(void)
 {
-    double dirX = game()->ray_x;
-    double dirY = game()->ray_y;
+    double dirX = game()->raycast.ray_x;
+    double dirY = game()->raycast.ray_y;
 
-    double planeX = game()->plane_x;
-    double planeY = game()->plane_y;
+    double planeX = game()->raycast.plane_x;
+    double planeY = game()->raycast.plane_y;
 
     for (int i = 0; i < 100; i++)
     {
@@ -87,13 +87,13 @@ void dda_fov(void)
 
 void	rotate_ray(int dir)
 {
-	double oldrayX = game()->ray_x;
-    double oldPlaneX = game()->plane_x;
+	double oldrayX = game()->raycast.ray_x;
+    double oldPlaneX = game()->raycast.plane_x;
     double rot = dir * 0.035;
 
-    game()->ray_x = game()->ray_x * cos(rot) - game()->ray_y * sin(rot);
-    game()->ray_y = oldrayX * sin(rot) + game()->ray_y * cos(rot);
+    game()->raycast.ray_x = game()->raycast.ray_x * cos(rot) - game()->raycast.ray_y * sin(rot);
+    game()->raycast.ray_y = oldrayX * sin(rot) + game()->raycast.ray_y * cos(rot);
 
-    game()->plane_x = game()->plane_x * cos(rot) - game()->plane_y * sin(rot);
-    game()->plane_y = oldPlaneX * sin(rot) + game()->plane_y * cos(rot);
+    game()->raycast.plane_x = game()->raycast.plane_x * cos(rot) - game()->raycast.plane_y * sin(rot);
+    game()->raycast.plane_y = oldPlaneX * sin(rot) + game()->raycast.plane_y * cos(rot);
 }

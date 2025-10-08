@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   mem_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmota-ma <rmota-ma@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:25:50 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/09/16 18:23:03 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/08 21:23:48 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	freeandcopy(int pos, char *line)
 {
-	free(game()->info[pos]);
-	game()->info[pos] = ft_strdupnonl(line);
+	free(game()->map.info[pos]);
+	game()->map.info[pos] = ft_strdupnonl(line);
 }
 
 void	set_gameinfo(char *line)
@@ -36,20 +36,20 @@ void	set_gameinfo(char *line)
 
 int	fill(int x, int y)
 {
-	if (x < 0 || y < 0 || y > game()->max_y || !game()->map[y][x] || game()->map[y][x] == '\n'|| game()->map[y][x] == ' ')
-		return (printf("The map isn't closed.\n"),ft_free(game()->map), exit(1), 1);
-	if ((game()->map[y][x] == 'o') || (game()->map[y][x] == '1') || (game()->map[y][x] == 'e') || (game()->map[y][x] == 'w') || (game()->map[y][x] == 'n') || (game()->map[y][x] == 's'))
+	if (x < 0 || y < 0 || y > game()->map.max_y || !game()->map.map[y][x] || game()->map.map[y][x] == '\n'|| game()->map.map[y][x] == ' ')
+		return (printf("The map isn't closed.\n"),ft_free(game()->map.map), exit(1), 1);
+	if ((game()->map.map[y][x] == 'o') || (game()->map.map[y][x] == '1') || (game()->map.map[y][x] == 'e') || (game()->map.map[y][x] == 'w') || (game()->map.map[y][x] == 'n') || (game()->map.map[y][x] == 's'))
 		return (0);
-	if (game()->map[y][x] == '0')
-		game()->map[y][x] = 'o';
-	else if (game()->map[y][x] == 'N')
-		game()->map[y][x] = 'n';
-	else if (game()->map[y][x] == 'E')
-		game()->map[y][x] = 'e';
-	else if (game()->map[y][x] == 'W')
-		game()->map[y][x] = 'w';
-	else if (game()->map[y][x] == 'S')
-		game()->map[y][x] = 's';
+	if (game()->map.map[y][x] == '0')
+		game()->map.map[y][x] = 'o';
+	else if (game()->map.map[y][x] == 'N')
+		game()->map.map[y][x] = 'n';
+	else if (game()->map.map[y][x] == 'E')
+		game()->map.map[y][x] = 'e';
+	else if (game()->map.map[y][x] == 'W')
+		game()->map.map[y][x] = 'w';
+	else if (game()->map.map[y][x] == 'S')
+		game()->map.map[y][x] = 's';
 	fill((x - 1), y);
 	fill((x + 1), y);
 	fill(x, (y - 1));

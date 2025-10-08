@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmota-ma <rmota-ma@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:24:40 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/09/25 16:10:08 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/08 21:23:48 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	map_validate(char *av)
 	}
 	close(fd);
 	if (check[0])
-		return (free(line), ft_free(game()->info), ft_free(check), printf("The map file information is missing.\n"), 1);
+		return (free(line), ft_free(game()->map.info), ft_free(check), printf("The map file information is missing.\n"), 1);
 	while(line)
 	{
 		free(line);
@@ -125,7 +125,7 @@ int map_walls(char *av)
         free(line);
         line = get_next_line(fd);
     }
-	game()->map = ft_calloc(var + 1, sizeof(char *));
+	game()->map.map = ft_calloc(var + 1, sizeof(char *));
 	close(fd);
 	fd = open(av, O_RDONLY);
 	if (fd < 0)
@@ -158,21 +158,21 @@ int map_walls(char *av)
 			line = get_next_line(fd);
 			continue;
 		}
-		game()->map[var] = ft_strdupnonl(line);
+		game()->map.map[var] = ft_strdupnonl(line);
 		var++;
         free(line);
         line = get_next_line(fd);
     }
-	game()->max_y = var - 1;
+	game()->map.max_y = var - 1;
 	close(fd);
 	var = 0;
 	var2 = 0;
-	while(game()->map[var2])
+	while(game()->map.map[var2])
 	{
 		var = 0;
-		while(game()->map[var2][var])
+		while(game()->map.map[var2][var])
 		{
-			if ((game()->map[var2][var] == '0') || (game()->map[var2][var] == 'E') || (game()->map[var2][var] == 'W') || (game()->map[var2][var] == 'N') || (game()->map[var2][var] == 'S'))
+			if ((game()->map.map[var2][var] == '0') || (game()->map.map[var2][var] == 'E') || (game()->map.map[var2][var] == 'W') || (game()->map.map[var2][var] == 'N') || (game()->map.map[var2][var] == 'S'))
 				fill(var, var2);
 			var++;
 		}

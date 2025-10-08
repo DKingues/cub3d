@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmota-ma <rmota-ma@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:54 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/01 14:26:18 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/08 21:23:38 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,16 @@ void	rewrite_map(void)
 	int	var2;
 
 	var2 = 0;
-	while(game()->map[var2])
+	while(game()->map.map[var2])
 	{
 		var = 0;
-		while(game()->map[var2][var])
+		while(game()->map.map[var2][var])
 		{
-			if (game()->map[var2][var] == 'o')
-				game()->map[var2][var] = '0';
-			if (game()->map[var2][var] == 'n' || game()->map[var2][var] == 's' || game()->map[var2][var] == 'e' || game()->map[var2][var] == 'w')
+			if (game()->map.map[var2][var] == 'o')
+				game()->map.map[var2][var] = '0';
+			if (game()->map.map[var2][var] == 'n' || game()->map.map[var2][var] == 's' || game()->map.map[var2][var] == 'e' || game()->map.map[var2][var] == 'w')
 			{
-				game()->map[var2][var] -= 32;
+				game()->map.map[var2][var] -= 32;
 				game()->player.player_x = var + 0.5;
 				game()->player.player_y = var2 + 0.5;
 			}
@@ -56,27 +56,27 @@ int parsing(char **av)
         return(1);
 	rewrite_map();
 	int var = 0;
-	while(game()->map[var])
+	while(game()->map.map[var])
 	{
-		printf("map %s\n", game()->map[var]);
+		printf("map %s\n", game()->map.map[var]);
 		var++;
 	}
 	var = 0;
-	while(game()->info[var])
+	while(game()->map.info[var])
 	{
-		printf("info %s&\n", game()->info[var]);
+		printf("info %s&\n", game()->map.info[var]);
 		var++;
 	}
 	var = 0;
-	while(game()->map_F[var])
+	while(game()->map.map_F[var])
 	{
-		printf("map_F %s&\n", game()->map_F[var]);
+		printf("map_F %s&\n", game()->map.map_F[var]);
 		var++;
 	}
 	var = 0;
-	while(game()->map_C[var])
+	while(game()->map.map_C[var])
 	{
-		printf("map_C %s&\n", game()->map_C[var]);
+		printf("map_C %s&\n", game()->map.map_C[var]);
 		var++;
 	}
 	//singleton_free();

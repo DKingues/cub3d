@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmota-ma <rmota-ma@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:05:06 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/08 16:09:22 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/08 21:23:05 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void draw_line(float x0, float y0, float x1, float y1)
     while (1)    
 	{
         my_mlx_pixel_put(&game()->canvas, (x0), (y0), 0x0096FF);
-        if (game()->map[(int)(y0 / 64)][(int)(x0 / 64)] == '1')
+        if (game()->map.map[(int)(y0 / 64)][(int)(x0 / 64)] == '1')
             break;
         e2 = 2 * err;
         if (e2 > -dy)
@@ -66,12 +66,12 @@ void	ins_map(void)
 	var2 = 0;
 	game()->player.player_x -= 0.5;
 	game()->player.player_y -= 0.5;
-	while (game()->map[var2])
+	while (game()->map.map[var2])
 	{
 		var = 0;
-		while (game()->map[var2][var])
+		while (game()->map.map[var2][var])
 		{
-			if (game()->map[var2][var] == '1')
+			if (game()->map.map[var2][var] == '1')
 				draw_img(&game()->wall, &game()->canvas, (var * 64), (var2 * 64));
 			else
 				draw_img(&game()->floor, &game()->canvas, (var * 64), (var2 * 64));
