@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/08 21:50:33 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/09 18:02:24 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void init(void)
 	game()->player.rot_r = 0;
 	game()->mouse.x = 0;
 	game()->mouse.y = 0;
+	game()->mouse.toggle_arrow = mlx_mouse_show(game()->mlx, game()->win);
+	mlx_mouse_move(game()->mlx, game()->win, game()->player.player_x, game()->player.player_y);
 	set_rays(game()->map.map[(int)game()->player.player_y][(int)game()->player.player_x]);
 	set_fov(66.0);
 }

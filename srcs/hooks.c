@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:07:44 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/08 22:07:15 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/09 18:37:35 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void run(void)
 	ins_map();
 	mlx_loop_hook(game()->mlx, move, NULL);
 	mlx_hook(game()->win, 2, 1L<<0, press, NULL);
+	mlx_hook(game()->win, 6, 1L<<6, mouse_move, NULL);
 	mlx_hook(game()->win, 3, 1L<<1, release, NULL);
 	mlx_loop(game()->mlx);
 }
@@ -27,7 +28,7 @@ int	move(void *nada)
 
 	(void)nada;
 	change = 0.05;
-	if(game()->player.diff == 1)
+	if (game()->player.diff == 1)
 		change = 0.1;
 	if (game()->player.moving_d == 1 && game()->map.map[(int)(game()->player.player_y)][(int)(game()->player.player_x + 0.1)] != '1')
 		game()->player.player_x += change;

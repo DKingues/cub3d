@@ -28,6 +28,7 @@
 
 typedef	struct s_mouse
 {
+	int toggle_arrow;
 	int	x;
 	int	y;
 }				t_mouse;
@@ -155,4 +156,7 @@ int	move(void *nada);
 int	press(int keycode, t_game *nada);
 int	release(int keycode, t_game *nada);
 
+//mouse.c
+int	mouse_move(int keycode, t_game *null);
+int	mouse_release(int keycode, t_game *null);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:54 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/08 21:23:38 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/09 16:19:20 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	rewrite_map(void)
 
 int parsing(char **av)
 {
+	
 	if (map_exists(av[1]))
 		return (printf("The map doesn't exist.\n"), 1);
 	if (map_name(av[1]))
