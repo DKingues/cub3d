@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:54 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/10 11:54:00 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/10 18:16:45 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,24 @@ int parsing(char **av)
 	if (map_walls(av[1]))
         return(1);
 	rewrite_map();
+	/* int var = 0;
+	while(game()->map.info[var])
+	{
+		printf("GAME()->INFO: %s\n", game()->map.info[var]);
+		var++;
+	}
+	var = 0;
+	while(game()->map.map_F[var])
+	{
+		printf("GAME()->map_F: %s\n", game()->map.map_F[var]);
+		var++;
+	}
+	var = 0;
+	while(game()->map.map_C[var])
+	{
+		printf("GAME()->map_C: %s\n", game()->map.map_C[var]);
+		var++;
+	} */
     return(0);
 }
 

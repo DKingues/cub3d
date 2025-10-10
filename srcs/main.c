@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 17:47:04 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/08 17:55:11 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/10 17:57:24 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,3 +24,33 @@ int main(int ac, char **av)
 	run();
     return (0);
 }
+/* 
+	DIKINGUI
+	{
+		Fazer os sprites.
+			- Paredes, Portas
+			- Menu(lettering and buttons)
+			- Timer(lettering and drawing)
+			- Barra de stamina
+			-Fogo/glitch/void/leaks/alguma coisa
+
+		Interagir com Objectos (Portas)
+		
+		Tratar de cores chao/teto
+	}
+	Renato
+	{
+		Menu pausa, inicial
+			- Play / Resume
+			- Options
+			- Quit Game / Exit to menu
+
+		Minimap redondo talvez
+
+		Fogo/glitch/void/leaks/alguma coisa a consumir o mapa e dificuldades(tempo de jogo e tempo de consumo de mapa)
+	}
+	Juntos
+	{
+		Fazer o 3D
+	}
+*/

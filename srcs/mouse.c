@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 16:24:59 by dicosta-          #+#    #+#             */
-/*   Updated: 2025/10/10 16:22:27 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/10 18:12:45 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@ int	mouse_move(int keycode, t_game *null)
 
 	(void)null;
 	(void)keycode;
+	mlx_mouse_get_pos(game()->mlx, game()->win, &game()->mouse.x, &game()->mouse.y);
+	if(game()->mouse.y < 1010)
+		mlx_mouse_move(game()->mlx, game()->win, game()->mouse.x, 1020);
 	if(game()->paused < 0)
 	{
 		last_x = game()->mouse.x;
@@ -35,7 +38,7 @@ int	mouse_move(int keycode, t_game *null)
 		game()->mouse.x = 30;
 		last_x = 0;
 	}
-	//printf("last x = %d, mouse x: %d, mouse y: %d\n", last_x, game()->mouse.x, game()->mouse.y);
+	printf("last x = %d, mouse x: %d, mouse y: %d\n", last_x, game()->mouse.x, game()->mouse.y);
 	if (game()->mouse.x > last_x)
 		rotate_ray((1 + (game()->mouse.x - last_x)) / 12);
 	if (game()->mouse.x < last_x)
