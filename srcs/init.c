@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/09 18:02:24 by dicosta-         ###   ########.fr       */
+/*   Updated: 2025/10/10 16:01:58 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,14 @@ void init(void)
 	game()->wall = load_img("textures/1.xpm");
 	game()->floor = load_img("textures/2.xpm");
 	game()->person = load_img("textures/3.xpm");
+	game()->pause = load_img("textures/pause.xpm");
 	game()->canvas.addr = mlx_get_data_addr(game()->canvas.img,
 			&game()->canvas.bits_per_pixel, &game()->canvas.line_length,
 			&game()->canvas.endian);
+	game()->p_menu.img = mlx_new_image(game()->mlx, (1920), (1024));
+	game()->p_menu.addr = mlx_get_data_addr(game()->p_menu.img,
+			&game()->p_menu.bits_per_pixel, &game()->p_menu.line_length,
+			&game()->p_menu.endian);
 	game()->player.diff = 0;
 	game()->player.moving_w = 0;
 	game()->player.moving_a = 0;
@@ -45,6 +50,7 @@ void init(void)
 	game()->player.rot_r = 0;
 	game()->mouse.x = 0;
 	game()->mouse.y = 0;
+	game()->paused = 1;
 	game()->mouse.toggle_arrow = mlx_mouse_show(game()->mlx, game()->win);
 	mlx_mouse_move(game()->mlx, game()->win, game()->player.player_x, game()->player.player_y);
 	set_rays(game()->map.map[(int)game()->player.player_y][(int)game()->player.player_x]);

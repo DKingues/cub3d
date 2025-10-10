@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:54 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/09 16:19:20 by dicosta-         ###   ########.fr       */
+/*   Updated: 2025/10/10 11:54:00 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	rewrite_map(void)
 		}
 		var2++;
 	}
-	printf("PLAYER X: %f\nPLAYER Y: %f\n", game()->player.player_x, game()->player.player_y);
 }
 
 int parsing(char **av)
@@ -56,31 +55,6 @@ int parsing(char **av)
 	if (map_walls(av[1]))
         return(1);
 	rewrite_map();
-	int var = 0;
-	while(game()->map.map[var])
-	{
-		printf("map %s\n", game()->map.map[var]);
-		var++;
-	}
-	var = 0;
-	while(game()->map.info[var])
-	{
-		printf("info %s&\n", game()->map.info[var]);
-		var++;
-	}
-	var = 0;
-	while(game()->map.map_F[var])
-	{
-		printf("map_F %s&\n", game()->map.map_F[var]);
-		var++;
-	}
-	var = 0;
-	while(game()->map.map_C[var])
-	{
-		printf("map_C %s&\n", game()->map.map_C[var]);
-		var++;
-	}
-	//singleton_free();
     return(0);
 }
 

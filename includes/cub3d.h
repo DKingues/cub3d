@@ -80,10 +80,13 @@ typedef struct s_game
 {
 	void		*mlx;
 	void		*win;
+	int			paused;
 	t_data		canvas;
 	t_data		wall;
 	t_data		floor;
 	t_data		person;
+	t_data		p_menu;
+	t_data		pause;
 	t_ray		raycast;
 	t_map		map;
 	t_mouse		mouse;
@@ -93,6 +96,7 @@ typedef struct s_game
 //GNL
 # define BUFFER_SIZE 1
 # define PI 3.141592653589793
+# define MOUSE_SENS 3
 
 char	*get_next_line(int fd);
 int		ft_linelen(char *str);
@@ -133,7 +137,7 @@ char	*ft_strdupnonl(const char *s);
 
 //cleanup.c
 void	singleton_free(void);
-int exit1(void * nada);
+int clean_exit(void *nada);
 
 //dda.c
 void dda_test(double rayDirX, double rayDirY);
@@ -149,7 +153,7 @@ void	ins_map(void);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int	my_mlx_pixel_get(t_data *data, int x, int y);
 t_data	load_img(char *path);
-
+int	my_mlx_pixel_get_dim(t_data *data, int x, int y, float factor);
 //hooks.c
 void run(void);
 int	move(void *nada);

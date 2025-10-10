@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 16:24:59 by dicosta-          #+#    #+#             */
-/*   Updated: 2025/10/09 18:38:49 by dicosta-         ###   ########.fr       */
+/*   Updated: 2025/10/10 16:22:27 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,29 @@ int	mouse_move(int keycode, t_game *null)
 	static int last_x;
 
 	(void)null;
-	mlx_mouse_get_pos(game()->mlx, game()->win, &game()->mouse.x, &game()->mouse.y);
-	printf("last x = %d, mouse x: %d, mouse y: %d\n", last_x, game()->mouse.x, game()->mouse.y);
+	(void)keycode;
+	if(game()->paused < 0)
+	{
+		last_x = game()->mouse.x;
+		return (0);
+	}
+	if(game()->mouse.x <= 5)
+	{
+		mlx_mouse_move(game()->mlx, game()->win, 1890, game()->mouse.y);
+		game()->mouse.x = 1890;
+		last_x = 1920;
+	}
+	if(game()->mouse.x >= 1915)
+	{
+		mlx_mouse_move(game()->mlx, game()->win, 30, game()->mouse.y);
+		game()->mouse.x = 30;
+		last_x = 0;
+	}
+	//printf("last x = %d, mouse x: %d, mouse y: %d\n", last_x, game()->mouse.x, game()->mouse.y);
 	if (game()->mouse.x > last_x)
-		rotate_ray(1);
+		rotate_ray((1 + (game()->mouse.x - last_x)) / 12);
 	if (game()->mouse.x < last_x)
-		rotate_ray(-1);
-	keycode = keycode;
+		rotate_ray((-1 - (last_x - game()->mouse.x)) / 12);
 	last_x = game()->mouse.x;
 	return (0);
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+         #
+#    By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/21 15:04:39 by rmota-ma          #+#    #+#              #
-#    Updated: 2025/10/09 16:51:53 by dicosta-         ###   ########.fr        #
+#    Updated: 2025/10/10 15:29:28 by rmota-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME = cub3D
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g -O3
 
 # Sources and objects
 
