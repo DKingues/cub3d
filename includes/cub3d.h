@@ -81,17 +81,23 @@ typedef struct s_game
 	void		*mlx;
 	void		*win;
 	int			paused;
+	int			menued;
 	t_data		canvas;
 	t_data		wall;
 	t_data		floor;
 	t_data		person;
 	t_data		p_menu;
 	t_data		pause;
+	t_data		menu;
 	t_ray		raycast;
 	t_map		map;
 	t_mouse		mouse;
 	t_player	player;
 }				t_game;
+
+//temp
+void	ins_pmenu(t_data src);
+void	des_pmenu(t_data src);
 
 //GNL
 # define BUFFER_SIZE 1
@@ -155,7 +161,7 @@ int	my_mlx_pixel_get(t_data *data, int x, int y);
 t_data	load_img(char *path);
 int	my_mlx_pixel_get_dim(t_data *data, int x, int y, float factor);
 //hooks.c
-void run(void);
+void gameplay(void);
 int	move(void *nada);
 int	press(int keycode, t_game *nada);
 int	release(int keycode, t_game *nada);

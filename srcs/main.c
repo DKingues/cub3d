@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 17:47:04 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/10 17:57:24 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/13 12:31:53 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int main(int ac, char **av)
 	if (parsing(av))
 		return (1);
 	init();
-	run();
+	gameplay();
     return (0);
 }
 /* 

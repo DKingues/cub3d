@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/10 16:01:58 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/13 14:34:36 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void init(void)
 	game()->floor = load_img("textures/2.xpm");
 	game()->person = load_img("textures/3.xpm");
 	game()->pause = load_img("textures/pause.xpm");
+	game()->menu = load_img("textures/menu.xpm");
 	game()->canvas.addr = mlx_get_data_addr(game()->canvas.img,
 			&game()->canvas.bits_per_pixel, &game()->canvas.line_length,
 			&game()->canvas.endian);
@@ -51,6 +52,7 @@ void init(void)
 	game()->mouse.x = 0;
 	game()->mouse.y = 0;
 	game()->paused = 1;
+	game()->menued = 1;
 	game()->mouse.toggle_arrow = mlx_mouse_show(game()->mlx, game()->win);
 	mlx_mouse_move(game()->mlx, game()->win, game()->player.player_x, game()->player.player_y);
 	set_rays(game()->map.map[(int)game()->player.player_y][(int)game()->player.player_x]);
