@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/13 14:34:36 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/14 18:00:36 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,25 @@ void	init_gameinfo(void)
 	}
 }
 
+void	init_vid(void)
+{
+	int	var;
+	char *str;
+	char *temp;
+
+	game()->st_anim = ft_calloc(sizeof(t_data), 168);
+	var = 0;
+	while(var < 167)
+	{
+		temp = ft_itoa(var + 1);
+		str = ft_strjoin(ft_strdup("textures/screen_start/"), temp);
+		str = ft_strjoin(str, ".xpm");
+		game()->st_anim[var] = load_img(str);
+		var++;
+		free(str);
+	}
+}
+
 void init(void)
 {
 	game()->mlx = mlx_init();
@@ -35,6 +54,7 @@ void init(void)
 	game()->person = load_img("textures/3.xpm");
 	game()->pause = load_img("textures/pause.xpm");
 	game()->menu = load_img("textures/menu.xpm");
+	game()->options = load_img("textures/options.xpm");
 	game()->canvas.addr = mlx_get_data_addr(game()->canvas.img,
 			&game()->canvas.bits_per_pixel, &game()->canvas.line_length,
 			&game()->canvas.endian);
@@ -53,6 +73,8 @@ void init(void)
 	game()->mouse.y = 0;
 	game()->paused = 1;
 	game()->menued = 1;
+	game()->optioned = 1;
+	init_vid();
 	game()->mouse.toggle_arrow = mlx_mouse_show(game()->mlx, game()->win);
 	mlx_mouse_move(game()->mlx, game()->win, game()->player.player_x, game()->player.player_y);
 	set_rays(game()->map.map[(int)game()->player.player_y][(int)game()->player.player_x]);

@@ -78,10 +78,12 @@ typedef struct s_map
 
 typedef struct s_game
 {
+	int var;
 	void		*mlx;
 	void		*win;
 	int			paused;
 	int			menued;
+	int			optioned;
 	t_data		canvas;
 	t_data		wall;
 	t_data		floor;
@@ -89,6 +91,8 @@ typedef struct s_game
 	t_data		p_menu;
 	t_data		pause;
 	t_data		menu;
+	t_data		options;
+	t_data		*st_anim;
 	t_ray		raycast;
 	t_map		map;
 	t_mouse		mouse;
@@ -96,8 +100,12 @@ typedef struct s_game
 }				t_game;
 
 //temp
-void	ins_pmenu(t_data src);
-void	des_pmenu(t_data src);
+void	darken(t_data src);
+void	lighten(t_data src);
+int pause_menu(int keycode, void *nada);
+int	pause_game(void);
+int	main_menu(int keycode, void *nada);
+int	vid_put(int keycode, void *nada);
 
 //GNL
 # define BUFFER_SIZE 1

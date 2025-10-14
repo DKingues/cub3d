@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 20:39:57 by rmota-ma          #+#    #+#             */
-/*   Updated: 2024/11/04 18:37:11 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/14 16:06:11 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		ft_strcpy(mal, (char *)s1);
 		ft_strcat(mal, (char *)s2);
 	}
+	free((char *)s1);
 	return (mal);
 }
 
