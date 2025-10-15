@@ -6,10 +6,9 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:07:44 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/14 18:41:44 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/15 16:35:27 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 # include <unistd.h>
 # include <pthread.h>
@@ -21,30 +20,37 @@
 
 void gameplay(void)
 {
-	game()->var = 0;
+	game()->frame = 0;
 	//mlx_put_image_to_window(game()->mlx, game()->win, game()->st_anim[0].img, 0, 0);
 	//mlx_put_image_to_window(game()->mlx, game()->win, game()->menu.img, 0, 0);
-	mlx_loop_hook(game()->mlx, vid_put, NULL);
-	mlx_loop(game()->mlx);
-	/* ins_map();
+	ins_map();
+	darken(game()->credits);
+	draw_img(&game()->maze_nm, &game()->st_anim[0], 404, 216);
+	draw_img(&game()->play_bt[game()->play_tg], &game()->st_anim[0], 672, 500);
+	draw_img(&game()->option_bt[game()->option_tg], &game()->st_anim[0], 672, 666);
+	draw_img(&game()->quit_bt[game()->quit_tg], &game()->st_anim[0], 672, 831);
+	lighten(game()->st_anim[0]);
 	mlx_mouse_hook(game()->win, main_menu, NULL);
 	mlx_hook(game()->win, 2, 1L<<0, press, NULL);
 	mlx_hook(game()->win, 6, 1L<<6, mouse_move, NULL);
 	mlx_hook(game()->win, 3, 1L<<1, release, NULL);
 	mlx_hook(game()->win, 17, 0, clean_exit, NULL);
 	mlx_loop_hook(game()->mlx, move, NULL);
-	mlx_loop(game()->mlx); */
+	mlx_loop(game()->mlx);
 }
 
 int	vid_put(int keycode, void *nada)
 {
 	(void)keycode;
 	(void)nada;
-	printf("VAR:%d\n", game()->var);
-	if(game()->var == 167)
-		game()->var = 0;
-	mlx_put_image_to_window(game()->mlx, game()->win, game()->st_anim[game()->var].img, 0, 0);
-	game()->var++;
+	if(game()->frame == 167)
+		game()->frame = 0;
+	draw_img(&game()->maze_nm, &game()->st_anim[game()->frame], 404, 216);
+	draw_img(&game()->play_bt[game()->play_tg], &game()->st_anim[game()->frame], 672, 500);
+	draw_img(&game()->option_bt[game()->option_tg], &game()->st_anim[game()->frame], 672, 666);
+	draw_img(&game()->quit_bt[game()->quit_tg], &game()->st_anim[game()->frame], 672, 831);
+	mlx_put_image_to_window(game()->mlx, game()->win, game()->st_anim[game()->frame].img, 0, 0);
+	game()->frame++;
 	usleep(15000);
 	return 0;
 }
@@ -55,8 +61,8 @@ int	move(void *nada)
 
 	(void)nada;
 	change = 0.05;
-	/* if(game()->menued)
-		vid_put(0, NULL); */
+	if(game()->menued)
+		vid_put(0, NULL);
 	if(game()->paused < 0 || game()->menued)
 		return (0);
 	if (game()->player.diff == 1)

@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 14:25:50 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/14 14:26:05 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/15 16:34:37 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	darken(t_data src)
 	{
 		var2 = 0;
 		mlx_destroy_image(game()->mlx, game()->p_menu.img);
-		game()->p_menu.img = mlx_new_image(game()->mlx, (1920), (1024));
+		game()->p_menu.img = mlx_new_image(game()->mlx, 1920, 1024);
 		game()->p_menu.addr = mlx_get_data_addr(game()->p_menu.img,
 				&game()->p_menu.bits_per_pixel, &game()->p_menu.line_length,
 				&game()->p_menu.endian);
@@ -70,7 +70,7 @@ void	lighten(t_data src)
 	{
 		var2 = 0;
 		mlx_destroy_image(game()->mlx, game()->p_menu.img);
-		game()->p_menu.img = mlx_new_image(game()->mlx, (1920), (1024));
+		game()->p_menu.img = mlx_new_image(game()->mlx, 1920, 1024);
 		game()->p_menu.addr = mlx_get_data_addr(game()->p_menu.img,
 				&game()->p_menu.bits_per_pixel, &game()->p_menu.line_length,
 				&game()->p_menu.endian);

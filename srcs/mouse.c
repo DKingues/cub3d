@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 16:24:59 by dicosta-          #+#    #+#             */
-/*   Updated: 2025/10/14 18:02:30 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/15 16:39:36 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,20 @@ int	mouse_move(int keycode, t_game *null)
 	mlx_mouse_get_pos(game()->mlx, game()->win, &game()->mouse.x, &game()->mouse.y);
 	if(game()->paused < 0 || game()->menued)
 	{
+		if((game()->mouse.x >= 672 && game()->mouse.x <= 1248) && (game()->mouse.y >= 500 && game()->mouse.y <= 616) && game()->menued)
+			game()->play_tg = 1;
+		else
+			game()->play_tg = 0;
+		if((game()->mouse.x >= 672 && game()->mouse.x <= 1248) && (game()->mouse.y >= 666 && game()->mouse.y <= 782) && game()->menued)
+			game()->option_tg = 1;
+		else
+			game()->option_tg = 0;
+		if((game()->mouse.x >= 672 && game()->mouse.x <= 1248) && (game()->mouse.y >= 832 && game()->mouse.y <= 948) && game()->menued)
+			game()->quit_tg = 1;
+		else
+			game()->quit_tg = 0;
+		/* if(game()->menued && game()->paused > 0)
+			game()->paused *= -1; */
 		last_x = game()->mouse.x;
 		return (0);
 	}
@@ -38,7 +52,7 @@ int	mouse_move(int keycode, t_game *null)
 		game()->mouse.x = 30;
 		last_x = 0;
 	}
-	printf("last x = %d, mouse x: %d, mouse y: %d\n", last_x, game()->mouse.x, game()->mouse.y);
+	//printf("last x = %d, mouse x: %d, mouse y: %d\n", last_x, game()->mouse.x, game()->mouse.y);
 	if (game()->mouse.x > last_x)
 		rotate_ray((1 + (game()->mouse.x - last_x)) / 12);
 	if (game()->mouse.x < last_x)

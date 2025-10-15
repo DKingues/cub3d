@@ -57,6 +57,8 @@ typedef struct s_data
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		res_x;
+	int		res_y;
 }				t_data;
 
 typedef struct s_ray
@@ -78,7 +80,10 @@ typedef struct s_map
 
 typedef struct s_game
 {
-	int var;
+	int			play_tg;
+	int			option_tg;
+	int			quit_tg;
+	int 		frame;
 	void		*mlx;
 	void		*win;
 	int			paused;
@@ -90,9 +95,13 @@ typedef struct s_game
 	t_data		person;
 	t_data		p_menu;
 	t_data		pause;
-	t_data		menu;
 	t_data		options;
+	t_data		maze_nm;
 	t_data		*st_anim;
+	t_data		play_bt[2];
+	t_data		option_bt[2];
+	t_data		quit_bt[2];
+	t_data		credits;
 	t_ray		raycast;
 	t_map		map;
 	t_mouse		mouse;
@@ -177,4 +186,5 @@ int	release(int keycode, t_game *nada);
 //mouse.c
 int	mouse_move(int keycode, t_game *null);
 int	mouse_release(int keycode, t_game *null);
+
 #endif

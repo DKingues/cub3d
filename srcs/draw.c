@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:05:06 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/08 21:23:05 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/15 15:29:46 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void	draw_img(t_data *src, t_data *dst, int x, int y)
 	int	sy;
 
 	sy = 0;
-	while (sy < 64)
+	while (sy < src->res_y)
 	{
 		sx = 0;
-		while (sx < 64)
+		while (sx < src->res_x)
 		{
 			my_mlx_pixel_put(dst, sx + x, sy + y,
 				my_mlx_pixel_get(src, sx, sy));

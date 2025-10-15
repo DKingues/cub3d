@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/14 18:00:36 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/15 16:33:43 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,11 @@ void	init_vid(void)
 		str = ft_strjoin(ft_strdup("textures/screen_start/"), temp);
 		str = ft_strjoin(str, ".xpm");
 		game()->st_anim[var] = load_img(str);
+		game()->st_anim[var].res_x = 1920;
+		game()->st_anim[var].res_y = 1080;
 		var++;
 		free(str);
+		free(temp);
 	}
 }
 
@@ -48,20 +51,48 @@ void init(void)
 {
 	game()->mlx = mlx_init();
 	game()->win = mlx_new_window(game()->mlx, 1920, 1024, "cub3D");
-	game()->canvas.img = mlx_new_image(game()->mlx, (1920), (1024));
-	game()->wall = load_img("textures/1.xpm");
-	game()->floor = load_img("textures/2.xpm");
-	game()->person = load_img("textures/3.xpm");
-	game()->pause = load_img("textures/pause.xpm");
-	game()->menu = load_img("textures/menu.xpm");
-	game()->options = load_img("textures/options.xpm");
-	game()->canvas.addr = mlx_get_data_addr(game()->canvas.img,
-			&game()->canvas.bits_per_pixel, &game()->canvas.line_length,
-			&game()->canvas.endian);
 	game()->p_menu.img = mlx_new_image(game()->mlx, (1920), (1024));
 	game()->p_menu.addr = mlx_get_data_addr(game()->p_menu.img,
 			&game()->p_menu.bits_per_pixel, &game()->p_menu.line_length,
 			&game()->p_menu.endian);
+	game()->credits = load_img("textures/screen_start/1.xpm");
+	lighten(game()->credits);
+	game()->canvas.img = mlx_new_image(game()->mlx, (1920), (1024));
+	game()->wall = load_img("textures/1.xpm");
+	game()->wall.res_x = 64;
+	game()->wall.res_y = 64;
+	game()->floor = load_img("textures/2.xpm");
+	game()->floor.res_x = 64;
+	game()->floor.res_y = 64;
+	game()->person = load_img("textures/3.xpm");
+	game()->person.res_x = 64;
+	game()->person.res_y = 64;
+	game()->pause = load_img("textures/pause.xpm");
+	game()->maze_nm = load_img("textures/maze_nm.xpm");
+	game()->maze_nm.res_x = 1110;
+	game()->maze_nm.res_y = 135;
+	game()->play_bt[0] = load_img("textures/play_bt.xpm");
+	game()->play_bt[0].res_x = 576;
+	game()->play_bt[0].res_y = 116;
+	game()->play_bt[1] = load_img("textures/play_bt2.xpm");
+	game()->play_bt[1].res_x = 576;
+	game()->play_bt[1].res_y = 116;
+	game()->option_bt[0] = load_img("textures/option_bt.xpm");
+	game()->option_bt[0].res_x = 576;
+	game()->option_bt[0].res_y = 116;
+	game()->option_bt[1] = load_img("textures/option_bt2.xpm");
+	game()->option_bt[1].res_x = 576;
+	game()->option_bt[1].res_y = 116;
+	game()->quit_bt[0] = load_img("textures/quit_bt.xpm");
+	game()->quit_bt[0].res_x = 576;
+	game()->quit_bt[0].res_y = 116;
+	game()->quit_bt[1] = load_img("textures/quit_bt2.xpm");
+	game()->quit_bt[1].res_x = 576;
+	game()->quit_bt[1].res_y = 116;
+	game()->options = load_img("textures/options.xpm");
+	game()->canvas.addr = mlx_get_data_addr(game()->canvas.img,
+			&game()->canvas.bits_per_pixel, &game()->canvas.line_length,
+			&game()->canvas.endian);
 	game()->player.diff = 0;
 	game()->player.moving_w = 0;
 	game()->player.moving_a = 0;
@@ -70,13 +101,17 @@ void init(void)
 	game()->player.rot_l = 0;
 	game()->player.rot_r = 0;
 	game()->mouse.x = 0;
+	game()->frame = 0;
 	game()->mouse.y = 0;
 	game()->paused = 1;
 	game()->menued = 1;
 	game()->optioned = 1;
+	game()->play_tg = 0;
+	game()->option_tg = 0;
+	game()->quit_tg = 0;
 	init_vid();
-	game()->mouse.toggle_arrow = mlx_mouse_show(game()->mlx, game()->win);
-	mlx_mouse_move(game()->mlx, game()->win, game()->player.player_x, game()->player.player_y);
+	game()->mouse.toggle_arrow = mlx_mouse_show(game()->mlx, game()->win); 
+	//mlx_mouse_move(game()->mlx, game()->win, 960, 512);
 	set_rays(game()->map.map[(int)game()->player.player_y][(int)game()->player.player_x]);
 	set_fov(66.0);
 }
