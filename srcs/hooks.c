@@ -6,10 +6,11 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:07:44 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/15 16:35:27 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/15 17:58:36 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <time.h>
 # include <unistd.h>
 # include <pthread.h>
 # include <stdlib.h>
@@ -25,7 +26,7 @@ void gameplay(void)
 	//mlx_put_image_to_window(game()->mlx, game()->win, game()->menu.img, 0, 0);
 	ins_map();
 	darken(game()->credits);
-	draw_img(&game()->maze_nm, &game()->st_anim[0], 404, 216);
+	draw_img(&game()->maze_nm, &game()->st_anim[0], 404, 166);
 	draw_img(&game()->play_bt[game()->play_tg], &game()->st_anim[0], 672, 500);
 	draw_img(&game()->option_bt[game()->option_tg], &game()->st_anim[0], 672, 666);
 	draw_img(&game()->quit_bt[game()->quit_tg], &game()->st_anim[0], 672, 831);
@@ -39,19 +40,36 @@ void gameplay(void)
 	mlx_loop(game()->mlx);
 }
 
+int	ft_usleep(int micro)
+{
+	struct timeval start;
+	struct timeval curr;
+	long elapsed;
+	
+	elapsed = 0;
+	gettimeofday(&start, NULL);
+	while(elapsed < micro)
+	{
+		gettimeofday(&curr, NULL);
+		elapsed = (curr.tv_sec - start.tv_sec) * 1000000 + (curr.tv_usec - start.tv_usec);
+	}
+	return (0);
+}
+
 int	vid_put(int keycode, void *nada)
 {
 	(void)keycode;
 	(void)nada;
+	
 	if(game()->frame == 167)
-		game()->frame = 0;
-	draw_img(&game()->maze_nm, &game()->st_anim[game()->frame], 404, 216);
+	game()->frame = 0;
+	draw_img(&game()->maze_nm, &game()->st_anim[game()->frame], 404, 166);
 	draw_img(&game()->play_bt[game()->play_tg], &game()->st_anim[game()->frame], 672, 500);
 	draw_img(&game()->option_bt[game()->option_tg], &game()->st_anim[game()->frame], 672, 666);
 	draw_img(&game()->quit_bt[game()->quit_tg], &game()->st_anim[game()->frame], 672, 831);
 	mlx_put_image_to_window(game()->mlx, game()->win, game()->st_anim[game()->frame].img, 0, 0);
 	game()->frame++;
-	usleep(15000);
+	ft_usleep(15000);
 	return 0;
 }
 

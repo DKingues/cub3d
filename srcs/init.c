@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/15 16:33:43 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/15 17:54:25 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	init_vid(void)
 void init(void)
 {
 	game()->mlx = mlx_init();
-	game()->win = mlx_new_window(game()->mlx, 1920, 1024, "cub3D");
+	game()->win = mlx_new_window(game()->mlx, 1920, 1080, "cub3D");
 	game()->p_menu.img = mlx_new_image(game()->mlx, (1920), (1024));
 	game()->p_menu.addr = mlx_get_data_addr(game()->p_menu.img,
 			&game()->p_menu.bits_per_pixel, &game()->p_menu.line_length,

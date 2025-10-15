@@ -78,8 +78,18 @@ typedef struct s_map
 	int		max_y;
 }				t_map;
 
+typedef enum s_state
+{
+	MENU,
+	PAUSE,
+	OPT_M,
+	OPT_P,
+	GAME,
+}				t_state;
+
 typedef struct s_game
 {
+	t_state		state;
 	int			play_tg;
 	int			option_tg;
 	int			quit_tg;
