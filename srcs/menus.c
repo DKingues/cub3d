@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 14:26:50 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/16 15:49:34 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/16 17:46:55 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ void	main_menu(void)
 	}
 	else if((game()->mouse.x >= 672 && game()->mouse.x <= 1248) && (game()->mouse.y >= 666 && game()->mouse.y <= 782))
 	{
-		game()->st_anim = game()->st_anim2;
-		darken(game()->st_anim[game()->frame.anim_tg], 0.5);
 		game()->frame.option_tg = 1;
 		game()->state = OPT_M;
 	}
@@ -40,6 +38,10 @@ void	main_menu(void)
 
 void	main_options(void)
 {
+	if ((game()->mouse.x >= 532 && game()->mouse.x <= 1387) && (game()->mouse.y >= 764 && game()->mouse.y <= 843))
+	{
+		game()->state = MENU;
+	}
 	// draw_img(&game()->option_bt[game()->frame.option_tg], &game()->st_anim[game()->frame.anim_tg], 672, 234);
 	// draw_img(&game()->diff_bt, &game()->st_anim[game()->frame.anim_tg], 531, 562);
 	// //draw_img(&game()->play_bt[game()->frame.play_tg], &game()->st_anim[game()->frame.anim_tg], 672, 500);

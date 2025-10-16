@@ -119,7 +119,7 @@ typedef struct s_game
 	t_data		sens_bt;
 	t_data		maze_nm;
 	t_data		*st_anim;
-	t_data		*st_anim2;
+	t_data		*st_anim_dim;
 	t_data		play_bt[2];
 	t_data		option_bt[2];
 	t_data		quit_bt[2];

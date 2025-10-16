@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:07:44 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/16 16:19:59 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/16 17:50:57 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,31 +50,50 @@ int	vid_put(int keycode, void *nada)
 {
 	(void)keycode;
 	(void)nada;
-	
+	t_data temp;
+
 	if(game()->frame.anim_tg == 167)
 		game()->frame.anim_tg = 0;
-	draw_img(&game()->maze_nm, &game()->st_anim[game()->frame.anim_tg], 404, 166);
-	draw_img(&game()->play_bt[game()->frame.play_tg], &game()->st_anim[game()->frame.anim_tg], 672, 500);
-	draw_img(&game()->option_bt[game()->frame.option_tg], &game()->st_anim[game()->frame.anim_tg], 672, 666);
-	draw_img(&game()->quit_bt[game()->frame.quit_tg], &game()->st_anim[game()->frame.anim_tg], 672, 831);
-	mlx_put_image_to_window(game()->mlx, game()->win, game()->st_anim[game()->frame.anim_tg].img, 0, 0);
+	temp.img = mlx_new_image(game()->mlx, 1920, 1080);
+	temp.addr = mlx_get_data_addr(temp.img,
+	&temp.bits_per_pixel, &temp.line_length,
+	&temp.endian);
+	draw_img(&game()->st_anim[game()->frame.anim_tg], &temp, 0, 0);
+	draw_img(&game()->maze_nm, &temp, 404, 166);
+	draw_img(&game()->play_bt[game()->frame.play_tg], &temp, 672, 500);
+	draw_img(&game()->option_bt[game()->frame.option_tg], &temp, 672, 666);
+	draw_img(&game()->quit_bt[game()->frame.quit_tg], &temp, 672, 831);
+	mlx_put_image_to_window(game()->mlx, game()->win, temp.img, 0, 0);
 	game()->frame.anim_tg++;
 	ft_usleep(15000);
+	mlx_destroy_image(game()->mlx, temp.img);
 	return 0;
 }
 //1005x484
 void opt_m_put(void)
 {
-	draw_img(&game()->option_bt[1], &game()->st_anim[game()->frame.anim_tg], 672, 234);
-	draw_img(&game()->sens_bt, &game()->st_anim[game()->frame.anim_tg], 532, 462);
-	draw_img(&game()->diff_bt, &game()->st_anim[game()->frame.anim_tg], 532, 562);
-	draw_img(&game()->ctrl_bt[game()->frame.ctrl_tg], &game()->st_anim[game()->frame.anim_tg], 532, 663);
-	draw_img(&game()->back_bt[game()->frame.back_tg], &game()->st_anim[game()->frame.anim_tg], 532, 764);
-	draw_img(&game()->left_bt[game()->frame.sleft_tg], &game()->st_anim[game()->frame.anim_tg], 1005, 484);
-	draw_img(&game()->right_bt[game()->frame.sright_tg], &game()->st_anim[game()->frame.anim_tg], 1353, 484);
-	draw_img(&game()->left_bt[game()->frame.dleft_tg], &game()->st_anim[game()->frame.anim_tg], 1005, 579);
-	draw_img(&game()->right_bt[game()->frame.dright_tg], &game()->st_anim[game()->frame.anim_tg], 1353, 579);
-	mlx_put_image_to_window(game()->mlx, game()->win, game()->st_anim[game()->frame.anim_tg].img, 0, 0);
+	t_data temp;
+
+	if(game()->frame.anim_tg == 167)
+		game()->frame.anim_tg = 0;
+	temp.img = mlx_new_image(game()->mlx, 1920, 1080);
+	temp.addr = mlx_get_data_addr(temp.img,
+		&temp.bits_per_pixel, &temp.line_length,
+		&temp.endian);
+	draw_img(&game()->st_anim_dim[game()->frame.anim_tg], &temp, 0, 0);
+	draw_img(&game()->option_bt[1], &temp, 672, 234);
+	draw_img(&game()->sens_bt, &temp, 532, 462);
+	draw_img(&game()->diff_bt, &temp, 532, 562);
+	draw_img(&game()->ctrl_bt[game()->frame.ctrl_tg], &temp, 532, 663);
+	draw_img(&game()->back_bt[game()->frame.back_tg], &temp, 532, 764);
+	draw_img(&game()->left_bt[game()->frame.sleft_tg], &temp, 1005, 484);
+	draw_img(&game()->right_bt[game()->frame.sright_tg], &temp, 1353, 484);
+	draw_img(&game()->left_bt[game()->frame.dleft_tg], &temp, 1005, 579);
+	draw_img(&game()->right_bt[game()->frame.dright_tg], &temp, 1353, 579);
+	mlx_put_image_to_window(game()->mlx, game()->win, temp.img, 0, 0);
+	game()->frame.anim_tg++;
+	ft_usleep(15000);
+	mlx_destroy_image(game()->mlx, temp.img);
 }
 
 int	move(void *nada)
