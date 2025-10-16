@@ -26,6 +26,20 @@
 # include "../minilibx-linux/mlx_int.h"
 # include "../includes/libft/libft.h"
 
+typedef	struct s_frame
+{
+	int			play_tg;
+	int			option_tg;
+	int			ctrl_tg;
+	int			back_tg;
+	int			sleft_tg;
+	int			sright_tg;
+	int			dleft_tg;
+	int			dright_tg;
+	int			quit_tg;
+	int 		anim_tg;
+}				t_frame;
+
 typedef	struct s_mouse
 {
 	int toggle_arrow;
@@ -81,36 +95,38 @@ typedef struct s_map
 typedef enum s_state
 {
 	MENU,
-	PAUSE,
 	OPT_M,
+	CTRL_M,
+	PAUSE,
 	OPT_P,
+	CTRL_P,
 	GAME,
 }				t_state;
 
 typedef struct s_game
 {
+	t_frame		frame;
 	t_state		state;
-	int			play_tg;
-	int			option_tg;
-	int			quit_tg;
-	int 		frame;
 	void		*mlx;
 	void		*win;
-	int			paused;
-	int			menued;
-	int			optioned;
 	t_data		canvas;
 	t_data		wall;
 	t_data		floor;
 	t_data		person;
 	t_data		p_menu;
 	t_data		pause;
-	t_data		options;
+	t_data		diff_bt;
+	t_data		sens_bt;
 	t_data		maze_nm;
 	t_data		*st_anim;
+	t_data		*st_anim2;
 	t_data		play_bt[2];
 	t_data		option_bt[2];
 	t_data		quit_bt[2];
+	t_data		back_bt[2];
+	t_data		ctrl_bt[2];
+	t_data		left_bt[2];
+	t_data		right_bt[2];
 	t_data		credits;
 	t_ray		raycast;
 	t_map		map;
@@ -119,13 +135,14 @@ typedef struct s_game
 }				t_game;
 
 //temp
-void	darken(t_data src);
+void	darken(t_data src, float max_factor);
 void	lighten(t_data src);
 int pause_menu(int keycode, void *nada);
 int	pause_game(void);
-int	main_menu(int keycode, void *nada);
+int	mouse_press(int keycode, void *nada);
 int	vid_put(int keycode, void *nada);
-
+void	draw_dim_img(t_data *src, t_data *dst, int x, int y, float factor);
+int	ft_usleep(int micro);
 //GNL
 # define BUFFER_SIZE 1
 # define PI 3.141592653589793
@@ -190,8 +207,8 @@ int	my_mlx_pixel_get_dim(t_data *data, int x, int y, float factor);
 //hooks.c
 void gameplay(void);
 int	move(void *nada);
-int	press(int keycode, t_game *nada);
-int	release(int keycode, t_game *nada);
+int	key_press(int keycode, t_game *nada);
+int	key_release(int keycode, t_game *nada);
 
 //mouse.c
 int	mouse_move(int keycode, t_game *null);

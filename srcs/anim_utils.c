@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 14:25:50 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/15 16:34:37 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/16 14:46:42 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ void	draw_dim_img(t_data *src, t_data *dst, int x, int y, float factor)
 	}
 }
 
-void	darken(t_data src)
+void	darken(t_data src, float max_factor)
 {
 	int	var2;
 	int	var;
 	float	factor = 1.0;
 
-	while(factor >= -0.05)
+	while(factor >= max_factor)
 	{
 		var2 = 0;
 		mlx_destroy_image(game()->mlx, game()->p_menu.img);

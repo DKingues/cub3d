@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:07:44 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/15 17:58:36 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/16 16:19:59 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,10 @@
 
 void gameplay(void)
 {
-	game()->frame = 0;
-	//mlx_put_image_to_window(game()->mlx, game()->win, game()->st_anim[0].img, 0, 0);
-	//mlx_put_image_to_window(game()->mlx, game()->win, game()->menu.img, 0, 0);
-	ins_map();
-	darken(game()->credits);
-	draw_img(&game()->maze_nm, &game()->st_anim[0], 404, 166);
-	draw_img(&game()->play_bt[game()->play_tg], &game()->st_anim[0], 672, 500);
-	draw_img(&game()->option_bt[game()->option_tg], &game()->st_anim[0], 672, 666);
-	draw_img(&game()->quit_bt[game()->quit_tg], &game()->st_anim[0], 672, 831);
-	lighten(game()->st_anim[0]);
-	mlx_mouse_hook(game()->win, main_menu, NULL);
-	mlx_hook(game()->win, 2, 1L<<0, press, NULL);
+	mlx_mouse_hook(game()->win, mouse_press, NULL);
 	mlx_hook(game()->win, 6, 1L<<6, mouse_move, NULL);
-	mlx_hook(game()->win, 3, 1L<<1, release, NULL);
+	mlx_hook(game()->win, 2, 1L<<0, key_press, NULL);
+	mlx_hook(game()->win, 3, 1L<<1, key_release, NULL);
 	mlx_hook(game()->win, 17, 0, clean_exit, NULL);
 	mlx_loop_hook(game()->mlx, move, NULL);
 	mlx_loop(game()->mlx);
@@ -61,16 +51,30 @@ int	vid_put(int keycode, void *nada)
 	(void)keycode;
 	(void)nada;
 	
-	if(game()->frame == 167)
-	game()->frame = 0;
-	draw_img(&game()->maze_nm, &game()->st_anim[game()->frame], 404, 166);
-	draw_img(&game()->play_bt[game()->play_tg], &game()->st_anim[game()->frame], 672, 500);
-	draw_img(&game()->option_bt[game()->option_tg], &game()->st_anim[game()->frame], 672, 666);
-	draw_img(&game()->quit_bt[game()->quit_tg], &game()->st_anim[game()->frame], 672, 831);
-	mlx_put_image_to_window(game()->mlx, game()->win, game()->st_anim[game()->frame].img, 0, 0);
-	game()->frame++;
+	if(game()->frame.anim_tg == 167)
+		game()->frame.anim_tg = 0;
+	draw_img(&game()->maze_nm, &game()->st_anim[game()->frame.anim_tg], 404, 166);
+	draw_img(&game()->play_bt[game()->frame.play_tg], &game()->st_anim[game()->frame.anim_tg], 672, 500);
+	draw_img(&game()->option_bt[game()->frame.option_tg], &game()->st_anim[game()->frame.anim_tg], 672, 666);
+	draw_img(&game()->quit_bt[game()->frame.quit_tg], &game()->st_anim[game()->frame.anim_tg], 672, 831);
+	mlx_put_image_to_window(game()->mlx, game()->win, game()->st_anim[game()->frame.anim_tg].img, 0, 0);
+	game()->frame.anim_tg++;
 	ft_usleep(15000);
 	return 0;
+}
+//1005x484
+void opt_m_put(void)
+{
+	draw_img(&game()->option_bt[1], &game()->st_anim[game()->frame.anim_tg], 672, 234);
+	draw_img(&game()->sens_bt, &game()->st_anim[game()->frame.anim_tg], 532, 462);
+	draw_img(&game()->diff_bt, &game()->st_anim[game()->frame.anim_tg], 532, 562);
+	draw_img(&game()->ctrl_bt[game()->frame.ctrl_tg], &game()->st_anim[game()->frame.anim_tg], 532, 663);
+	draw_img(&game()->back_bt[game()->frame.back_tg], &game()->st_anim[game()->frame.anim_tg], 532, 764);
+	draw_img(&game()->left_bt[game()->frame.sleft_tg], &game()->st_anim[game()->frame.anim_tg], 1005, 484);
+	draw_img(&game()->right_bt[game()->frame.sright_tg], &game()->st_anim[game()->frame.anim_tg], 1353, 484);
+	draw_img(&game()->left_bt[game()->frame.dleft_tg], &game()->st_anim[game()->frame.anim_tg], 1005, 579);
+	draw_img(&game()->right_bt[game()->frame.dright_tg], &game()->st_anim[game()->frame.anim_tg], 1353, 579);
+	mlx_put_image_to_window(game()->mlx, game()->win, game()->st_anim[game()->frame.anim_tg].img, 0, 0);
 }
 
 int	move(void *nada)
@@ -79,9 +83,11 @@ int	move(void *nada)
 
 	(void)nada;
 	change = 0.05;
-	if(game()->menued)
+	if(game()->state == MENU)
 		vid_put(0, NULL);
-	if(game()->paused < 0 || game()->menued)
+	else if(game()->state == OPT_M)
+		opt_m_put();
+	if(game()->state != GAME)
 		return (0);
 	if (game()->player.diff == 1)
 		change = 0.1;
@@ -98,32 +104,25 @@ int	move(void *nada)
 	if(game()->player.rot_r == 1)
 		rotate_ray(1);
 	mlx_destroy_image(game()->mlx, game()->canvas.img);
-	game()->canvas.img = mlx_new_image(game()->mlx, (1920), (1024));
+	game()->canvas.img = mlx_new_image(game()->mlx, 1920, 1024);
 	game()->canvas.addr = mlx_get_data_addr(game()->canvas.img,
 			&game()->canvas.bits_per_pixel, &game()->canvas.line_length,
 			&game()->canvas.endian);
 	ins_map();
-	if(game()->paused > 0)
-		mlx_put_image_to_window(game()->mlx, game()->win, game()->canvas.img, 0, 0);
+	mlx_put_image_to_window(game()->mlx, game()->win, game()->canvas.img, 0, 0);
 	return (0);
 }
 
-int	press(int keycode, t_game *nada)
+int	key_press(int keycode, t_game *nada)
 {
 	(void)nada;
 
 	if (keycode == XK_Escape)
 		clean_exit(NULL);
-	if(game()->menued)
+	if(game()->state != GAME)
 		return (0);
 	if (keycode == XK_p)
-	{
-		game()->paused *= -1;
 		pause_game();
-		mlx_mouse_move(game()->mlx, game()->win, 960, 512);
-	}
-	if(game()->paused < 0)
-		return (0);
 	if (keycode == XK_Shift_L)
 		game()->player.diff = 1;
 	if (keycode == XK_d)
@@ -138,12 +137,14 @@ int	press(int keycode, t_game *nada)
 		game()->player.rot_r = 1;
 	if(keycode == XK_Left)
 		game()->player.rot_l = 1;
-	return 0;
+	return (0);
 }
 
-int	release(int keycode, t_game *nada)
+int	key_release(int keycode, t_game *nada)
 {
 	(void)nada;
+	if(game()->state != GAME)
+		return (0);
 	if (keycode == XK_Shift_L)
 		game()->player.diff = 0;
 	if (keycode == XK_d)

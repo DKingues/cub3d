@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 14:27:55 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/14 14:28:07 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/16 14:47:08 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ int	pause_game(void)
 	game()->player.moving_d = 0;
 	game()->player.rot_r = 0;
 	game()->player.rot_l = 0;
-	if (game()->paused > 0)
-		return (lighten(game()->canvas), 0);
-	darken(game()->canvas);
+	return (lighten(game()->canvas), 0);
+	darken(game()->canvas, -0.05);
 	return (1);
 }
