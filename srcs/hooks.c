@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:07:44 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/16 17:50:57 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/17 17:59:24 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void opt_m_put(void)
 	temp.addr = mlx_get_data_addr(temp.img,
 		&temp.bits_per_pixel, &temp.line_length,
 		&temp.endian);
-	draw_img(&game()->st_anim_dim[game()->frame.anim_tg], &temp, 0, 0);
+	draw_img(&game()->st_anim[game()->frame.anim_tg], &temp, 0, 0);
 	draw_img(&game()->option_bt[1], &temp, 672, 234);
 	draw_img(&game()->sens_bt, &temp, 532, 462);
 	draw_img(&game()->diff_bt, &temp, 532, 562);
@@ -90,6 +90,35 @@ void opt_m_put(void)
 	draw_img(&game()->right_bt[game()->frame.sright_tg], &temp, 1353, 484);
 	draw_img(&game()->left_bt[game()->frame.dleft_tg], &temp, 1005, 579);
 	draw_img(&game()->right_bt[game()->frame.dright_tg], &temp, 1353, 579);
+	
+	draw_img(&game()->sens_nb[game()->frame.sens_tg], &temp, 1178, 485);
+	mlx_put_image_to_window(game()->mlx, game()->win, temp.img, 0, 0);
+	game()->frame.anim_tg++;
+	ft_usleep(15000);
+	mlx_destroy_image(game()->mlx, temp.img);
+}
+
+void ctrl_m_put(void)
+{
+	t_data temp;
+	//413x823
+	if(game()->frame.anim_tg == 167)
+		game()->frame.anim_tg = 0;
+	temp.img = mlx_new_image(game()->mlx, 1920, 1080);
+	temp.addr = mlx_get_data_addr(temp.img,
+		&temp.bits_per_pixel, &temp.line_length,
+		&temp.endian);
+	draw_img(&game()->st_anim[game()->frame.anim_tg], &temp, 0, 0);
+	draw_img(&game()->ctrl_menu, &temp, 0, 0);
+	draw_img(&game()->ctrlback_bt[game()->frame.ctrlback_tg], &temp, 413, 823);
+	/* draw_img(&game()->sens_bt, &temp, 532, 462);
+	draw_img(&game()->diff_bt, &temp, 532, 562);
+	draw_img(&game()->ctrl_bt[game()->frame.ctrl_tg], &temp, 532, 663);
+	draw_img(&game()->back_bt[game()->frame.back_tg], &temp, 532, 764);
+	draw_img(&game()->left_bt[game()->frame.sleft_tg], &temp, 1005, 484);
+	draw_img(&game()->right_bt[game()->frame.sright_tg], &temp, 1353, 484);
+	draw_img(&game()->left_bt[game()->frame.dleft_tg], &temp, 1005, 579);
+	draw_img(&game()->right_bt[game()->frame.dright_tg], &temp, 1353, 579);*/
 	mlx_put_image_to_window(game()->mlx, game()->win, temp.img, 0, 0);
 	game()->frame.anim_tg++;
 	ft_usleep(15000);
@@ -106,6 +135,8 @@ int	move(void *nada)
 		vid_put(0, NULL);
 	else if(game()->state == OPT_M)
 		opt_m_put();
+	else if(game()->state == CTRL_M)
+		ctrl_m_put();
 	if(game()->state != GAME)
 		return (0);
 	if (game()->player.diff == 1)

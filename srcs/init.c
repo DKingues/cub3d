@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/16 17:46:07 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/17 18:10:40 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,11 @@ void init(void)
 	game()->maze_nm = load_img("textures/buttons/maze_nm.xpm");
 	game()->maze_nm.res_x = 1110;
 	game()->maze_nm.res_y = 135;
+
+	game()->ctrl_menu = load_img("textures/buttons/ctrl_menu.xpm");
+	game()->ctrl_menu.res_x = 1920;
+	game()->ctrl_menu.res_y = 1080;
+
 	game()->play_bt[0] = load_img("textures/buttons/play_bt.xpm");
 	game()->play_bt[0].res_x = 576;
 	game()->play_bt[0].res_y = 116;
@@ -132,6 +137,14 @@ void init(void)
 	game()->ctrl_bt[1] = load_img("textures/buttons/ctrl_bt2.xpm");
 	game()->ctrl_bt[1].res_x = 855;
 	game()->ctrl_bt[1].res_y = 80;
+	
+	game()->ctrlback_bt[0] = load_img("textures/buttons/ctrlback_bt.xpm");
+	game()->ctrlback_bt[0].res_x = 1095;
+	game()->ctrlback_bt[0].res_y = 78;
+	game()->ctrlback_bt[1] = load_img("textures/buttons/ctrlback_bt2.xpm");
+	game()->ctrlback_bt[1].res_x = 1095;
+	game()->ctrlback_bt[1].res_y = 78;
+
 	game()->left_bt[0] = load_img("textures/buttons/left_bt.xpm");
 	game()->left_bt[0].res_x = 30;
 	game()->left_bt[0].res_y = 34;
@@ -143,7 +156,8 @@ void init(void)
 	game()->right_bt[0].res_y = 34;
 	game()->right_bt[1] = load_img("textures/buttons/right_bt2.xpm");
 	game()->right_bt[1].res_x = 30;
-	game()->right_bt[1].res_y = 34;	
+	game()->right_bt[1].res_y = 34;
+
 	game()->diff_bt = load_img("textures/buttons/diff_bt.xpm");
 	game()->diff_bt.res_x = 411;
 	game()->diff_bt.res_y = 78;
@@ -173,6 +187,70 @@ void init(void)
 	game()->frame.dleft_tg = 0;
 	game()->frame.dright_tg = 0;
 	game()->frame.back_tg = 0;
+	game()->frame.sens_tg = 0;
+	game()->frame.ctrlback_tg = 0;
+	
+	game()->sens_nb[0] = load_img("textures/buttons/sens_nb1.xpm");
+	game()->sens_nb[0].res_x = 31;
+	game()->sens_nb[0].res_y = 31;
+	game()->sens_nb[1] = load_img("textures/buttons/sens_nb2.xpm");
+	game()->sens_nb[1].res_x = 31;
+	game()->sens_nb[1].res_y = 31;	
+	game()->sens_nb[2] = load_img("textures/buttons/sens_nb3.xpm");
+	game()->sens_nb[2].res_x = 31;
+	game()->sens_nb[2].res_y = 31;
+	game()->sens_nb[3] = load_img("textures/buttons/sens_nb4.xpm");
+	game()->sens_nb[3].res_x = 31;
+	game()->sens_nb[3].res_y = 31;	
+	game()->sens_nb[4] = load_img("textures/buttons/sens_nb5.xpm");
+	game()->sens_nb[4].res_x = 31;
+	game()->sens_nb[4].res_y = 31;	
+	
+	game()->diff_nb[0] = load_img("textures/buttons/diff_nb1.xpm");
+	game()->diff_nb[0].res_x = 131;
+	game()->diff_nb[0].res_y = 31;
+	game()->diff_nb[1] = load_img("textures/buttons/diff_nb2.xpm");
+	game()->diff_nb[1].res_x = 198;
+	game()->diff_nb[1].res_y = 31;	
+	game()->diff_nb[2] = load_img("textures/buttons/diff_nb3.xpm");
+	game()->diff_nb[2].res_x = 131;
+	game()->diff_nb[2].res_y = 31;
+
+	game()->sleft_c[0].x = 1004;
+	game()->sleft_c[0].y = 501.5;
+	
+	game()->sright_c[0].x = 1383; 
+	game()->sright_c[0].y = 501.5;
+
+	game()->dleft_c[0].x = 1004;
+	game()->dleft_c[0].y = 596.5;
+	
+	game()->dright_c[0].x = 1383; 
+	game()->dright_c[0].y = 596.5;
+
+	game()->sleft_c[1].x = 1035;
+	game()->sleft_c[1].y = 484;
+
+	game()->sright_c[1].x = 1353; 
+	game()->sright_c[1].y = 484;
+	
+	game()->dleft_c[1].x = 1035;
+	game()->dleft_c[1].y = 614;
+	
+	game()->dright_c[1].x = 1353; 
+	game()->dright_c[1].y = 614; 
+
+	game()->sleft_c[2].x = 1035;
+	game()->sleft_c[2].y = 519;
+	
+	game()->sright_c[2].x = 1353; 
+	game()->sright_c[2].y = 519;
+
+	game()->dleft_c[2].x = 1035;
+	game()->dleft_c[2].y = 579;
+	
+	game()->dright_c[2].x = 1353; 
+	game()->dright_c[2].y = 579; 
 	init_vid();
 	init_vid2();
 	game()->mouse.toggle_arrow = mlx_mouse_show(game()->mlx, game()->win); 

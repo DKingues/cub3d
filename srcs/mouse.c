@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 16:24:59 by dicosta-          #+#    #+#             */
-/*   Updated: 2025/10/16 16:07:27 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/17 17:47:48 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,32 @@ void	game_move(int *last_x)
 		rotate_ray((-1 - (*last_x - game()->mouse.x)) / 12);
 }
 
+float sign (t_cord p1, t_cord p2, t_cord p3)
+{
+    return (p1.x - p3.x) * (p2.y - p3.y) - (p2.x - p3.x) * (p1.y - p3.y);
+}
+
+int find_point(t_cord pt, t_cord v1, t_cord v2, t_cord v3)
+{
+    float d1, d2, d3;
+    int has_neg, has_pos;
+
+    d1 = sign(pt, v1, v2);
+    d2 = sign(pt, v2, v3);
+    d3 = sign(pt, v3, v1);
+
+    has_neg = (d1 < 0) || (d2 < 0) || (d3 < 0);
+    has_pos = (d1 > 0) || (d2 > 0) || (d3 > 0);
+
+    return !(has_neg && has_pos);
+}
+
 void	opt_m_move(void)
 {
+	t_cord	pos;
 	mlx_mouse_get_pos(game()->mlx, game()->win, &game()->mouse.x, &game()->mouse.y);
+	pos.x = game()->mouse.x;
+	pos.y = game()->mouse.y;
 	if((game()->mouse.x >= 532 && game()->mouse.x <= 1390) && (game()->mouse.y >= 663 && game()->mouse.y <= 743))
 		game()->frame.ctrl_tg = 1;
 	else
@@ -63,6 +86,35 @@ void	opt_m_move(void)
 		game()->frame.back_tg = 1;
 	else
 		game()->frame.back_tg = 0;
+	if(find_point(pos, game()->sleft_c[0], game()->sleft_c[1], game()->sleft_c[2]))
+		game()->frame.sleft_tg = 1;
+	else
+		game()->frame.sleft_tg = 0;
+
+	if(find_point(pos, game()->sright_c[0], game()->sright_c[1], game()->sright_c[2]))
+		game()->frame.sright_tg = 1;
+	else
+		game()->frame.sright_tg = 0;
+
+	if(find_point(pos, game()->dleft_c[0], game()->dleft_c[1], game()->dleft_c[2]))
+		game()->frame.dleft_tg = 1;
+	else
+		game()->frame.dleft_tg = 0;
+
+	if(find_point(pos, game()->dright_c[0], game()->dright_c[1], game()->dright_c[2]))
+		game()->frame.dright_tg = 1;
+	else
+		game()->frame.dright_tg = 0;
+		
+}
+
+void	ctrl_m_move(void)
+{
+	mlx_mouse_get_pos(game()->mlx, game()->win, &game()->mouse.x, &game()->mouse.y);
+	if((game()->mouse.x >= 413 && game()->mouse.x <= 1508) && (game()->mouse.y >= 823 && game()->mouse.y <= 901))
+		game()->frame.ctrlback_tg = 1;
+	else
+		game()->frame.ctrlback_tg = 0;
 }
 
 int	mouse_move(int keycode, t_game *null)
@@ -77,7 +129,7 @@ int	mouse_move(int keycode, t_game *null)
 	else if(game()->state == OPT_M)
 		opt_m_move();
 	else if(game()->state == CTRL_M)
-		return (0);
+		ctrl_m_move();
 	else if(game()->state == PAUSE)
 		return (0);
 	else if(game()->state == OPT_P)

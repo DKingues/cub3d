@@ -28,9 +28,12 @@
 
 typedef	struct s_frame
 {
+	int			sens_tg;
+	int			diff_tg;
 	int			play_tg;
 	int			option_tg;
 	int			ctrl_tg;
+	int			ctrlback_tg;
 	int			back_tg;
 	int			sleft_tg;
 	int			sright_tg;
@@ -39,6 +42,12 @@ typedef	struct s_frame
 	int			quit_tg;
 	int 		anim_tg;
 }				t_frame;
+
+typedef	struct s_cord
+{
+	float	x;
+	float	y;
+}				t_cord;
 
 typedef	struct s_mouse
 {
@@ -118,23 +127,32 @@ typedef struct s_game
 	t_data		diff_bt;
 	t_data		sens_bt;
 	t_data		maze_nm;
+	t_data		ctrl_menu;
 	t_data		*st_anim;
 	t_data		*st_anim_dim;
 	t_data		play_bt[2];
 	t_data		option_bt[2];
 	t_data		quit_bt[2];
 	t_data		back_bt[2];
+	t_data		ctrlback_bt[2];
 	t_data		ctrl_bt[2];
 	t_data		left_bt[2];
 	t_data		right_bt[2];
+	t_data		sens_nb[5];
+	t_data		diff_nb[3];
 	t_data		credits;
 	t_ray		raycast;
 	t_map		map;
 	t_mouse		mouse;
+	t_cord		sleft_c[3];
+	t_cord		sright_c[3];
+	t_cord		dleft_c[3];
+	t_cord		dright_c[3];
 	t_player	player;
 }				t_game;
 
 //temp
+void	ctrl_m_move(void);
 void	darken(t_data src, float max_factor);
 void	lighten(t_data src);
 int pause_menu(int keycode, void *nada);
@@ -143,6 +161,10 @@ int	mouse_press(int keycode, void *nada);
 int	vid_put(int keycode, void *nada);
 void	draw_dim_img(t_data *src, t_data *dst, int x, int y, float factor);
 int	ft_usleep(int micro);
+void	opt_m_move(void);
+void	main_move(void);
+int find_point(t_cord pt, t_cord v1, t_cord v2, t_cord v3);
+
 //GNL
 # define BUFFER_SIZE 1
 # define PI 3.141592653589793
