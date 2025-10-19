@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:07:44 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/16 17:50:57 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/18 21:32:37 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include "../includes/cub3d.h"
 
 void gameplay(void)
-{
+{	
 	mlx_mouse_hook(game()->win, mouse_press, NULL);
 	mlx_hook(game()->win, 6, 1L<<6, mouse_move, NULL);
 	mlx_hook(game()->win, 2, 1L<<0, key_press, NULL);
@@ -102,21 +102,23 @@ int	move(void *nada)
 
 	(void)nada;
 	change = 0.05;
+	
 	if(game()->state == MENU)
 		vid_put(0, NULL);
 	else if(game()->state == OPT_M)
 		opt_m_put();
 	if(game()->state != GAME)
 		return (0);
+	timer(game()->game_start, 310);
 	if (game()->player.diff == 1)
 		change = 0.1;
-	if (game()->player.moving_d == 1 && game()->map.map[(int)(game()->player.player_y)][(int)(game()->player.player_x + 0.1)] != '1')
+	if (game()->player.moving_d == 1 && game()->map.map[(int)(game()->player.player_y)][(int)(game()->player.player_x + 0.1)] != '1' && game()->map.map[(int)(game()->player.player_y)][(int)(game()->player.player_x + 0.1)] != 'C')
 		game()->player.player_x += change;
-	if (game()->player.moving_s == 1 && game()->map.map[(int)(game()->player.player_y + 0.1)][(int)game()->player.player_x] != '1')
+	if (game()->player.moving_s == 1 && game()->map.map[(int)(game()->player.player_y + 0.1)][(int)game()->player.player_x] != '1' && game()->map.map[(int)(game()->player.player_y + 0.1)][(int)game()->player.player_x] != 'C')
 		game()->player.player_y += change;
-	if (game()->player.moving_a == 1 && game()->map.map[(int)(game()->player.player_y)][(int)(game()->player.player_x - 0.1)] != '1')
+	if (game()->player.moving_a == 1 && game()->map.map[(int)(game()->player.player_y)][(int)(game()->player.player_x - 0.1)] != '1' && game()->map.map[(int)(game()->player.player_y)][(int)(game()->player.player_x - 0.1)] != 'C')
 		game()->player.player_x -= change;
-	if (game()->player.moving_w == 1 && game()->map.map[(int)(game()->player.player_y - 0.1)][(int)game()->player.player_x] != '1')
+	if (game()->player.moving_w == 1 && game()->map.map[(int)(game()->player.player_y - 0.1)][(int)game()->player.player_x] != '1' && game()->map.map[(int)(game()->player.player_y - 0.1)][(int)game()->player.player_x] != 'C')
 		game()->player.player_y -= change;
 	if(game()->player.rot_l == 1)
 		rotate_ray(-1);
@@ -152,6 +154,8 @@ int	key_press(int keycode, t_game *nada)
 		game()->player.moving_a = 1;
 	if (keycode == XK_w)
 		game()->player.moving_w = 1;
+	if (keycode == XK_e)
+		open_door();
 	if(keycode == XK_Right)
 		game()->player.rot_r = 1;
 	if(keycode == XK_Left)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 17:20:48 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/10 16:23:56 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/17 15:08:51 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int clean_exit(void *nada)
 	mlx_destroy_image(game()->mlx, game()->canvas.img);
 	mlx_destroy_image(game()->mlx, game()->wall.img);
 	mlx_destroy_image(game()->mlx, game()->floor.img);
+	mlx_destroy_image(game()->mlx, game()->closed_door.img);
+	mlx_destroy_image(game()->mlx, game()->open_door.img);
 	mlx_destroy_image(game()->mlx, game()->person.img);
 	mlx_destroy_image(game()->mlx, game()->p_menu.img);
 	mlx_destroy_image(game()->mlx, game()->pause.img);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/16 17:46:07 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/18 21:33:51 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,9 @@ void	init_vid2(void)
 
 void init(void)
 {
+	struct timeval start;
 	t_data temp;
+
 	game()->mlx = mlx_init();
 	game()->win = mlx_new_window(game()->mlx, 1920, 1080, "cub3D222222222");
 	game()->p_menu.img = mlx_new_image(game()->mlx, (1920), (1024));
@@ -95,6 +97,12 @@ void init(void)
 	game()->floor = load_img("textures/2.xpm");
 	game()->floor.res_x = 64;
 	game()->floor.res_y = 64;
+	game()->closed_door = load_img("textures/doorC.xpm");
+	game()->closed_door.res_x = 64;
+	game()->closed_door.res_y = 64;
+	game()->open_door = load_img("textures/doorO.xpm");
+	game()->open_door.res_x = 64;
+	game()->open_door.res_y = 64;
 	game()->person = load_img("textures/3.xpm");
 	game()->person.res_x = 64;
 	game()->person.res_y = 64;
@@ -176,7 +184,7 @@ void init(void)
 	init_vid();
 	init_vid2();
 	game()->mouse.toggle_arrow = mlx_mouse_show(game()->mlx, game()->win); 
-	//mlx_mouse_move(game()->mlx, game()->win, 960, 512);
+	mlx_mouse_move(game()->mlx, game()->win, 960, 512);
 	set_rays(game()->map.map[(int)game()->player.player_y][(int)game()->player.player_x]);
 	set_fov(66.0);
 	ins_map();
@@ -191,6 +199,9 @@ void init(void)
 	draw_img(&game()->option_bt[game()->frame.option_tg], &temp, 672, 666);
 	draw_img(&game()->quit_bt[game()->frame.quit_tg], &temp, 672, 831);
 	lighten(temp);
+	gettimeofday(&start, NULL);
+	game()->game_start = start.tv_sec;
+	game()->game_over = 0;
 }
 
 void	set_rays(char dir)

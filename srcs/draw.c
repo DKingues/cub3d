@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:05:06 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/15 15:29:46 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/17 16:05:27 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void draw_line(float x0, float y0, float x1, float y1)
     while (1)    
 	{
         my_mlx_pixel_put(&game()->canvas, (x0), (y0), 0x0096FF);
-        if (game()->map.map[(int)(y0 / 64)][(int)(x0 / 64)] == '1')
+        if (game()->map.map[(int)(y0 / 64)][(int)(x0 / 64)] == '1' || game()->map.map[(int)(y0 / 64)][(int)(x0 / 64)] == 'C')
             break;
         e2 = 2 * err;
         if (e2 > -dy)
@@ -73,6 +73,10 @@ void	ins_map(void)
 		{
 			if (game()->map.map[var2][var] == '1')
 				draw_img(&game()->wall, &game()->canvas, (var * 64), (var2 * 64));
+			else if (game()->map.map[var2][var] == 'C')
+				draw_img(&game()->closed_door, &game()->canvas, (var * 64), (var2 * 64));
+			else if (game()->map.map[var2][var] == 'O')
+				draw_img(&game()->open_door, &game()->canvas, (var * 64), (var2 * 64));
 			else
 				draw_img(&game()->floor, &game()->canvas, (var * 64), (var2 * 64));
 			var++;
