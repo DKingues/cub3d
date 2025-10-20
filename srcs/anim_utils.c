@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 14:25:50 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/16 14:46:42 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/20 11:55:54 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,12 @@ void	darken(t_data src, float max_factor)
 	}
 }
 
-void	lighten(t_data src)
+void	lighten(t_data src, float st_factor)
 {
 	int	var2;
 	int	var;
-	float	factor = 0.0;
 
-	while(factor <= 1.0)
+	while(st_factor <= 1.0)
 	{
 		var2 = 0;
 		mlx_destroy_image(game()->mlx, game()->p_menu.img);
@@ -79,12 +78,12 @@ void	lighten(t_data src)
 			var = 0;
 			while (game()->map.map[var2][var])
 			{
-				draw_dim_img(&src, &game()->p_menu, (var * 64), (var2 * 64), factor);
+				draw_dim_img(&src, &game()->p_menu, (var * 64), (var2 * 64), st_factor);
 				var++;
 			}
 			var2++;
 		}
 		mlx_put_image_to_window(game()->mlx, game()->win, game()->p_menu.img, 0, 0);
-		factor += 0.05;
+		st_factor += 0.05;
 	}
 }

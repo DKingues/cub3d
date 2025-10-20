@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/17 18:10:40 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/20 18:09:00 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,36 +47,6 @@ void	init_vid(void)
 	}
 }
 
-void	init_vid2(void)
-{
-	int	var;
-	int var2 = 0, var3 = 0;
-
-	game()->st_anim_dim = ft_calloc(sizeof(t_data), 168);
-	var = 0;
-	while(var < 167)
-	{
-		var2 = 0;
-		game()->st_anim_dim[var].img = mlx_new_image(game()->mlx, (1920), (1080));
-		game()->st_anim_dim[var].addr = mlx_get_data_addr(game()->st_anim_dim[var].img,
-			&game()->st_anim_dim[var].bits_per_pixel, &game()->st_anim_dim[var].line_length,
-			&game()->st_anim_dim[var].endian);
-		game()->st_anim_dim[var].res_x = 1920;
-		game()->st_anim_dim[var].res_y = 1080;
-		while(game()->map.map[var2])
-		{
-			var3 = 0;
-			while(game()->map.map[var2][var3])
-			{
-				draw_dim_img(&game()->st_anim[var], &game()->st_anim_dim[var], (var3 * 64), (var2 * 64), 0.65);
-				var3++;
-			}
-			var2++;
-		}
-		var++;
-	}
-}
-
 void init(void)
 {
 	t_data temp;
@@ -84,11 +54,16 @@ void init(void)
 	game()->win = mlx_new_window(game()->mlx, 1920, 1080, "cub3D222222222");
 	game()->p_menu.img = mlx_new_image(game()->mlx, (1920), (1024));
 	game()->p_menu.addr = mlx_get_data_addr(game()->p_menu.img,
-			&game()->p_menu.bits_per_pixel, &game()->p_menu.line_length,
-			&game()->p_menu.endian);
+	&game()->p_menu.bits_per_pixel, &game()->p_menu.line_length,
+	&game()->p_menu.endian);
 	game()->credits = load_img("textures/menu_vid/1.xpm");
-	lighten(game()->credits);
+	lighten(game()->credits, 0.0);
 	game()->canvas.img = mlx_new_image(game()->mlx, (1920), (1024));
+	game()->canvas.addr = mlx_get_data_addr(game()->canvas.img,
+			&game()->canvas.bits_per_pixel, &game()->canvas.line_length,
+			&game()->canvas.endian);
+	game()->canvas.res_x = 1920;
+	game()->canvas.res_y = 1080;
 	game()->wall = load_img("textures/1.xpm");
 	game()->wall.res_x = 64;
 	game()->wall.res_y = 64;
@@ -164,9 +139,6 @@ void init(void)
 	game()->sens_bt = load_img("textures/buttons/sens_bt.xpm");
 	game()->sens_bt.res_x = 411;
 	game()->sens_bt.res_y = 78;
-	game()->canvas.addr = mlx_get_data_addr(game()->canvas.img,
-			&game()->canvas.bits_per_pixel, &game()->canvas.line_length,
-			&game()->canvas.endian);
 	game()->player.diff = 0;
 	game()->player.moving_w = 0;
 	game()->player.moving_a = 0;
@@ -251,8 +223,29 @@ void init(void)
 	
 	game()->dright_c[2].x = 1353; 
 	game()->dright_c[2].y = 579; 
+
+
+	
+
+	game()->sleft_pause_c[0].x = 989;
+	game()->sleft_pause_c[0].y = 552.5;
+
+	game()->sright_pause_c[0].x = 1367; 
+	game()->sright_pause_c[0].y = 552.5;
+	
+	game()->sleft_pause_c[1].x = 1019;
+	game()->sleft_pause_c[1].y = 535;
+
+	game()->sright_pause_c[1].x = 1337; 
+	game()->sright_pause_c[1].y = 535;
+
+	game()->sleft_pause_c[2].x = 1019;
+	game()->sleft_pause_c[2].y = 570;
+
+	game()->sright_pause_c[2].x = 1337; 
+	game()->sright_pause_c[2].y = 570;
 	init_vid();
-	init_vid2();
+	//init_vid2();
 	game()->mouse.toggle_arrow = mlx_mouse_show(game()->mlx, game()->win); 
 	//mlx_mouse_move(game()->mlx, game()->win, 960, 512);
 	set_rays(game()->map.map[(int)game()->player.player_y][(int)game()->player.player_x]);
@@ -263,12 +256,12 @@ void init(void)
 	temp.addr = mlx_get_data_addr(temp.img,
 	&temp.bits_per_pixel, &temp.line_length,
 	&temp.endian);
-	draw_img(&game()->st_anim[0], &temp, 0, 0);
-	draw_img(&game()->maze_nm, &temp, 404, 166);
-	draw_img(&game()->play_bt[game()->frame.play_tg], &temp, 672, 500);
-	draw_img(&game()->option_bt[game()->frame.option_tg], &temp, 672, 666);
-	draw_img(&game()->quit_bt[game()->frame.quit_tg], &temp, 672, 831);
-	lighten(temp);
+	draw_img(&game()->st_anim[0], &temp, 0, 0, 1.0);
+	draw_img(&game()->maze_nm, &temp, 404, 166, 1.0);
+	draw_img(&game()->play_bt[game()->frame.play_tg], &temp, 672, 500, 1.0);
+	draw_img(&game()->option_bt[game()->frame.option_tg], &temp, 672, 666, 1.0);
+	draw_img(&game()->quit_bt[game()->frame.quit_tg], &temp, 672, 831, 1.0);
+	lighten(temp, 0.0);
 }
 
 void	set_rays(char dir)

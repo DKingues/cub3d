@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 14:26:50 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/17 18:03:46 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/20 18:13:08 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	main_menu(void)
 	{
 		darken(game()->st_anim[game()->frame.anim_tg], -0.05);
 		game()->frame.play_tg = 0;
-		lighten(game()->canvas);
+		lighten(game()->canvas, 0.0);
 		game()->state = GAME;
 	}
 	else if((game()->mouse.x >= 672 && game()->mouse.x <= 1248) && (game()->mouse.y >= 666 && game()->mouse.y <= 782))
@@ -58,11 +58,12 @@ void	main_options(void)
 	if(find_point(pos, game()->sright_c[0], game()->sright_c[1], game()->sright_c[2]))
 		if(game()->frame.sens_tg != 4)
 			game()->frame.sens_tg++;
-	// draw_img(&game()->option_bt[game()->frame.option_tg], &game()->st_anim[game()->frame.anim_tg], 672, 234);
-	// draw_img(&game()->diff_bt, &game()->st_anim[game()->frame.anim_tg], 531, 562);
-	// //draw_img(&game()->play_bt[game()->frame.play_tg], &game()->st_anim[game()->frame.anim_tg], 672, 500);
-	// //draw_img(&game()->quit_bt[game()->frame.quit_tg], &game()->st_anim[game()->frame.anim_tg], 672, 831);
-	// mlx_put_image_to_window(game()->mlx, game()->win, game()->st_anim[game()->frame.anim_tg].img, 0, 0);
+	if(find_point(pos, game()->dleft_c[0], game()->dleft_c[1], game()->dleft_c[2]))
+		if(game()->frame.diff_tg != 0)
+			game()->frame.diff_tg--;
+	if(find_point(pos, game()->dright_c[0], game()->dright_c[1], game()->dright_c[2]))
+		if(game()->frame.diff_tg != 2)
+			game()->frame.diff_tg++;
 }
 
 void	ctrl_m_opt(void)
@@ -74,6 +75,30 @@ void	ctrl_m_opt(void)
 		opt_m_move();
 		game()->state = OPT_M;
 	}
+}
+
+void	pause_options(void)
+{
+	t_cord	pos;
+	mlx_mouse_get_pos(game()->mlx, game()->win, &game()->mouse.x, &game()->mouse.y);
+	pos.x = game()->mouse.x;
+	pos.y = game()->mouse.y;
+	/* if ((game()->mouse.x >= 532 && game()->mouse.x <= 1387) && (game()->mouse.y >= 764 && game()->mouse.y <= 843))
+	{
+		main_move();
+		game()->state = MENU;
+	}
+	if ((game()->mouse.x >= 532 && game()->mouse.x <= 1387) && (game()->mouse.y >= 663 && game()->mouse.y <= 743))
+	{
+		ctrl_m_move();
+		game()->state = CTRL_M;
+	} */
+	if(find_point(pos, game()->sleft_pause_c[0], game()->sleft_pause_c[1], game()->sleft_pause_c[2]))
+		if(game()->frame.sens_tg != 0)
+			game()->frame.sens_tg--;
+	if(find_point(pos, game()->sright_pause_c[0], game()->sright_pause_c[1], game()->sright_pause_c[2]))
+		if(game()->frame.sens_tg != 4)
+			game()->frame.sens_tg++;
 }
 
 int	mouse_press(int keycode, void *nada)
@@ -89,9 +114,9 @@ int	mouse_press(int keycode, void *nada)
 	else if(game()->state == CTRL_M)
 		ctrl_m_opt();
 	else if(game()->state == PAUSE)
-		return (0);
+		pause_menu_g();
 	else if(game()->state == OPT_P)
-		return (0);
+		pause_options();
 	else if(game()->state == CTRL_P)
 		return (0);
 	else if(game()->state == GAME)
@@ -117,7 +142,7 @@ int pause_menu(int keycode, void *nada)
 	}
 	else if((mx >= 960 && mx <= 1920) && (my >= 512 && my <= 1024))//trocar cordenadas de acordo com botoes
 	{
-		lighten(game()->st_anim[game()->frame.anim_tg]);
+		lighten(game()->st_anim[game()->frame.anim_tg], 0.0);
 		game()->state = MENU;
 	}
 	else if((mx >= 960 && mx <= 1920) && (my >= 0 && my <= 512))//trocar cordenadas de acordo com botoes

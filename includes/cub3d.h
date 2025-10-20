@@ -114,10 +114,10 @@ typedef enum s_state
 
 typedef struct s_game
 {
-	t_frame		frame;
-	t_state		state;
 	void		*mlx;
 	void		*win;
+	t_frame		frame;
+	t_state		state;
 	t_data		canvas;
 	t_data		wall;
 	t_data		floor;
@@ -146,6 +146,8 @@ typedef struct s_game
 	t_mouse		mouse;
 	t_cord		sleft_c[3];
 	t_cord		sright_c[3];
+	t_cord		sleft_pause_c[3];
+	t_cord		sright_pause_c[3];
 	t_cord		dleft_c[3];
 	t_cord		dright_c[3];
 	t_player	player;
@@ -154,7 +156,7 @@ typedef struct s_game
 //temp
 void	ctrl_m_move(void);
 void	darken(t_data src, float max_factor);
-void	lighten(t_data src);
+void	lighten(t_data src, float st_factor);
 int pause_menu(int keycode, void *nada);
 int	pause_game(void);
 int	mouse_press(int keycode, void *nada);
@@ -217,7 +219,7 @@ void dda_fov(void);
 void	rotate_ray(int dir);
 
 //draw.c
-void	draw_img(t_data *src, t_data *dst, int x, int y);
+void	draw_img(t_data *src, t_data *dst, int x, int y, float factor);
 void draw_line(float x0, float y0, float x1, float y1);
 void	ins_map(void);
 
