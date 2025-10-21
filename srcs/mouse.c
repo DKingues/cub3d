@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 16:24:59 by dicosta-          #+#    #+#             */
-/*   Updated: 2025/10/20 14:53:39 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/21 16:40:07 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,23 @@ void	ctrl_m_move(void)
 		game()->frame.ctrlback_tg = 0;
 }
 
+void	pause_p_move(void)
+{
+	mlx_mouse_get_pos(game()->mlx, game()->win, &game()->mouse.x, &game()->mouse.y);
+	if((game()->mouse.x >= 754 && game()->mouse.x <= 1164) && (game()->mouse.y >= 512 && game()->mouse.y <= 590))
+		game()->frame.continue_tg = 1;
+	else
+		game()->frame.continue_tg = 0;
+	if((game()->mouse.x >= 754 && game()->mouse.x <= 1164) && (game()->mouse.y >= 612 && game()->mouse.y <= 690))
+		game()->frame.option_p_tg = 1;
+	else
+		game()->frame.option_p_tg = 0;
+	if((game()->mouse.x >= 754 && game()->mouse.x <= 1164) && (game()->mouse.y >= 712 && game()->mouse.y <= 790))
+		game()->frame.quit_p_tg = 1;
+	else
+		game()->frame.quit_p_tg = 0;
+}
+
 int	mouse_move(int keycode, t_game *null)
 {
 	static int last_x;
@@ -131,7 +148,7 @@ int	mouse_move(int keycode, t_game *null)
 	else if(game()->state == CTRL_M)
 		ctrl_m_move();
 	else if(game()->state == PAUSE)
-		return (0);
+		pause_p_move();
 	else if(game()->state == OPT_P)
 		return (0);
 	else if(game()->state == CTRL_P)

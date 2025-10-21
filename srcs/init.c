@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/20 18:09:00 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/21 16:34:58 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void init(void)
 	game()->person = load_img("textures/3.xpm");
 	game()->person.res_x = 64;
 	game()->person.res_y = 64;
-	game()->pause = load_img("textures/menu_vid/1.xpm");
 	game()->maze_nm = load_img("textures/buttons/maze_nm.xpm");
 	game()->maze_nm.res_x = 1110;
 	game()->maze_nm.res_y = 135;
@@ -88,6 +87,7 @@ void init(void)
 	game()->play_bt[1] = load_img("textures/buttons/play_bt2.xpm");
 	game()->play_bt[1].res_x = 576;
 	game()->play_bt[1].res_y = 116;
+	
 	game()->option_bt[0] = load_img("textures/buttons/option_bt.xpm");
 	game()->option_bt[0].res_x = 576;
 	game()->option_bt[0].res_y = 116;
@@ -161,6 +161,9 @@ void init(void)
 	game()->frame.back_tg = 0;
 	game()->frame.sens_tg = 0;
 	game()->frame.ctrlback_tg = 0;
+	game()->frame.continue_tg = 0;
+	game()->frame.quit_p_tg = 0;
+	game()->frame.option_p_tg = 0;
 	
 	game()->sens_nb[0] = load_img("textures/buttons/sens_nb1.xpm");
 	game()->sens_nb[0].res_x = 31;
@@ -224,9 +227,6 @@ void init(void)
 	game()->dright_c[2].x = 1353; 
 	game()->dright_c[2].y = 579; 
 
-
-	
-
 	game()->sleft_pause_c[0].x = 989;
 	game()->sleft_pause_c[0].y = 552.5;
 
@@ -244,6 +244,32 @@ void init(void)
 
 	game()->sright_pause_c[2].x = 1337; 
 	game()->sright_pause_c[2].y = 570;
+
+	game()->continue_bt[0] = load_img("textures/buttons/continue_bt.xpm");
+	game()->continue_bt[0].res_x = 410;
+	game()->continue_bt[0].res_y = 78;
+	game()->continue_bt[1] = load_img("textures/buttons/continue_bt2.xpm");
+	game()->continue_bt[1].res_x = 410;
+	game()->continue_bt[1].res_y = 78;
+
+	game()->option_p_bt[0] = load_img("textures/buttons/option_p_bt.xpm");
+	game()->option_p_bt[0].res_x = 410;
+	game()->option_p_bt[0].res_y = 78;
+	game()->option_p_bt[1] = load_img("textures/buttons/option_p_bt2.xpm");
+	game()->option_p_bt[1].res_x = 410;
+	game()->option_p_bt[1].res_y = 78;
+
+	game()->pause_bt = load_img("textures/buttons/pause_bt.xpm");
+	game()->pause_bt.res_x = 576;
+	game()->pause_bt.res_y = 116;
+
+	game()->quit_p_bt[0] = load_img("textures/buttons/quit_p_bt.xpm");
+	game()->quit_p_bt[0].res_x = 410;
+	game()->quit_p_bt[0].res_y = 78;
+	game()->quit_p_bt[1] = load_img("textures/buttons/quit_p_bt2.xpm");
+	game()->quit_p_bt[1].res_x = 410;
+	game()->quit_p_bt[1].res_y = 78;
+	
 	init_vid();
 	//init_vid2();
 	game()->mouse.toggle_arrow = mlx_mouse_show(game()->mlx, game()->win); 

@@ -28,10 +28,14 @@
 
 typedef	struct s_frame
 {
+	int			continue_tg;
 	int			sens_tg;
 	int			diff_tg;
 	int			play_tg;
 	int			option_tg;
+	int			quit_tg;
+	int			option_p_tg;
+	int			quit_p_tg;
 	int			ctrl_tg;
 	int			ctrlback_tg;
 	int			back_tg;
@@ -39,7 +43,6 @@ typedef	struct s_frame
 	int			sright_tg;
 	int			dleft_tg;
 	int			dright_tg;
-	int			quit_tg;
 	int 		anim_tg;
 }				t_frame;
 
@@ -123,7 +126,7 @@ typedef struct s_game
 	t_data		floor;
 	t_data		person;
 	t_data		p_menu;
-	t_data		pause;
+	t_data		pause_bt;
 	t_data		diff_bt;
 	t_data		sens_bt;
 	t_data		maze_nm;
@@ -132,12 +135,15 @@ typedef struct s_game
 	t_data		*st_anim_dim;
 	t_data		play_bt[2];
 	t_data		option_bt[2];
+	t_data		option_p_bt[2];
 	t_data		quit_bt[2];
+	t_data		quit_p_bt[2];
 	t_data		back_bt[2];
 	t_data		ctrlback_bt[2];
 	t_data		ctrl_bt[2];
 	t_data		left_bt[2];
 	t_data		right_bt[2];
+	t_data		continue_bt[2];
 	t_data		sens_nb[5];
 	t_data		diff_nb[3];
 	t_data		credits;

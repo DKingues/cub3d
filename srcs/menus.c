@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 14:26:50 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/20 18:13:08 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/21 16:42:18 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,17 @@ void	pause_options(void)
 	if(find_point(pos, game()->sright_pause_c[0], game()->sright_pause_c[1], game()->sright_pause_c[2]))
 		if(game()->frame.sens_tg != 4)
 			game()->frame.sens_tg++;
+}
+
+void	pause_menu_g(void)
+{
+	mlx_mouse_get_pos(game()->mlx, game()->win, &game()->mouse.x, &game()->mouse.y);
+	if((game()->mouse.x >= 754 && game()->mouse.x <= 1164) && (game()->mouse.y >= 512 && game()->mouse.y <= 590))
+		game()->state = GAME;
+	if((game()->mouse.x >= 754 && game()->mouse.x <= 1164) && (game()->mouse.y >= 612 && game()->mouse.y <= 690))
+		game()->state = OPT_P;
+	if((game()->mouse.x >= 754 && game()->mouse.x <= 1164) && (game()->mouse.y >= 712 && game()->mouse.y <= 790))
+		clean_exit(NULL);
 }
 
 int	mouse_press(int keycode, void *nada)

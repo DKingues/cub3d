@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:07:44 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/20 18:14:47 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/21 16:39:25 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,28 @@ void opt_p_put(void)
 	draw_img(&game()->back_bt[game()->frame.back_tg], &temp, 532, 713, 1.0);
 	mlx_put_image_to_window(game()->mlx, game()->win, temp.img, 0, 0);
 	mlx_destroy_image(game()->mlx, temp.img);
+}
+
+int	pause_put(void)
+{
+	t_data temp;
+
+	if(game()->frame.anim_tg == 167)
+		game()->frame.anim_tg = 0;
+	temp.img = mlx_new_image(game()->mlx, 1920, 1080);
+	temp.addr = mlx_get_data_addr(temp.img,
+	&temp.bits_per_pixel, &temp.line_length,
+	&temp.endian);
+	draw_img(&game()->canvas, &temp, 0, 0, 0.4);
+	draw_img(&game()->pause_bt, &temp, 672, 285, 1.0);
+	draw_img(&game()->continue_bt[game()->frame.continue_tg], &temp, 754, 512, 1.0);
+	draw_img(&game()->option_p_bt[game()->frame.option_p_tg], &temp, 754, 612, 1.0);
+	draw_img(&game()->quit_p_bt[game()->frame.quit_p_tg], &temp, 754, 712, 1.0);
+	mlx_put_image_to_window(game()->mlx, game()->win, temp.img, 0, 0);
+	game()->frame.anim_tg++;
+	ft_usleep(15000);
+	mlx_destroy_image(game()->mlx, temp.img);
+	return 0;
 }
 
 int	move(void *nada)
