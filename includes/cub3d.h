@@ -172,6 +172,13 @@ int	ft_usleep(int micro);
 void	opt_m_move(void);
 void	main_move(void);
 int find_point(t_cord pt, t_cord v1, t_cord v2, t_cord v3);
+void	press_game(int keycode);
+void	game_move(int *last_x);
+void opt_m_put(void);
+void ctrl_m_put(void);
+void opt_p_put(void);
+int	pause_put(void);
+void	game_loop(float change);
 
 //GNL
 # define BUFFER_SIZE 1
