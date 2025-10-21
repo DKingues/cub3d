@@ -113,7 +113,7 @@ int	move(void *nada)
 		gettimeofday(&start, NULL);
 		game()->game_start = start.tv_sec;
 	}
-	timer(game()->game_start, 610);
+	timer(game()->game_start, 5);
 	if (game()->player.diff == 1)
 		change = 0.1;
 	if (game()->player.moving_d == 1 && game()->map.map[(int)(game()->player.player_y)][(int)(game()->player.player_x + 0.1)] != '1' && game()->map.map[(int)(game()->player.player_y)][(int)(game()->player.player_x + 0.1)] != 'C')

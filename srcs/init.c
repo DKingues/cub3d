@@ -76,6 +76,28 @@ void	init_vid2(void)
 		var++;
 	}
 }
+void load_full_img(t_data *texture, char *path, int x, int y)
+{
+	(*texture) = load_img(path);
+	(*texture).res_x = x;
+	(*texture).res_y = y;
+}
+
+void	load_multiple_images(t_data *texture, char *path, int x, int y, int quantity)
+{
+	int i;
+	char *str;
+
+	i = 0;
+	while (i < quantity)
+	{
+		str = ft_strjoin(ft_strdup(path), ft_itoa(i));
+		str = ft_strjoin(str, ".xpm");
+		load_full_img(texture, path, x, y);
+		free(str);
+		i++;
+	}
+}
 
 void init(void)
 {
@@ -161,9 +183,9 @@ void init(void)
 	game()->sens_bt = load_img("textures/buttons/sens_bt.xpm");
 	game()->sens_bt.res_x = 411;
 	game()->sens_bt.res_y = 78;
-	game()->timer = load_img("textures/timer.xpm");
-	game()->timer.res_x = 380; 
-	game()->timer.res_y = 84;
+	load_full_img(&game()->timer, "textures/timer.xpm", 380, 84);
+	load_multiple_images(&game()->glitch, "textures/Glitch/Glitch", 432, 432, 21);
+	i = 0;
 	while (i < 10)
 	{
 		nbr = ft_itoa(i);

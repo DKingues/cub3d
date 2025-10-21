@@ -87,7 +87,7 @@ void	draw_time(void)
 		draw_img(&game()->timer_nbr[0], &game()->canvas, 980 , 23);
 		draw_img(&game()->timer_nbr[game()->seconds], &game()->canvas, 1017, 23);
 	}
-	else if (int_size(game()->seconds) == 2)
+	else if (int_size(game()->seconds) == 2 && game()->seconds != 0 )
 	{
 		draw_img(&game()->timer_nbr[game()->seconds / 10], &game()->canvas, 980, 23);
 		draw_img(&game()->timer_nbr[game()->seconds % 10], &game()->canvas, 1017, 23);
