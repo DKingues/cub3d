@@ -6,7 +6,7 @@
 /*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 15:15:29 by dicosta-          #+#    #+#             */
-/*   Updated: 2025/10/18 21:35:21 by dicosta-         ###   ########.fr       */
+/*   Updated: 2025/10/20 20:47:51 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,20 +54,48 @@ int timer(long start, int timer)
 	struct timeval	curr;
 	long current;
 	int remaining;
-	int seconds;
-	int minute;
-
+	
 	current = 0;
 	remaining = 0;
 	gettimeofday(&curr, NULL);
 	current = curr.tv_sec;
 	remaining = timer - (current - start);
-	minute = remaining / 60;
-	seconds = remaining % 60;
-	
-	if (int_size(seconds) > 1)
-		printf("%d:%d\n", minute, seconds);
-	else
-		printf("%d:0%d\n", minute, seconds);
+	game()->minutes = remaining / 60;
+	game()->seconds = remaining % 60;
 	return (0);
 }
+
+void	draw_time(void)
+{
+	if (int_size(game()->minutes) == 1 && game()->minutes != 0)
+	{
+		draw_img(&game()->timer_nbr[0], &game()->canvas, 875, 23);
+		draw_img(&game()->timer_nbr[game()->minutes], &game()->canvas, 909, 23);
+	}
+	else if (int_size(game()->minutes) == 2)
+	{
+		draw_img(&game()->timer_nbr[game()->minutes / 10], &game()->canvas, 875, 23);
+		draw_img(&game()->timer_nbr[game()->minutes % 10], &game()->canvas, 909, 23);
+	}
+	else if (game()->minutes == 0)
+	{
+		draw_img(&game()->timer_nbr[0], &game()->canvas, 875, 23);
+		draw_img(&game()->timer_nbr[0], &game()->canvas, 909, 23);
+	}
+	if (int_size(game()->seconds) == 1 && game()->seconds != 0)
+	{
+		draw_img(&game()->timer_nbr[0], &game()->canvas, 980 , 23);
+		draw_img(&game()->timer_nbr[game()->seconds], &game()->canvas, 1017, 23);
+	}
+	else if (int_size(game()->seconds) == 2)
+	{
+		draw_img(&game()->timer_nbr[game()->seconds / 10], &game()->canvas, 980, 23);
+		draw_img(&game()->timer_nbr[game()->seconds % 10], &game()->canvas, 1017, 23);
+	}
+	else if (game()->seconds == 0)
+	{
+		draw_img(&game()->timer_nbr[0], &game()->canvas, 980, 23);
+		draw_img(&game()->timer_nbr[0], &game()->canvas, 1017, 23);
+	}
+}
+

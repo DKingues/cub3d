@@ -6,7 +6,7 @@
 /*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/18 21:33:51 by dicosta-         ###   ########.fr       */
+/*   Updated: 2025/10/20 20:38:54 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,12 @@ void	init_vid2(void)
 
 void init(void)
 {
-	struct timeval start;
 	t_data temp;
+	int i;
+	char *nbr;
+	char *str;
 
+	i = 0;
 	game()->mlx = mlx_init();
 	game()->win = mlx_new_window(game()->mlx, 1920, 1080, "cub3D222222222");
 	game()->p_menu.img = mlx_new_image(game()->mlx, (1920), (1024));
@@ -158,6 +161,21 @@ void init(void)
 	game()->sens_bt = load_img("textures/buttons/sens_bt.xpm");
 	game()->sens_bt.res_x = 411;
 	game()->sens_bt.res_y = 78;
+	game()->timer = load_img("textures/timer.xpm");
+	game()->timer.res_x = 380; 
+	game()->timer.res_y = 84;
+	while (i < 10)
+	{
+		nbr = ft_itoa(i);
+		str = ft_strjoin(ft_strdup("textures/numbers/"), nbr);
+		str = ft_strjoin(str, ".xpm");
+		game()->timer_nbr[i] = load_img(str);
+		game()->timer_nbr[i].res_x = 31;
+		game()->timer_nbr[i].res_y = 31;
+		free(nbr);
+		free(str);
+		i++;
+	}
 	game()->canvas.addr = mlx_get_data_addr(game()->canvas.img,
 			&game()->canvas.bits_per_pixel, &game()->canvas.line_length,
 			&game()->canvas.endian);
@@ -199,8 +217,7 @@ void init(void)
 	draw_img(&game()->option_bt[game()->frame.option_tg], &temp, 672, 666);
 	draw_img(&game()->quit_bt[game()->frame.quit_tg], &temp, 672, 831);
 	lighten(temp);
-	gettimeofday(&start, NULL);
-	game()->game_start = start.tv_sec;
+	game()->game_start = -1;
 	game()->game_over = 0;
 }
 

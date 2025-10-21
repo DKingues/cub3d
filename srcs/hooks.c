@@ -6,7 +6,7 @@
 /*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:07:44 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/18 21:32:37 by dicosta-         ###   ########.fr       */
+/*   Updated: 2025/10/20 20:49:53 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,17 +99,21 @@ void opt_m_put(void)
 int	move(void *nada)
 {
 	float change;
-
+	struct timeval start;
 	(void)nada;
 	change = 0.05;
-	
 	if(game()->state == MENU)
 		vid_put(0, NULL);
 	else if(game()->state == OPT_M)
 		opt_m_put();
 	if(game()->state != GAME)
 		return (0);
-	timer(game()->game_start, 310);
+	if (game()->game_start == -1)
+	{
+		gettimeofday(&start, NULL);
+		game()->game_start = start.tv_sec;
+	}
+	timer(game()->game_start, 610);
 	if (game()->player.diff == 1)
 		change = 0.1;
 	if (game()->player.moving_d == 1 && game()->map.map[(int)(game()->player.player_y)][(int)(game()->player.player_x + 0.1)] != '1' && game()->map.map[(int)(game()->player.player_y)][(int)(game()->player.player_x + 0.1)] != 'C')

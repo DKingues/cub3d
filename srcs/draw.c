@@ -6,7 +6,7 @@
 /*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:05:06 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/17 16:05:27 by dicosta-         ###   ########.fr       */
+/*   Updated: 2025/10/20 20:45:57 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,6 @@ void	ins_map(void)
 	game()->player.player_x += 0.5;
 	game()->player.player_y += 0.5;
 	dda_fov();
+	draw_img(&game()->timer, &game()->canvas, 770, 0);
+	draw_time();
 }

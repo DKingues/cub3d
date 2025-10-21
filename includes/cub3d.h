@@ -116,6 +116,10 @@ typedef struct s_game
 	t_data		floor;
 	t_data		closed_door;
 	t_data		open_door;
+	t_data		timer;
+	t_data		timer_nbr[10];
+	int			minutes;
+	int			seconds;
 	t_data		person;
 	t_data		p_menu;
 	t_data		pause;
@@ -201,7 +205,9 @@ void	rotate_ray(int dir);
 // door.c
 
 int open_door(void);
+int int_size(long time);
 int timer(long start, int timer);
+void	draw_time(void);
 
 //draw.c
 void	draw_img(t_data *src, t_data *dst, int x, int y);
@@ -213,6 +219,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int	my_mlx_pixel_get(t_data *data, int x, int y);
 t_data	load_img(char *path);
 int	my_mlx_pixel_get_dim(t_data *data, int x, int y, float factor);
+
 //hooks.c
 void gameplay(void);
 int	move(void *nada);
