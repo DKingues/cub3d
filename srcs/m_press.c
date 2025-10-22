@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 17:43:00 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/22 16:52:03 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/22 17:22:28 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@ int	mouse_press(int keycode, void *nada)
 {
 	(void)nada;
 
+	if(keycode != 1)
+		return (0);
 	game()->release++;
 	if(game()->release > 1)
 		game()->release = 0;
-	if(keycode != 1 || game()->release != 0)
+	if(game()->release)
 		return (0);
 	else if(game()->state == MENU)
 		main_press();
