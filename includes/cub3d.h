@@ -118,7 +118,7 @@ typedef struct s_game
 	t_data		open_door;
 	t_data		timer;
 	t_data		timer_nbr[10];
-	t_data		glitch;
+	t_data		glitch[21];
 	int			minutes;
 	int			seconds;
 	t_data		person;

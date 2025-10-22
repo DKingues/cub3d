@@ -6,7 +6,7 @@
 /*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/20 20:38:54 by dicosta-         ###   ########.fr       */
+/*   Updated: 2025/10/22 15:30:26 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	load_multiple_images(t_data *texture, char *path, int x, int y, int quantit
 	{
 		str = ft_strjoin(ft_strdup(path), ft_itoa(i));
 		str = ft_strjoin(str, ".xpm");
-		load_full_img(texture, path, x, y);
+		load_full_img(&texture[i], str, x, y);
 		free(str);
 		i++;
 	}
@@ -102,11 +102,11 @@ void	load_multiple_images(t_data *texture, char *path, int x, int y, int quantit
 void init(void)
 {
 	t_data temp;
-	int i;
-	char *nbr;
-	char *str;
+	// int i;
+	// char *nbr;
+	// char *str;
 
-	i = 0;
+	// i = 0;
 	game()->mlx = mlx_init();
 	game()->win = mlx_new_window(game()->mlx, 1920, 1080, "cub3D222222222");
 	game()->p_menu.img = mlx_new_image(game()->mlx, (1920), (1024));
@@ -184,20 +184,8 @@ void init(void)
 	game()->sens_bt.res_x = 411;
 	game()->sens_bt.res_y = 78;
 	load_full_img(&game()->timer, "textures/timer.xpm", 380, 84);
-	load_multiple_images(&game()->glitch, "textures/Glitch/Glitch", 432, 432, 21);
-	i = 0;
-	while (i < 10)
-	{
-		nbr = ft_itoa(i);
-		str = ft_strjoin(ft_strdup("textures/numbers/"), nbr);
-		str = ft_strjoin(str, ".xpm");
-		game()->timer_nbr[i] = load_img(str);
-		game()->timer_nbr[i].res_x = 31;
-		game()->timer_nbr[i].res_y = 31;
-		free(nbr);
-		free(str);
-		i++;
-	}
+	load_multiple_images(game()->glitch, "textures/glitch/Glitch", 432, 432, 21);
+	load_multiple_images(game()->timer_nbr, "textures/numbers/", 31, 31, 10);
 	game()->canvas.addr = mlx_get_data_addr(game()->canvas.img,
 			&game()->canvas.bits_per_pixel, &game()->canvas.line_length,
 			&game()->canvas.endian);
