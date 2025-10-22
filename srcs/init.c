@@ -6,13 +6,11 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/22 12:06:46 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/22 17:10:10 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-#include <X11/Xlib.h>
-#include <X11/Xatom.h>
 
 void	init_gameinfo(void)
 {
@@ -54,11 +52,6 @@ void init(void)
 	t_data temp;
 	game()->mlx = mlx_init();
 	game()->win = my_mlx_new_window(game()->mlx, 1920, 1080, "cub3D");
-
-	game()->p_menu.img = mlx_new_image(game()->mlx, (1920), (1024));
-	game()->p_menu.addr = mlx_get_data_addr(game()->p_menu.img,
-	&game()->p_menu.bits_per_pixel, &game()->p_menu.line_length,
-	&game()->p_menu.endian);
 	game()->credits = load_img("textures/menu_vid/1.xpm");
 	lighten(game()->credits, 0.0);
 	game()->canvas.img = mlx_new_image(game()->mlx, (1920), (1024));
@@ -84,6 +77,13 @@ void init(void)
 	game()->ctrl_menu.res_x = 1920;
 	game()->ctrl_menu.res_y = 1080;
 
+	game()->return_menu_bt[0] = load_img("textures/buttons/return_menu_bt.xpm");
+	game()->return_menu_bt[0].res_x = 412;
+	game()->return_menu_bt[0].res_y = 79;
+	game()->return_menu_bt[1] = load_img("textures/buttons/return_menu_bt2.xpm");
+	game()->return_menu_bt[1].res_x = 412;
+	game()->return_menu_bt[1].res_y = 79;
+
 	game()->play_bt[0] = load_img("textures/buttons/play_bt.xpm");
 	game()->play_bt[0].res_x = 576;
 	game()->play_bt[0].res_y = 116;
@@ -91,6 +91,8 @@ void init(void)
 	game()->play_bt[1].res_x = 576;
 	game()->play_bt[1].res_y = 116;
 	
+	game()->frame.return_menu_tg = 0;
+
 	game()->option_bt[0] = load_img("textures/buttons/option_bt.xpm");
 	game()->option_bt[0].res_x = 576;
 	game()->option_bt[0].res_y = 116;
@@ -117,11 +119,11 @@ void init(void)
 	game()->ctrl_bt[1].res_y = 80;
 	
 	game()->ctrlback_bt[0] = load_img("textures/buttons/ctrlback_bt.xpm");
-	game()->ctrlback_bt[0].res_x = 1194;
-	game()->ctrlback_bt[0].res_y = 78;
-	game()->ctrlback_bt[1] = load_img("textures/buttons/ctrlback_bt.xpm");
-	game()->ctrlback_bt[1].res_x = 1194;
-	game()->ctrlback_bt[1].res_y = 78;
+	game()->ctrlback_bt[0].res_x = 1195;
+	game()->ctrlback_bt[0].res_y = 79;
+	game()->ctrlback_bt[1] = load_img("textures/buttons/ctrlback_bt2.xpm");
+	game()->ctrlback_bt[1].res_x = 1195;
+	game()->ctrlback_bt[1].res_y = 79;
 
 	game()->left_bt[0] = load_img("textures/buttons/left_bt.xpm");
 	game()->left_bt[0].res_x = 30;
@@ -280,11 +282,13 @@ void init(void)
 	set_rays(game()->map.map[(int)game()->player.player_y][(int)game()->player.player_x]);
 	set_fov(66.0);
 	ins_map();
-	darken(game()->credits, -0.05);
+	darken(game()->credits, 1.0, -0.05);
 	temp.img = mlx_new_image(game()->mlx, 1920, 1080);
 	temp.addr = mlx_get_data_addr(temp.img,
 	&temp.bits_per_pixel, &temp.line_length,
 	&temp.endian);
+	main_move();
+	game()->release = 0;
 	draw_img(&game()->st_anim[0], &temp, 0, 0, 1.0);
 	draw_img(&game()->maze_nm, &temp, 404, 166, 1.0);
 	draw_img(&game()->play_bt[game()->frame.play_tg], &temp, 672, 500, 1.0);

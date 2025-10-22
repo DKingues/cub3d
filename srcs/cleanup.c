@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 17:20:48 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/21 16:26:02 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/22 17:19:20 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int clean_exit(void *nada)
 	mlx_destroy_image(game()->mlx, game()->wall.img);
 	mlx_destroy_image(game()->mlx, game()->floor.img);
 	mlx_destroy_image(game()->mlx, game()->person.img);
-	mlx_destroy_image(game()->mlx, game()->p_menu.img);
 	mlx_destroy_window(game()->mlx, game()->win);
 	mlx_destroy_display(game()->mlx);
 	free(game()->mlx);

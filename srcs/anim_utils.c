@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 14:25:50 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/20 11:55:54 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/22 17:16:39 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	draw_dim_img(t_data *src, t_data *dst, int x, int y, float factor)
 	while (sy < 64)
 	{
 		sx = 0;
+		if(sy + y > 1080)
+			return ;
 		while (sx < 64)
 		{
 			my_mlx_pixel_put(dst, sx + x, sy + y,
@@ -31,32 +33,31 @@ void	draw_dim_img(t_data *src, t_data *dst, int x, int y, float factor)
 	}
 }
 
-void	darken(t_data src, float max_factor)
+void	darken(t_data src, float st_factor, float max_factor)
 {
 	int	var2;
 	int	var;
-	float	factor = 1.0;
-
-	while(factor >= max_factor)
+	t_data temp;
+	while(st_factor >= max_factor)
 	{
 		var2 = 0;
-		mlx_destroy_image(game()->mlx, game()->p_menu.img);
-		game()->p_menu.img = mlx_new_image(game()->mlx, 1920, 1024);
-		game()->p_menu.addr = mlx_get_data_addr(game()->p_menu.img,
-				&game()->p_menu.bits_per_pixel, &game()->p_menu.line_length,
-				&game()->p_menu.endian);
-		while (game()->map.map[var2])
+		temp.img = mlx_new_image(game()->mlx, 1920, 1080);
+		temp.addr = mlx_get_data_addr(temp.img,
+				&temp.bits_per_pixel, &temp.line_length,
+				&temp.endian);
+		while (var2 < 18)
 		{
 			var = 0;
-			while (game()->map.map[var2][var])
+			while (var < 30)
 			{
-				draw_dim_img(&src, &game()->p_menu, (var * 64), (var2 * 64), factor);
+				draw_dim_img(&src, &temp, (var * 64), (var2 * 64), st_factor);
 				var++;
 			}
 			var2++;
 		}
-		mlx_put_image_to_window(game()->mlx, game()->win, game()->p_menu.img, 0, 0);
-		factor -= 0.05;
+		mlx_put_image_to_window(game()->mlx, game()->win, temp.img, 0, 0);
+		mlx_destroy_image(game()->mlx, temp.img);
+		st_factor -= 0.05;
 	}
 }
 
@@ -64,26 +65,26 @@ void	lighten(t_data src, float st_factor)
 {
 	int	var2;
 	int	var;
-
+	t_data temp;
 	while(st_factor <= 1.0)
 	{
 		var2 = 0;
-		mlx_destroy_image(game()->mlx, game()->p_menu.img);
-		game()->p_menu.img = mlx_new_image(game()->mlx, 1920, 1024);
-		game()->p_menu.addr = mlx_get_data_addr(game()->p_menu.img,
-				&game()->p_menu.bits_per_pixel, &game()->p_menu.line_length,
-				&game()->p_menu.endian);
-		while (game()->map.map[var2])
+		temp.img = mlx_new_image(game()->mlx, 1920, 1080);
+		temp.addr = mlx_get_data_addr(temp.img,
+				&temp.bits_per_pixel, &temp.line_length,
+				&temp.endian);
+		while (var2 < 18)
 		{
 			var = 0;
-			while (game()->map.map[var2][var])
+			while (var < 30)
 			{
-				draw_dim_img(&src, &game()->p_menu, (var * 64), (var2 * 64), st_factor);
+				draw_dim_img(&src, &temp, (var * 64), (var2 * 64), st_factor);
 				var++;
 			}
 			var2++;
 		}
-		mlx_put_image_to_window(game()->mlx, game()->win, game()->p_menu.img, 0, 0);
+		mlx_put_image_to_window(game()->mlx, game()->win, temp.img, 0, 0);
+		mlx_destroy_image(game()->mlx, temp.img);
 		st_factor += 0.05;
 	}
 }

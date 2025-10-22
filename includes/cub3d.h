@@ -28,6 +28,7 @@
 
 typedef	struct s_frame
 {
+	int			return_menu_tg;
 	int			continue_tg;
 	int			sens_tg;
 	int			diff_tg;
@@ -117,6 +118,7 @@ typedef enum s_state
 
 typedef struct s_game
 {
+	int 		release;
 	void		*mlx;
 	void		*win;
 	t_frame		frame;
@@ -125,8 +127,8 @@ typedef struct s_game
 	t_data		wall;
 	t_data		floor;
 	t_data		person;
-	t_data		p_menu;
 	t_data		pause_bt;
+	t_data		return_menu_bt[2];
 	t_data		diff_bt;
 	t_data		sens_bt;
 	t_data		maze_nm;
@@ -165,7 +167,6 @@ void	*my_mlx_new_window(t_xvar *xvar,int size_x,int size_y,char *title);
 //GNL
 # define BUFFER_SIZE 1
 # define PI 3.141592653589793
-# define MOUSE_SENS 3
 
 char	*get_next_line(int fd);
 int		ft_linelen(char *str);
@@ -268,7 +269,7 @@ void ctrl_p_put(void);
 
 //anim_utils.c
 void	draw_dim_img(t_data *src, t_data *dst, int x, int y, float factor);
-void	darken(t_data src, float max_factor);
+void	darken(t_data src, float st_factor, float max_factor);
 void	lighten(t_data src, float st_factor);
 
 #endif

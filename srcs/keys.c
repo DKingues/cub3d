@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 17:42:20 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/22 11:34:23 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/22 15:38:00 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	key_press(int keycode, t_game *nada)
 {
 	(void)nada;
-
+	int last_x;
 	if (keycode == XK_Escape)
 		clean_exit(NULL);
 	if(game()->state == MENU || game()->state == OPT_M || game()->state == CTRL_M)
@@ -23,7 +23,14 @@ int	key_press(int keycode, t_game *nada)
 	if(game()->state == GAME)
 		game_press(keycode);
 	else if (keycode == XK_p)
+	{
+		mlx_mouse_get_pos(game()->mlx, game()->win, &game()->mouse.x, &game()->mouse.y);
+		mlx_mouse_move(game()->mlx, game()->win, game()->mouse.x, 1070);
+		last_x = game()->mouse.x;
+		game_move(&last_x);
 		game()->state = GAME;
+		lighten(game()->canvas, 0.4);
+	}
 	return (0);
 }
 

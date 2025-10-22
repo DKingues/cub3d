@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 17:40:39 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/22 11:28:12 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/22 16:49:55 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,15 +103,19 @@ void	ctrl_m_move(void)
 void	pause_move(void)
 {
 	mlx_mouse_get_pos(game()->mlx, game()->win, &game()->mouse.x, &game()->mouse.y);
-	if((game()->mouse.x >= 754 && game()->mouse.x <= 1164) && (game()->mouse.y >= 512 && game()->mouse.y <= 590))
+	if((game()->mouse.x >= 754 && game()->mouse.x <= 1164) && (game()->mouse.y >= 463 && game()->mouse.y <= 542))
 		game()->frame.continue_tg = 1;
 	else
 		game()->frame.continue_tg = 0;
-	if((game()->mouse.x >= 754 && game()->mouse.x <= 1164) && (game()->mouse.y >= 612 && game()->mouse.y <= 690))
+	if((game()->mouse.x >= 754 && game()->mouse.x <= 1164) && (game()->mouse.y >= 563 && game()->mouse.y <= 641))
 		game()->frame.option_p_tg = 1;
 	else
 		game()->frame.option_p_tg = 0;
-	if((game()->mouse.x >= 754 && game()->mouse.x <= 1164) && (game()->mouse.y >= 712 && game()->mouse.y <= 790))
+	if((game()->mouse.x >= 754 && game()->mouse.x <= 1164) && (game()->mouse.y >= 664 && game()->mouse.y <= 743))
+		game()->frame.return_menu_tg = 1;
+	else
+		game()->frame.return_menu_tg = 0;
+	if((game()->mouse.x >= 754 && game()->mouse.x <= 1164) && (game()->mouse.y >= 764 && game()->mouse.y <= 843))
 		game()->frame.quit_p_tg = 1;
 	else
 		game()->frame.quit_p_tg = 0;
