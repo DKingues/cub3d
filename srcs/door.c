@@ -6,7 +6,7 @@
 /*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 15:15:29 by dicosta-          #+#    #+#             */
-/*   Updated: 2025/10/20 20:47:51 by dicosta-         ###   ########.fr       */
+/*   Updated: 2025/10/22 17:39:15 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,33 +69,33 @@ void	draw_time(void)
 {
 	if (int_size(game()->minutes) == 1 && game()->minutes != 0)
 	{
-		draw_img(&game()->timer_nbr[0], &game()->canvas, 875, 23);
-		draw_img(&game()->timer_nbr[game()->minutes], &game()->canvas, 909, 23);
+		draw_img(&game()->timer_nbr[0], &game()->canvas, 875, 23, 1.0);
+		draw_img(&game()->timer_nbr[game()->minutes], &game()->canvas, 909, 23, 1.0);
 	}
 	else if (int_size(game()->minutes) == 2)
 	{
-		draw_img(&game()->timer_nbr[game()->minutes / 10], &game()->canvas, 875, 23);
-		draw_img(&game()->timer_nbr[game()->minutes % 10], &game()->canvas, 909, 23);
+		draw_img(&game()->timer_nbr[game()->minutes / 10], &game()->canvas, 875, 23, 1.0);
+		draw_img(&game()->timer_nbr[game()->minutes % 10], &game()->canvas, 909, 23, 1.0);
 	}
 	else if (game()->minutes == 0)
 	{
-		draw_img(&game()->timer_nbr[0], &game()->canvas, 875, 23);
-		draw_img(&game()->timer_nbr[0], &game()->canvas, 909, 23);
+		draw_img(&game()->timer_nbr[0], &game()->canvas, 875, 23, 1.0);
+		draw_img(&game()->timer_nbr[0], &game()->canvas, 909, 23, 1.0);
 	}
 	if (int_size(game()->seconds) == 1 && game()->seconds != 0)
 	{
-		draw_img(&game()->timer_nbr[0], &game()->canvas, 980 , 23);
-		draw_img(&game()->timer_nbr[game()->seconds], &game()->canvas, 1017, 23);
+		draw_img(&game()->timer_nbr[0], &game()->canvas, 980 , 23, 1.0);
+		draw_img(&game()->timer_nbr[game()->seconds], &game()->canvas, 1017, 23, 1.0);
 	}
 	else if (int_size(game()->seconds) == 2 && game()->seconds != 0 )
 	{
-		draw_img(&game()->timer_nbr[game()->seconds / 10], &game()->canvas, 980, 23);
-		draw_img(&game()->timer_nbr[game()->seconds % 10], &game()->canvas, 1017, 23);
+		draw_img(&game()->timer_nbr[game()->seconds / 10], &game()->canvas, 980, 23, 1.0);
+		draw_img(&game()->timer_nbr[game()->seconds % 10], &game()->canvas, 1017, 23, 1.0);
 	}
 	else if (game()->seconds == 0)
 	{
-		draw_img(&game()->timer_nbr[0], &game()->canvas, 980, 23);
-		draw_img(&game()->timer_nbr[0], &game()->canvas, 1017, 23);
+		draw_img(&game()->timer_nbr[0], &game()->canvas, 980, 23, 1.0);
+		draw_img(&game()->timer_nbr[0], &game()->canvas, 1017, 23, 1.0);
 	}
 }
 

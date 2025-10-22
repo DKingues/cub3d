@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 17:37:00 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/22 16:49:55 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/22 18:17:21 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	loop(void *nada)
 {
 	float change;
-
+	struct timeval	start;
 	(void)nada;
 	change = 0.05;
 	if(game()->state == MENU)
@@ -31,21 +31,29 @@ int	loop(void *nada)
 	else if (game()->state == CTRL_P)
 		ctrl_p_put();
 	if(game()->state == GAME)
+	{
+		if (game()->game_start == -1)
+		{
+			gettimeofday(&start, NULL);
+			game()->game_start = start.tv_sec;
+		}
 		game_loop(change);
+	}
 	return (0);
 }
 
 void	game_loop(float change)
 {
+	timer(game()->game_start, 310);
 	if (game()->player.diff == 1)
 		change = 0.1;
-	if (game()->player.moving_d == 1 && game()->map.map[(int)(game()->player.player_y)][(int)(game()->player.player_x + 0.1)] != '1')
+	if (game()->player.moving_d == 1 && game()->map.map[(int)(game()->player.player_y)][(int)(game()->player.player_x + 0.1)] != '1' && game()->map.map[(int)(game()->player.player_y)][(int)(game()->player.player_x + 0.1)] != 'C')
 		game()->player.player_x += change;
-	if (game()->player.moving_s == 1 && game()->map.map[(int)(game()->player.player_y + 0.1)][(int)game()->player.player_x] != '1')
+	if (game()->player.moving_s == 1 && game()->map.map[(int)(game()->player.player_y + 0.1)][(int)game()->player.player_x] != '1' && game()->map.map[(int)(game()->player.player_y + 0.1)][(int)game()->player.player_x] != 'C')
 		game()->player.player_y += change;
-	if (game()->player.moving_a == 1 && game()->map.map[(int)(game()->player.player_y)][(int)(game()->player.player_x - 0.1)] != '1')
+	if (game()->player.moving_a == 1 && game()->map.map[(int)(game()->player.player_y)][(int)(game()->player.player_x - 0.1)] != '1' && game()->map.map[(int)(game()->player.player_y)][(int)(game()->player.player_x - 0.1)] != 'C')
 		game()->player.player_x -= change;
-	if (game()->player.moving_w == 1 && game()->map.map[(int)(game()->player.player_y - 0.1)][(int)game()->player.player_x] != '1')
+	if (game()->player.moving_w == 1 && game()->map.map[(int)(game()->player.player_y - 0.1)][(int)game()->player.player_x] != '1' && game()->map.map[(int)(game()->player.player_y - 0.1)][(int)game()->player.player_x] != 'C')
 		game()->player.player_y -= change;
 	if(game()->player.rot_l == 1)
 		rotate_ray(-1);

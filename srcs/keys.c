@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 17:42:20 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/22 15:38:00 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/22 17:50:30 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	game_press(int keycode)
 		game()->player.moving_s = 1;
 	if (keycode == XK_a)
 		game()->player.moving_a = 1;
+	if (keycode == XK_e)
+		open_door();
 	if (keycode == XK_w)
 		game()->player.moving_w = 1;
 	if(keycode == XK_Right)

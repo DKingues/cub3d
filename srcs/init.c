@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/22 17:10:10 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/22 18:14:52 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,29 @@ void	init_vid(void)
 	}
 }
 
+void load_full_img(t_data *texture, char *path, int x, int y)
+{
+	(*texture) = load_img(path);
+	(*texture).res_x = x;
+	(*texture).res_y = y;
+}
+
+void	load_multiple_images(t_data *texture, char *path, int x, int y, int quantity)
+{
+	int i;
+	char *str;
+
+	i = 0;
+	while (i < quantity)
+	{
+		str = ft_strjoin(ft_strdup(path), ft_itoa(i));
+		str = ft_strjoin(str, ".xpm");
+		load_full_img(&texture[i], str, x, y);
+		free(str);
+		i++;
+	}
+}
+
 void init(void)
 {
 	t_data temp;
@@ -60,23 +83,12 @@ void init(void)
 			&game()->canvas.endian);
 	game()->canvas.res_x = 1920;
 	game()->canvas.res_y = 1080;
-	game()->wall = load_img("textures/1.xpm");
-	game()->wall.res_x = 64;
-	game()->wall.res_y = 64;
-	game()->floor = load_img("textures/2.xpm");
-	game()->floor.res_x = 64;
-	game()->floor.res_y = 64;
-	game()->person = load_img("textures/3.xpm");
-	game()->person.res_x = 64;
-	game()->person.res_y = 64;
-	game()->maze_nm = load_img("textures/buttons/maze_nm.xpm");
-	game()->maze_nm.res_x = 1110;
-	game()->maze_nm.res_y = 135;
-
-	game()->ctrl_menu = load_img("textures/buttons/ctrl_menu.xpm");
-	game()->ctrl_menu.res_x = 1920;
-	game()->ctrl_menu.res_y = 1080;
-
+	load_full_img(&game()->wall, "textures/1.xpm", 64, 64);
+	load_full_img(&game()->floor, "textures/2.xpm", 64, 64);
+	load_full_img(&game()->person, "textures/3.xpm", 64, 64);
+	load_full_img(&game()->maze_nm, "textures/buttons/maze_nm.xpm", 1110, 135);
+	load_full_img(&game()->ctrl_menu, "textures/buttons/ctrl_menu.xpm", 1920, 1080);
+	
 	game()->return_menu_bt[0] = load_img("textures/buttons/return_menu_bt.xpm");
 	game()->return_menu_bt[0].res_x = 412;
 	game()->return_menu_bt[0].res_y = 79;
@@ -138,12 +150,8 @@ void init(void)
 	game()->right_bt[1].res_x = 30;
 	game()->right_bt[1].res_y = 34;
 
-	game()->diff_bt = load_img("textures/buttons/diff_bt.xpm");
-	game()->diff_bt.res_x = 411;
-	game()->diff_bt.res_y = 78;
-	game()->sens_bt = load_img("textures/buttons/sens_bt.xpm");
-	game()->sens_bt.res_x = 411;
-	game()->sens_bt.res_y = 78;
+	load_full_img(&game()->diff_bt, "textures/buttons/diff_bt.xpm", 411, 78);
+	load_full_img(&game()->sens_bt, "textures/buttons/sens_bt.xpm", 411, 78);
 	game()->player.diff = 0;
 	game()->player.moving_w = 0;
 	game()->player.moving_a = 0;
@@ -264,9 +272,7 @@ void init(void)
 	game()->option_p_bt[1].res_x = 410;
 	game()->option_p_bt[1].res_y = 78;
 
-	game()->pause_bt = load_img("textures/buttons/pause_bt.xpm");
-	game()->pause_bt.res_x = 576;
-	game()->pause_bt.res_y = 116;
+	load_full_img(&game()->pause_bt, "textures/buttons/pause_bt.xpm", 576, 116);
 
 	game()->quit_p_bt[0] = load_img("textures/buttons/quit_p_bt.xpm");
 	game()->quit_p_bt[0].res_x = 410;
@@ -274,7 +280,14 @@ void init(void)
 	game()->quit_p_bt[1] = load_img("textures/buttons/quit_p_bt2.xpm");
 	game()->quit_p_bt[1].res_x = 410;
 	game()->quit_p_bt[1].res_y = 78;
-	
+
+	load_full_img(&game()->closed_door, "textures/doorC.xpm", 64, 64);
+	load_full_img(&game()->open_door, "textures/doorO.xpm", 64, 64);
+	load_full_img(&game()->timer, "textures/timer.xpm", 380, 84);
+	load_multiple_images(game()->glitch, "textures/glitch/Glitch", 432, 432, 17);
+	load_multiple_images(game()->timer_nbr, "textures/numbers/", 31, 31, 10);
+	game()->game_over = 0;
+	game()->game_start = -1;
 	init_vid();
 	//init_vid2();
 	game()->mouse.toggle_arrow = mlx_mouse_show(game()->mlx, game()->win); 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:05:06 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/20 11:45:11 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/22 18:18:46 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void draw_line(float x0, float y0, float x1, float y1)
     while (1)    
 	{
         my_mlx_pixel_put(&game()->canvas, (x0), (y0), 0x0096FF);
-        if (game()->map.map[(int)(y0 / 64)][(int)(x0 / 64)] == '1')
+        if (game()->map.map[(int)(y0 / 64)][(int)(x0 / 64)] == '1' || game()->map.map[(int)(y0 / 64)][(int)(x0 / 64)] == 'C')
             break;
         e2 = 2 * err;
         if (e2 > -dy)
@@ -73,6 +73,10 @@ void	ins_map(void)
 		{
 			if (game()->map.map[var2][var] == '1')
 				draw_img(&game()->wall, &game()->canvas, (var * 64), (var2 * 64), 1.0);
+			else if (game()->map.map[var2][var] == 'C')
+				draw_img(&game()->closed_door, &game()->canvas, (var * 64), (var2 * 64), 1.0);
+			else if (game()->map.map[var2][var] == 'O')
+				draw_img(&game()->open_door, &game()->canvas, (var * 64), (var2 * 64), 1.0);
 			else
 				draw_img(&game()->floor, &game()->canvas, (var * 64), (var2 * 64), 1.0);
 			var++;
@@ -83,4 +87,6 @@ void	ins_map(void)
 	game()->player.player_x += 0.5;
 	game()->player.player_y += 0.5;
 	dda_fov();
+	draw_img(&game()->timer, &game()->canvas, 770, 0, 1.0);
+	draw_time();
 }

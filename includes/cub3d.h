@@ -118,6 +118,10 @@ typedef enum s_state
 
 typedef struct s_game
 {
+	int			game_over;
+	long		game_start;
+	int			minutes;
+	int			seconds;
 	int 		release;
 	void		*mlx;
 	void		*win;
@@ -126,6 +130,11 @@ typedef struct s_game
 	t_data		canvas;
 	t_data		wall;
 	t_data		floor;
+	t_data		closed_door;
+	t_data		open_door;
+	t_data		timer;
+	t_data		timer_nbr[10];
+	t_data		glitch[21];
 	t_data		person;
 	t_data		pause_bt;
 	t_data		return_menu_bt[2];
@@ -213,6 +222,12 @@ int clean_exit(void *nada);
 void dda_test(double rayDirX, double rayDirY);
 void dda_fov(void);
 void	rotate_ray(int dir);
+
+// door.c
+int 	open_door(void);
+int 	int_size(long time);
+int 	timer(long start, int timer);
+void	draw_time(void);
 
 //draw.c
 void	draw_img(t_data *src, t_data *dst, int x, int y, float factor);
