@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:06:18 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/08 21:28:54 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/17 16:06:38 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void dda_test(double rayDirX, double rayDirY)
             mapY += stepY;
             side = 1;
         }
-        if (game()->map.map[mapY][mapX] == '1')
+        if (game()->map.map[mapY][mapX] == '1' || game()->map.map[mapY][mapX] == 'C')
             hit = 1;
     }
     double perpWallDist;
@@ -62,7 +62,6 @@ void dda_test(double rayDirX, double rayDirY)
         perpWallDist = (mapY - posY + (1 - stepY) / 2.0) / rayDirY;
     double hitX = posX + rayDirX * perpWallDist;
     double hitY = posY + rayDirY * perpWallDist;
-
     draw_line(posX * 64, posY * 64, hitX * 64, hitY * 64);
 }
 

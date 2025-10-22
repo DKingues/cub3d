@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:24:40 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/08 21:23:48 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/17 14:41:33 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,7 +228,7 @@ int	map_chars(char *av)
 		}
 		while(line[var] && line[var] != '\n')
 		{
-			if(line[var] != '0' && line[var] != 'N' && line[var] != '1' && line[var] != 'E' && line[var] != 'S' && line[var] != 'W' && line[var] != ' ')
+			if(line[var] != '0' && line[var] != 'N' && line[var] != '1' && line[var] != 'E' && line[var] != 'S' && line[var] != 'W' && line[var] != ' ' && line[var] != 'C' &&  line[var] != 'O')
 				return (close(fd), printf("Invalid character '%c' inside the map.\n", line[var]), free(line),  1);
 			if (line[var] == 'N' || line[var] == 'E' || line[var] == 'S' || line[var] == 'W')
 				check++;
