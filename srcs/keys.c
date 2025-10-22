@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 17:42:20 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/21 17:51:49 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/22 11:00:28 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ int	key_press(int keycode, t_game *nada)
 	if(game()->state == MENU || game()->state == OPT_M || game()->state == CTRL_M)
 		return (0);
 	if(game()->state == GAME)
-		press_game(keycode);
+		game_press(keycode);
 	else if (keycode == XK_p)
 		game()->state = GAME;
 	return (0);
 }
 
-void	press_game(int keycode)
+void	game_press(int keycode)
 {
 	if (keycode == XK_p)
 		pause_game();

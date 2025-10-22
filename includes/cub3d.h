@@ -159,27 +159,6 @@ typedef struct s_game
 	t_player	player;
 }				t_game;
 
-//temp
-void	ctrl_m_move(void);
-void	darken(t_data src, float max_factor);
-void	lighten(t_data src, float st_factor);
-int pause_menu(int keycode, void *nada);
-int	pause_game(void);
-int	mouse_press(int keycode, void *nada);
-int	vid_put(int keycode, void *nada);
-void	draw_dim_img(t_data *src, t_data *dst, int x, int y, float factor);
-int	ft_usleep(int micro);
-void	opt_m_move(void);
-void	main_move(void);
-int find_point(t_cord pt, t_cord v1, t_cord v2, t_cord v3);
-void	press_game(int keycode);
-void	game_move(int *last_x);
-void opt_m_put(void);
-void ctrl_m_put(void);
-void opt_p_put(void);
-int	pause_put(void);
-void	game_loop(float change);
-
 //GNL
 # define BUFFER_SIZE 1
 # define PI 3.141592653589793
@@ -241,14 +220,48 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int	my_mlx_pixel_get(t_data *data, int x, int y);
 t_data	load_img(char *path);
 int	my_mlx_pixel_get_dim(t_data *data, int x, int y, float factor);
-//hooks.c
+t_data	load_img(char *path);
+float sign (t_cord p1, t_cord p2, t_cord p3);
+int find_point(t_cord pt, t_cord v1, t_cord v2, t_cord v3);
+int	ft_usleep(int micro);
+
+//handler.c
 void gameplay(void);
-int	move(void *nada);
+
+//m_press.c
+int	mouse_press(int keycode, void *nada);
+void	main_press(void);
+void	opt_m_press(void);
+void	ctrl_m_press(void);
+void	pause_press(void);
+void	opt_p_press(void);
+int	pause_game(void);
+
+//m_move.c
+int	mouse_move(int keycode, t_game *null);
+void	main_move(void);
+void	opt_m_move(void);
+void	ctrl_m_move(void);
+void	pause_move(void);
+void	game_move(int *last_x);
+
+//keys.c
 int	key_press(int keycode, t_game *nada);
+void	game_press(int keycode);
 int	key_release(int keycode, t_game *nada);
 
-//mouse.c
-int	mouse_move(int keycode, t_game *null);
-int	mouse_release(int keycode, t_game *null);
+//loop.c
+int	loop(void *nada);
+void	game_loop(float change);
+int	menu_put(int keycode, void *nada);
+void opt_m_put(void);
+void ctrl_m_put(void);
+void opt_p_put(void);
+int	pause_put(void);
+
+//anim_utils.c
+void	draw_dim_img(t_data *src, t_data *dst, int x, int y, float factor);
+void	darken(t_data src, float max_factor);
+void	lighten(t_data src, float st_factor);
 
 #endif

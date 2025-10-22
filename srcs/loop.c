@@ -6,20 +6,20 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 17:37:00 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/21 18:02:23 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/22 11:01:21 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	move(void *nada)
+int	loop(void *nada)
 {
 	float change;
 
 	(void)nada;
 	change = 0.05;
 	if(game()->state == MENU)
-		vid_put(0, NULL);
+		menu_put(0, NULL);
 	else if(game()->state == OPT_M)
 		opt_m_put();
 	else if(game()->state == CTRL_M)
@@ -30,6 +30,7 @@ int	move(void *nada)
 		opt_p_put();
 	if(game()->state == GAME)
 		game_loop(change);
+	return (0);
 }
 
 void	game_loop(float change)
@@ -55,10 +56,9 @@ void	game_loop(float change)
 			&game()->canvas.endian);
 	ins_map();
 	mlx_put_image_to_window(game()->mlx, game()->win, game()->canvas.img, 0, 0);
-	return (0);
 }
 
-int	vid_put(int keycode, void *nada)
+int	menu_put(int keycode, void *nada)
 {
 	(void)keycode;
 	(void)nada;

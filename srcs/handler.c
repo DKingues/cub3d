@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 17:36:08 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/21 17:46:20 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/22 11:01:28 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@ void gameplay(void)
 	mlx_hook(game()->win, 2, 1L<<0, key_press, NULL);
 	mlx_hook(game()->win, 3, 1L<<1, key_release, NULL);
 	mlx_hook(game()->win, 17, 0, clean_exit, NULL);
-	mlx_loop_hook(game()->mlx, move, NULL);
+	mlx_loop_hook(game()->mlx, loop, NULL);
 	mlx_loop(game()->mlx);
 }

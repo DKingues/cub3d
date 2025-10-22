@@ -6,13 +6,37 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 17:43:00 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/21 17:44:01 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/22 11:05:29 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	main_menu(void)
+int	mouse_press(int keycode, void *nada)
+{
+	(void)nada;
+
+	if(keycode != 1)
+		return (0);
+	else if(game()->state == MENU)
+		main_press();
+	else if(game()->state == OPT_M)
+		opt_m_press();
+	else if(game()->state == CTRL_M)
+		ctrl_m_press();
+	else if(game()->state == PAUSE)
+		pause_press();
+	else if(game()->state == OPT_P)
+		opt_p_press();
+	else if(game()->state == CTRL_P)
+		return (0);
+	else if(game()->state == GAME)
+		return (0);
+	//printf("mouse x: %d, mouse y: %d, menued: %d, keycode: %d\n", mx, my, game()->state == MENU, keycode);
+	return (0);
+}
+
+void	main_press(void)
 {
 	int	mx;
 	int	my;
@@ -36,7 +60,7 @@ void	main_menu(void)
 		clean_exit(NULL);
 }
 
-void	main_options(void)
+void	opt_m_press(void)
 {
 	t_cord	pos;
 	mlx_mouse_get_pos(game()->mlx, game()->win, &game()->mouse.x, &game()->mouse.y);
@@ -66,7 +90,7 @@ void	main_options(void)
 			game()->frame.diff_tg++;
 }
 
-void	ctrl_m_opt(void)
+void	ctrl_m_press(void)
 {
 	mlx_mouse_get_pos(game()->mlx, game()->win, &game()->mouse.x, &game()->mouse.y);
 	
@@ -77,7 +101,18 @@ void	ctrl_m_opt(void)
 	}
 }
 
-void	pause_options(void)
+void	pause_press(void)
+{
+	mlx_mouse_get_pos(game()->mlx, game()->win, &game()->mouse.x, &game()->mouse.y);
+	if((game()->mouse.x >= 754 && game()->mouse.x <= 1164) && (game()->mouse.y >= 512 && game()->mouse.y <= 590))
+		game()->state = GAME;
+	if((game()->mouse.x >= 754 && game()->mouse.x <= 1164) && (game()->mouse.y >= 612 && game()->mouse.y <= 690))
+		game()->state = OPT_P;
+	if((game()->mouse.x >= 754 && game()->mouse.x <= 1164) && (game()->mouse.y >= 712 && game()->mouse.y <= 790))
+		clean_exit(NULL);
+}
+
+void	opt_p_press(void)
 {
 	t_cord	pos;
 	mlx_mouse_get_pos(game()->mlx, game()->win, &game()->mouse.x, &game()->mouse.y);
@@ -101,41 +136,6 @@ void	pause_options(void)
 			game()->frame.sens_tg++;
 }
 
-void	pause_menu_g(void)
-{
-	mlx_mouse_get_pos(game()->mlx, game()->win, &game()->mouse.x, &game()->mouse.y);
-	if((game()->mouse.x >= 754 && game()->mouse.x <= 1164) && (game()->mouse.y >= 512 && game()->mouse.y <= 590))
-		game()->state = GAME;
-	if((game()->mouse.x >= 754 && game()->mouse.x <= 1164) && (game()->mouse.y >= 612 && game()->mouse.y <= 690))
-		game()->state = OPT_P;
-	if((game()->mouse.x >= 754 && game()->mouse.x <= 1164) && (game()->mouse.y >= 712 && game()->mouse.y <= 790))
-		clean_exit(NULL);
-}
-
-int	mouse_press(int keycode, void *nada)
-{
-	(void)nada;
-
-	if(keycode != 1)
-		return (0);
-	else if(game()->state == MENU)
-		main_menu();
-	else if(game()->state == OPT_M)
-		main_options();
-	else if(game()->state == CTRL_M)
-		ctrl_m_opt();
-	else if(game()->state == PAUSE)
-		pause_menu_g();
-	else if(game()->state == OPT_P)
-		pause_options();
-	else if(game()->state == CTRL_P)
-		return (0);
-	else if(game()->state == GAME)
-		return (0);
-	//printf("mouse x: %d, mouse y: %d, menued: %d, keycode: %d\n", mx, my, game()->state == MENU, keycode);
-	return (0);
-}
-
 int	pause_game(void)
 {
 	darken(game()->canvas, 0.40);
@@ -146,33 +146,5 @@ int	pause_game(void)
 	game()->player.moving_d = 0;
 	game()->player.rot_r = 0;
 	game()->player.rot_l = 0;
-	return (0);
-}
-
-int pause_menu(int keycode, void *nada)
-{
-	int	mx;
-	int	my;
-
-	mx = 0;
-	my = 0;
-	(void)nada;
-	if(keycode != 1)
-		return (0);
-	mlx_mouse_get_pos(game()->mlx, game()->win, &mx, &my);
-	if((mx >= 0 && mx <= 960) && (my >= 0 && my <= 512))//trocar cordenadas de acordo com botoes
-	{
-		pause_game();
-	}
-	else if((mx >= 960 && mx <= 1920) && (my >= 512 && my <= 1024))//trocar cordenadas de acordo com botoes
-	{
-		lighten(game()->st_anim[game()->frame.anim_tg], 0.0);
-		game()->state = MENU;
-	}
-	else if((mx >= 960 && mx <= 1920) && (my >= 0 && my <= 512))//trocar cordenadas de acordo com botoes
-	{
-		//option_menu();
-	}
-	//printf("mouse x: %d, mouse y: %d, menued: %d, keycode: %d\n", mx, my, game()->state == MENU, keycode);
 	return (0);
 }
