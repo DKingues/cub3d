@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 17:43:00 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/22 11:05:29 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/22 11:27:37 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	mouse_press(int keycode, void *nada)
 	else if(game()->state == OPT_P)
 		opt_p_press();
 	else if(game()->state == CTRL_P)
-		return (0);
+		ctrl_p_press();
 	else if(game()->state == GAME)
 		return (0);
 	//printf("mouse x: %d, mouse y: %d, menued: %d, keycode: %d\n", mx, my, game()->state == MENU, keycode);
@@ -94,7 +94,7 @@ void	ctrl_m_press(void)
 {
 	mlx_mouse_get_pos(game()->mlx, game()->win, &game()->mouse.x, &game()->mouse.y);
 	
-	if ((game()->mouse.x >= 413 && game()->mouse.x <= 1508) && (game()->mouse.y >= 823 && game()->mouse.y <= 901))
+	if((game()->mouse.x >= 362 && game()->mouse.x <= 1556) && (game()->mouse.y >= 914 && game()->mouse.y <= 992))
 	{
 		opt_m_move();
 		game()->state = OPT_M;
@@ -118,22 +118,27 @@ void	opt_p_press(void)
 	mlx_mouse_get_pos(game()->mlx, game()->win, &game()->mouse.x, &game()->mouse.y);
 	pos.x = game()->mouse.x;
 	pos.y = game()->mouse.y;
-	/* if ((game()->mouse.x >= 532 && game()->mouse.x <= 1387) && (game()->mouse.y >= 764 && game()->mouse.y <= 843))
-	{
-		main_move();
-		game()->state = MENU;
-	}
-	if ((game()->mouse.x >= 532 && game()->mouse.x <= 1387) && (game()->mouse.y >= 663 && game()->mouse.y <= 743))
-	{
-		ctrl_m_move();
-		game()->state = CTRL_M;
-	} */
+	if((game()->mouse.x >= 531 && game()->mouse.x <= 1389) && (game()->mouse.y >= 612 && game()->mouse.y <= 692))
+		game()->state = CTRL_P;
+	if((game()->mouse.x >= 532 && game()->mouse.x <= 1390) && (game()->mouse.y >= 713 && game()->mouse.y <= 793))
+		game()->state = PAUSE;
 	if(find_point(pos, game()->sleft_pause_c[0], game()->sleft_pause_c[1], game()->sleft_pause_c[2]))
 		if(game()->frame.sens_tg != 0)
 			game()->frame.sens_tg--;
 	if(find_point(pos, game()->sright_pause_c[0], game()->sright_pause_c[1], game()->sright_pause_c[2]))
 		if(game()->frame.sens_tg != 4)
 			game()->frame.sens_tg++;
+}
+
+void	ctrl_p_press(void)
+{
+	mlx_mouse_get_pos(game()->mlx, game()->win, &game()->mouse.x, &game()->mouse.y);
+	
+	if((game()->mouse.x >= 362 && game()->mouse.x <= 1556) && (game()->mouse.y >= 914 && game()->mouse.y <= 992))
+	{
+		opt_p_move();
+		game()->state = OPT_P;
+	}
 }
 
 int	pause_game(void)

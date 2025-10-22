@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 17:37:00 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/22 11:01:21 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/22 11:31:05 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	loop(void *nada)
 		pause_put();
 	else if (game()->state == OPT_P)
 		opt_p_put();
+	else if (game()->state == CTRL_P)
+		ctrl_p_put();
 	if(game()->state == GAME)
 		game_loop(change);
 	return (0);
@@ -133,26 +135,6 @@ void ctrl_m_put(void)
 	ft_usleep(15000);
 	mlx_destroy_image(game()->mlx, temp.img);
 }
-//531x512
-void opt_p_put(void)
-{
-	t_data temp;
-
-	temp.img = mlx_new_image(game()->mlx, 1920, 1080);
-	temp.addr = mlx_get_data_addr(temp.img,
-		&temp.bits_per_pixel, &temp.line_length,
-		&temp.endian);
-	draw_img(&game()->canvas, &temp, 0, 0, 0.40);
-	draw_img(&game()->option_bt[1], &temp, 672, 286, 1.0);
-	draw_img(&game()->sens_bt, &temp, 531, 512, 1.0);
-	draw_img(&game()->left_bt[game()->frame.sleft_tg], &temp, 989, 535, 1.0);
-	draw_img(&game()->right_bt[game()->frame.sright_tg], &temp, 1337, 535, 1.0);
-	draw_img(&game()->sens_nb[game()->frame.sens_tg], &temp, 1162, 536, 1.0);
-	draw_img(&game()->ctrl_bt[game()->frame.ctrl_tg], &temp, 532, 612, 1.0);
-	draw_img(&game()->back_bt[game()->frame.back_tg], &temp, 532, 713, 1.0);
-	mlx_put_image_to_window(game()->mlx, game()->win, temp.img, 0, 0);
-	mlx_destroy_image(game()->mlx, temp.img);
-}
 
 int	pause_put(void)
 {
@@ -174,4 +156,39 @@ int	pause_put(void)
 	ft_usleep(15000);
 	mlx_destroy_image(game()->mlx, temp.img);
 	return 0;
+}
+
+void opt_p_put(void)
+{
+	t_data temp;
+
+	temp.img = mlx_new_image(game()->mlx, 1920, 1080);
+	temp.addr = mlx_get_data_addr(temp.img,
+		&temp.bits_per_pixel, &temp.line_length,
+		&temp.endian);
+	draw_img(&game()->canvas, &temp, 0, 0, 0.40);
+	draw_img(&game()->option_bt[1], &temp, 672, 286, 1.0);
+	draw_img(&game()->sens_bt, &temp, 531, 512, 1.0);
+	draw_img(&game()->left_bt[game()->frame.sleft_tg], &temp, 989, 535, 1.0);
+	draw_img(&game()->right_bt[game()->frame.sright_tg], &temp, 1337, 535, 1.0);
+	draw_img(&game()->sens_nb[game()->frame.sens_tg], &temp, 1162, 536, 1.0);
+	draw_img(&game()->ctrl_bt[game()->frame.ctrl_tg], &temp, 532, 612, 1.0);
+	draw_img(&game()->back_bt[game()->frame.back_tg], &temp, 532, 713, 1.0);
+	mlx_put_image_to_window(game()->mlx, game()->win, temp.img, 0, 0);
+	mlx_destroy_image(game()->mlx, temp.img);
+}
+
+void ctrl_p_put(void)
+{
+	t_data temp;
+
+	temp.img = mlx_new_image(game()->mlx, 1920, 1080);
+	temp.addr = mlx_get_data_addr(temp.img,
+		&temp.bits_per_pixel, &temp.line_length,
+		&temp.endian);
+	draw_img(&game()->canvas, &temp, 0, 0, 0.4);
+	draw_img(&game()->ctrl_menu, &temp, 0, 0, 1.0);
+	draw_img(&game()->ctrlback_bt[game()->frame.ctrlback_tg], &temp, 362, 914, 1.0);
+	mlx_put_image_to_window(game()->mlx, game()->win, temp.img, 0, 0);
+	mlx_destroy_image(game()->mlx, temp.img);
 }

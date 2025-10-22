@@ -6,11 +6,13 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/21 16:34:58 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/22 12:06:46 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+#include <X11/Xlib.h>
+#include <X11/Xatom.h>
 
 void	init_gameinfo(void)
 {
@@ -51,7 +53,8 @@ void init(void)
 {
 	t_data temp;
 	game()->mlx = mlx_init();
-	game()->win = mlx_new_window(game()->mlx, 1920, 1080, "cub3D222222222");
+	game()->win = my_mlx_new_window(game()->mlx, 1920, 1080, "cub3D");
+
 	game()->p_menu.img = mlx_new_image(game()->mlx, (1920), (1024));
 	game()->p_menu.addr = mlx_get_data_addr(game()->p_menu.img,
 	&game()->p_menu.bits_per_pixel, &game()->p_menu.line_length,
@@ -114,10 +117,10 @@ void init(void)
 	game()->ctrl_bt[1].res_y = 80;
 	
 	game()->ctrlback_bt[0] = load_img("textures/buttons/ctrlback_bt.xpm");
-	game()->ctrlback_bt[0].res_x = 1095;
+	game()->ctrlback_bt[0].res_x = 1194;
 	game()->ctrlback_bt[0].res_y = 78;
-	game()->ctrlback_bt[1] = load_img("textures/buttons/ctrlback_bt2.xpm");
-	game()->ctrlback_bt[1].res_x = 1095;
+	game()->ctrlback_bt[1] = load_img("textures/buttons/ctrlback_bt.xpm");
+	game()->ctrlback_bt[1].res_x = 1194;
 	game()->ctrlback_bt[1].res_y = 78;
 
 	game()->left_bt[0] = load_img("textures/buttons/left_bt.xpm");

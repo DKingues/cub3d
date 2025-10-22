@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 16:58:22 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/09/16 18:23:03 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/22 11:47:33 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	temp = malloc(nmemb * size);
 	len = nmemb * size;
 	if (size && (len / size) != nmemb)
-		return (singleton_free(), printf("Malloc error.\n"), exit(1), NULL);
+		return (printf("Malloc error.\n"), exit(1), NULL);
 	if (temp == NULL)
-		return (singleton_free(), printf("Malloc error.\n"), exit(1), NULL);
+		return (printf("Malloc error.\n"), exit(1), NULL);
 	if (nmemb == 0 || size == 0)
-		return (singleton_free(), printf("Malloc error.\n"), exit(1), NULL);
+		return (printf("Malloc error.\n"), exit(1), NULL);
 	ft_bzero(temp, nmemb * size);
 	return (temp);
 }

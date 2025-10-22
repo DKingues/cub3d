@@ -159,6 +159,9 @@ typedef struct s_game
 	t_player	player;
 }				t_game;
 
+//fullscreen.c
+void	*my_mlx_new_window(t_xvar *xvar,int size_x,int size_y,char *title);
+
 //GNL
 # define BUFFER_SIZE 1
 # define PI 3.141592653589793
@@ -235,6 +238,7 @@ void	opt_m_press(void);
 void	ctrl_m_press(void);
 void	pause_press(void);
 void	opt_p_press(void);
+void	ctrl_p_press(void);
 int	pause_game(void);
 
 //m_move.c
@@ -243,6 +247,8 @@ void	main_move(void);
 void	opt_m_move(void);
 void	ctrl_m_move(void);
 void	pause_move(void);
+void	opt_p_move(void);
+void	ctrl_p_move(void);
 void	game_move(int *last_x);
 
 //keys.c
@@ -256,8 +262,9 @@ void	game_loop(float change);
 int	menu_put(int keycode, void *nada);
 void opt_m_put(void);
 void ctrl_m_put(void);
-void opt_p_put(void);
 int	pause_put(void);
+void opt_p_put(void);
+void ctrl_p_put(void);
 
 //anim_utils.c
 void	draw_dim_img(t_data *src, t_data *dst, int x, int y, float factor);
