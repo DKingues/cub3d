@@ -6,7 +6,7 @@
 /*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/22 18:14:52 by dicosta-         ###   ########.fr       */
+/*   Updated: 2025/10/22 18:38:55 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,29 +88,13 @@ void init(void)
 	load_full_img(&game()->person, "textures/3.xpm", 64, 64);
 	load_full_img(&game()->maze_nm, "textures/buttons/maze_nm.xpm", 1110, 135);
 	load_full_img(&game()->ctrl_menu, "textures/buttons/ctrl_menu.xpm", 1920, 1080);
-	
-	game()->return_menu_bt[0] = load_img("textures/buttons/return_menu_bt.xpm");
-	game()->return_menu_bt[0].res_x = 412;
-	game()->return_menu_bt[0].res_y = 79;
-	game()->return_menu_bt[1] = load_img("textures/buttons/return_menu_bt2.xpm");
-	game()->return_menu_bt[1].res_x = 412;
-	game()->return_menu_bt[1].res_y = 79;
-
-	game()->play_bt[0] = load_img("textures/buttons/play_bt.xpm");
-	game()->play_bt[0].res_x = 576;
-	game()->play_bt[0].res_y = 116;
-	game()->play_bt[1] = load_img("textures/buttons/play_bt2.xpm");
-	game()->play_bt[1].res_x = 576;
-	game()->play_bt[1].res_y = 116;
+	load_multiple_images(game()->return_menu_bt, "textures/buttons/return_menu_bt", 412, 79, 2);
+	load_multiple_images(game()->play_bt, "textures/buttons/play_bt", 576, 116, 2);
 	
 	game()->frame.return_menu_tg = 0;
 
-	game()->option_bt[0] = load_img("textures/buttons/option_bt.xpm");
-	game()->option_bt[0].res_x = 576;
-	game()->option_bt[0].res_y = 116;
-	game()->option_bt[1] = load_img("textures/buttons/option_bt2.xpm");
-	game()->option_bt[1].res_x = 576;
-	game()->option_bt[1].res_y = 116;
+	load_multiple_images(game()->option_bt, "textures/buttons/option_bt", 576, 116, 2);
+
 	game()->quit_bt[0] = load_img("textures/buttons/quit_bt.xpm");
 	game()->quit_bt[0].res_x = 576;
 	game()->quit_bt[0].res_y = 116;
@@ -284,7 +268,7 @@ void init(void)
 	load_full_img(&game()->closed_door, "textures/doorC.xpm", 64, 64);
 	load_full_img(&game()->open_door, "textures/doorO.xpm", 64, 64);
 	load_full_img(&game()->timer, "textures/timer.xpm", 380, 84);
-	load_multiple_images(game()->glitch, "textures/glitch/Glitch", 432, 432, 17);
+	load_multiple_images(game()->glitch, "textures/glitch/Glitch", 432, 432, 20);
 	load_multiple_images(game()->timer_nbr, "textures/numbers/", 31, 31, 10);
 	game()->game_over = 0;
 	game()->game_start = -1;
