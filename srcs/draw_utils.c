@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:06:48 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/22 12:55:53 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/23 16:29:31 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,30 @@ int	ft_usleep(int micro)
 		elapsed = (curr.tv_sec - start.tv_sec) * 1000000 + (curr.tv_usec - start.tv_usec);
 	}
 	return (0);
+}
+
+char *nbr_hx_clr(int nbr)
+{
+	int temp;
+	char *res;
+	int var;
+	var = 1;
+	res = ft_calloc(sizeof(char), 3);
+	while(nbr != 0)
+	{
+		temp = nbr % 16;
+		if(temp < 10)
+			temp += 48;
+		else
+			temp += 55;
+		res[var] = temp;
+		nbr = nbr / 16;
+		var--;
+	}
+	while(var >= 0)
+	{
+		res[var] = '0';
+		var--;
+	}
+	return (res);
 }
