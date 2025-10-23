@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/23 04:03:29 by dicosta-         ###   ########.fr       */
+/*   Updated: 2025/10/23 12:59:02 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void init(void)
 			&game()->canvas.bits_per_pixel, &game()->canvas.line_length,
 			&game()->canvas.endian);
 	game()->canvas.res_x = 1920;
-	game()->canvas.res_y = 1080;
+	game()->canvas.res_y = 1024;
 	load_full_img(&game()->wall, "textures/1.xpm", 64, 64);
 	load_full_img(&game()->floor, "textures/2.xpm", 64, 64);
 	load_full_img(&game()->person, "textures/3.xpm", 64, 64);
@@ -109,7 +109,6 @@ void init(void)
 	load_multiple_images(game()->return_menu_bt, "textures/buttons/return_menu_bt", 412, 79, 2);
 	load_multiple_images(game()->play_bt, "textures/buttons/play_bt", 576, 116, 2);
 	
-	game()->frame.return_menu_tg = 0;
 
 	load_multiple_images(game()->option_bt, "textures/buttons/option_bt", 576, 116, 2);
 
@@ -164,6 +163,10 @@ void init(void)
 	game()->mouse.x = 0;
 	game()->mouse.y = 0;
 	game()->state = MENU;
+	
+	game()->frame.return_menu_tg = 0;
+	game()->frame.continue_tg = 0;
+	game()->frame.sens_tg = 0;
 	game()->frame.anim_tg = 0;
 	game()->frame.play_tg = 0;
 	game()->frame.option_tg = 0;
@@ -174,11 +177,10 @@ void init(void)
 	game()->frame.dleft_tg = 0;
 	game()->frame.dright_tg = 0;
 	game()->frame.back_tg = 0;
-	game()->frame.sens_tg = 0;
 	game()->frame.ctrlback_tg = 0;
-	game()->frame.continue_tg = 0;
 	game()->frame.quit_p_tg = 0;
 	game()->frame.option_p_tg = 0;
+	game()->frame.diff_tg = 0;
 	
 	game()->sens_nb[0] = load_img("textures/buttons/sens_nb1.xpm");
 	game()->sens_nb[0].res_x = 31;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 17:37:00 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/22 18:17:21 by dicosta-         ###   ########.fr       */
+/*   Updated: 2025/10/23 12:50:06 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	loop(void *nada)
 
 void	game_loop(float change)
 {
-	timer(game()->game_start, 310);
+	timer(game()->game_start, 10);
 	if (game()->player.diff == 1)
 		change = 0.1;
 	if (game()->player.moving_d == 1 && game()->map.map[(int)(game()->player.player_y)][(int)(game()->player.player_x + 0.1)] != '1' && game()->map.map[(int)(game()->player.player_y)][(int)(game()->player.player_x + 0.1)] != 'C')
