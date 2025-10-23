@@ -6,7 +6,7 @@
 /*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/22 18:38:55 by dicosta-         ###   ########.fr       */
+/*   Updated: 2025/10/23 04:03:29 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,33 @@ void	init_gameinfo(void)
 	}
 }
 
+void	draw_loading(int i)
+{
+	static int j = 0;
+	t_data temp;
+
+	if ((i % 8 == 0 || i == 166) && j < 20)
+	{
+		temp.img = mlx_new_image(game()->mlx, 1218, 32);
+			temp.addr = mlx_get_data_addr(temp.img,
+				&temp.bits_per_pixel, &temp.line_length,
+				&temp.endian);
+		draw_img(&game()->loading_bar[j++], &temp, 0, 0, 1.0);
+		mlx_put_image_to_window(game()->mlx, game()->win, temp.img, 351, 826);
+		mlx_destroy_image(game()->mlx, temp.img);
+	}
+}
+
 void	init_vid(void)
 {
 	int	var;
 	char *str;
 	char *temp;
-
 	game()->st_anim = ft_calloc(sizeof(t_data), 168);
 	var = 0;
 	while(var < 167)
 	{
+		draw_loading(var);
 		temp = ft_itoa(var + 1);
 		str = ft_strjoin(ft_strdup("textures/menu_vid/"), temp);
 		str = ft_strjoin(str, ".xpm");
@@ -75,8 +92,9 @@ void init(void)
 	t_data temp;
 	game()->mlx = mlx_init();
 	game()->win = my_mlx_new_window(game()->mlx, 1920, 1080, "cub3D");
-	game()->credits = load_img("textures/menu_vid/1.xpm");
-	lighten(game()->credits, 0.0);
+	game()->loading_screen = load_img("textures/loading/LoadingScreen.xpm");
+	load_multiple_images(game()->loading_bar, "textures/loading/LoadingScreenBar", 1218, 32, 20);
+	lighten(game()->loading_screen, 0.0);
 	game()->canvas.img = mlx_new_image(game()->mlx, (1920), (1024));
 	game()->canvas.addr = mlx_get_data_addr(game()->canvas.img,
 			&game()->canvas.bits_per_pixel, &game()->canvas.line_length,
@@ -279,7 +297,7 @@ void init(void)
 	set_rays(game()->map.map[(int)game()->player.player_y][(int)game()->player.player_x]);
 	set_fov(66.0);
 	ins_map();
-	darken(game()->credits, 1.0, -0.05);
+	darken(game()->loading_screen, 1.0, -0.05);
 	temp.img = mlx_new_image(game()->mlx, 1920, 1080);
 	temp.addr = mlx_get_data_addr(temp.img,
 	&temp.bits_per_pixel, &temp.line_length,

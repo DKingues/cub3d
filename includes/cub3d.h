@@ -157,7 +157,8 @@ typedef struct s_game
 	t_data		continue_bt[2];
 	t_data		sens_nb[5];
 	t_data		diff_nb[3];
-	t_data		credits;
+	t_data		loading_screen;
+	t_data		loading_bar[20];
 	t_ray		raycast;
 	t_map		map;
 	t_mouse		mouse;
@@ -287,4 +288,4 @@ void	draw_dim_img(t_data *src, t_data *dst, int x, int y, float factor);
 void	darken(t_data src, float st_factor, float max_factor);
 void	lighten(t_data src, float st_factor);
 
-#endif
+# endif
