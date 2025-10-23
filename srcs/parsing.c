@@ -6,11 +6,44 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:54 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/10 18:16:45 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/23 15:26:39 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+void	reset_map(void)
+{
+	int	var;
+
+	var = 0;
+	while(game()->map.orig[var])
+		var++;
+	ft_free(game()->map.map);
+	game()->map.map = ft_calloc(sizeof(char **), var + 1);
+	var = 0;
+	while(game()->map.orig[var])
+	{
+		game()->map.map[var] = ft_strdup(game()->map.orig[var]);
+		var++;
+	}
+}
+
+void	orig_map(void)
+{
+	int	var;
+
+	var = 0;
+	while(game()->map.map[var])
+		var++;
+	game()->map.orig = ft_calloc(sizeof(char **), var + 1);
+	var = 0;
+	while(game()->map.map[var])
+	{
+		game()->map.orig[var] = ft_strdup(game()->map.map[var]);
+		var++;
+	}
+}
 
 void	rewrite_map(void)
 {
@@ -25,11 +58,13 @@ void	rewrite_map(void)
 		{
 			if (game()->map.map[var2][var] == 'o')
 				game()->map.map[var2][var] = '0';
+			if (game()->map.map[var2][var] == 'c')
+				game()->map.map[var2][var] -= 32;
 			if (game()->map.map[var2][var] == 'n' || game()->map.map[var2][var] == 's' || game()->map.map[var2][var] == 'e' || game()->map.map[var2][var] == 'w')
 			{
 				game()->map.map[var2][var] -= 32;
-				game()->player.player_x = var + 0.5;
-				game()->player.player_y = var2 + 0.5;
+				game()->player.start_x = var + 0.5;
+				game()->player.start_y = var2 + 0.5;
 			}
 			var++;
 		}
@@ -55,6 +90,7 @@ int parsing(char **av)
 	if (map_walls(av[1]))
         return(1);
 	rewrite_map();
+	orig_map();
 	/* int var = 0;
 	while(game()->map.info[var])
 	{

@@ -62,6 +62,8 @@ typedef	struct s_mouse
 
 typedef struct s_player
 {
+	float	start_x;
+	float	start_y;
 	float	player_x;
 	float	player_y;
 	int		diff;
@@ -98,6 +100,7 @@ typedef struct s_ray
 
 typedef struct s_map
 {
+	char	**orig;
 	char	**map;
 	char	**info;
 	char	**map_F;
@@ -191,13 +194,15 @@ void 	init(void);
 void 	set_fov(double fov_deg);
 void	set_rays(char dir);
 t_game	*game(void);
+void	reinit(void);
 
 //parsing.c
 int parsing(char **av);
 int map_exists(char *av);
 int map_name(char *av);
 void	rewrite_map(void);
-
+void	orig_map(void);
+void	reset_map(void);
 //map_parse.c
 int	map_validate(char *av);
 int map_walls(char *av);

@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 17:43:00 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/22 17:22:28 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/23 15:27:36 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,8 @@ void	pause_press(void)
 		darken(game()->canvas, 0.4, -0.05);
 		lighten(game()->st_anim[game()->frame.anim_tg], 0.0);
 		main_move();
+		reset_map();
+		reinit();
 		game()->state = MENU;
 	}
 	if((game()->mouse.x >= 754 && game()->mouse.x <= 1164) && (game()->mouse.y >= 764 && game()->mouse.y <= 843))
