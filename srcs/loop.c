@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 17:37:00 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/23 12:50:06 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/23 18:19:05 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,6 @@ void	game_loop(float change)
 		rotate_ray(-1);
 	if(game()->player.rot_r == 1)
 		rotate_ray(1);
-	mlx_destroy_image(game()->mlx, game()->canvas.img);
-	game()->canvas.img = mlx_new_image(game()->mlx, 1920, 1024);
-	game()->canvas.addr = mlx_get_data_addr(game()->canvas.img,
-			&game()->canvas.bits_per_pixel, &game()->canvas.line_length,
-			&game()->canvas.endian);
 	ins_map();
 	mlx_put_image_to_window(game()->mlx, game()->win, game()->canvas.img, 0, 0);
 }

@@ -105,6 +105,8 @@ typedef struct s_map
 	char	**info;
 	char	**map_F;
 	char	**map_C;
+	long F;
+	long C;
 	int		max_y;
 }				t_map;
 
@@ -239,7 +241,8 @@ void	draw_time(void);
 void	draw_img(t_data *src, t_data *dst, int x, int y, float factor);
 void draw_line(float x0, float y0, float x1, float y1);
 void	ins_map(void);
-
+void	assign_f(void);
+void	assign_c(void);
 //draw_utils.c
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int	my_mlx_pixel_get(t_data *data, int x, int y);
@@ -249,7 +252,7 @@ t_data	load_img(char *path);
 float sign (t_cord p1, t_cord p2, t_cord p3);
 int find_point(t_cord pt, t_cord v1, t_cord v2, t_cord v3);
 int	ft_usleep(int micro);
-
+char *nbr_hx_clr(int nbr);
 //handler.c
 void gameplay(void);
 
