@@ -66,13 +66,14 @@ typedef struct s_player
 	float	start_y;
 	float	player_x;
 	float	player_y;
-	int		diff;
+	int		sprint;
 	int		moving_w;
 	int		moving_a;
 	int		moving_s;
 	int		moving_d;
 	int		rot_r;
 	int		rot_l;
+	float 	sprint_count;
 }				t_player;
 
 typedef struct s_data
@@ -123,6 +124,7 @@ typedef enum s_state
 
 typedef struct s_game
 {
+	int offset;
 	int			game_over;
 	long		game_start;
 	int			minutes;
@@ -283,7 +285,7 @@ int	key_release(int keycode, t_game *nada);
 
 //loop.c
 int	loop(void *nada);
-void	game_loop(float change);
+void	game_loop(int change);
 int	menu_put(int keycode, void *nada);
 void opt_m_put(void);
 void ctrl_m_put(void);

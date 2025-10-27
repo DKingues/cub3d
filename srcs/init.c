@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/27 10:48:09 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/27 17:17:15 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,8 @@ void	reinit(void)
 	game()->frame.quit_p_tg = 0;
 	game()->frame.option_p_tg = 0;
 	game()->frame.diff_tg = 0;
-	game()->player.diff = 0;
+	game()->player.sprint = 0;
+	game()->player.sprint_count = 100;
 	game()->player.moving_w = 0;
 	game()->player.moving_a = 0;
 	game()->player.moving_s = 0;
@@ -118,6 +119,7 @@ void	reinit(void)
 	game()->player.rot_r = 0;
 	game()->mouse.x = 0;
 	game()->mouse.y = 0;
+	game()->offset = 0;
 	game()->player.player_x = game()->player.start_x;
 	game()->player.player_y = game()->player.start_y;
 	set_rays(game()->map.map[(int)game()->player.player_y][(int)game()->player.player_x]);

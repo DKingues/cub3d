@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 17:43:00 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/23 15:27:36 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/27 17:20:33 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,12 @@ void	pause_press(void)
 		lighten(game()->st_anim[game()->frame.anim_tg], 0.0);
 		main_move();
 		reset_map();
+		mlx_destroy_image(game()->mlx, game()->canvas.img);
+		game()->canvas.img = mlx_new_image(game()->mlx, (1920), (1080));
+		game()->canvas.addr = mlx_get_data_addr(game()->canvas.img,
+			&game()->canvas.bits_per_pixel, &game()->canvas.line_length,
+			&game()->canvas.endian);
+		ins_map();
 		reinit();
 		game()->state = MENU;
 	}

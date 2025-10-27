@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 17:40:39 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/22 16:49:55 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/27 17:26:38 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,9 @@ void	ctrl_p_move(void)
 void	game_move(int *last_x)
 {
 	mlx_mouse_get_pos(game()->mlx, game()->win, &game()->mouse.x, &game()->mouse.y);
+	int sens;
+
+	sens = (80 / (game()->frame.sens_tg + 1));
 	if(game()->mouse.y < 1010)
 		mlx_mouse_move(game()->mlx, game()->win, game()->mouse.x, 1020);
 	if(game()->mouse.x <= 5)
@@ -174,7 +177,7 @@ void	game_move(int *last_x)
 		*last_x = 0;
 	}
 	if (game()->mouse.x > *last_x)
-		rotate_ray((1 + (game()->mouse.x - *last_x)) / 12);
+		rotate_ray((1 + (game()->mouse.x - *last_x)) / sens);
 	if (game()->mouse.x < *last_x)
-		rotate_ray((-1 - (*last_x - game()->mouse.x)) / 12);
+		rotate_ray((-1 - (*last_x - game()->mouse.x)) / sens);
 }
