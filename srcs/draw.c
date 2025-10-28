@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:05:06 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/23 18:27:05 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/28 14:53:35 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,33 +157,33 @@ void	assign_f(void)
 
 void	ins_map(void)
 {
-	int	var2;
-	int	var;
+	// int	var2;
+	// int	var;
 
-	var2 = 0;
-	game()->player.player_x -= 0.5;
-	game()->player.player_y -= 0.5;
+	// var2 = 0;
 	draw_fc();
-	while (game()->map.map[var2])
-	{
-		var = 0;
-		while (game()->map.map[var2][var])
-		{
-			if (game()->map.map[var2][var] == '1')
-				draw_img(&game()->wall, &game()->canvas, (var * 64), (var2 * 64), 1.0);
-			else if (game()->map.map[var2][var] == 'C')
-				draw_img(&game()->closed_door, &game()->canvas, (var * 64), (var2 * 64), 1.0);
-			else if (game()->map.map[var2][var] == 'O')
-				draw_img(&game()->open_door, &game()->canvas, (var * 64), (var2 * 64), 1.0);
-			else
-				draw_img(&game()->floor, &game()->canvas, (var * 64), (var2 * 64), 1.0);
-			var++;
-		}
-		var2++;
-	}
-	draw_img(&game()->person, &game()->canvas, (game()->player.player_x * 64), (game()->player.player_y * 64), 1.0);
-	game()->player.player_x += 0.5;
-	game()->player.player_y += 0.5;
+	// game()->player.player_x -= 0.5;
+	// game()->player.player_y -= 0.5;
+	// while (game()->map.map[var2])
+	// {
+	// 	var = 0;
+	// 	while (game()->map.map[var2][var])
+	// 	{
+	// 		if (game()->map.map[var2][var] == '1')
+	// 			draw_img(&game()->wall, &game()->canvas, (var * 64), (var2 * 64), 1.0);
+	// 		else if (game()->map.map[var2][var] == 'C')
+	// 			draw_img(&game()->closed_door, &game()->canvas, (var * 64), (var2 * 64), 1.0);
+	// 		else if (game()->map.map[var2][var] == 'O')
+	// 			draw_img(&game()->open_door, &game()->canvas, (var * 64), (var2 * 64), 1.0);
+	// 		else
+	// 			draw_img(&game()->floor, &game()->canvas, (var * 64), (var2 * 64), 1.0);
+	// 		var++;
+	// 	}
+	// 	var2++;
+	// }
+	// draw_img(&game()->person, &game()->canvas, (game()->player.player_x * 64), (game()->player.player_y * 64), 1.0);
+	// game()->player.player_x += 0.5;
+	// game()->player.player_y += 0.5;
 	dda_fov();
 	draw_img(&game()->timer, &game()->canvas, 770, 0, 1.0);
 	draw_time();

@@ -229,7 +229,7 @@ void	singleton_free(void);
 int clean_exit(void *nada);
 
 //dda.c
-void dda_test(double rayDirX, double rayDirY);
+void dda_test(double rayDirX, double rayDirY, int drawX);
 void dda_fov(void);
 void	rotate_ray(int dir);
 

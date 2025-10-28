@@ -6,13 +6,13 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:06:18 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/27 11:25:27 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/28 18:04:58 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void dda_test(double rayDirX, double rayDirY)
+void dda_test(double rayDirX, double rayDirY, int drawX)
 {
     double posX = game()->player.player_x, posY = game()->player.player_y;
 
@@ -39,7 +39,6 @@ void dda_test(double rayDirX, double rayDirY)
         stepY = 1;
         sideDistY = (mapY + 1.0 - posY) * deltaDistY;
     }
-
     int hit = 0;
     int side;
     while (!hit) {
@@ -61,24 +60,44 @@ void dda_test(double rayDirX, double rayDirY)
     else
         perpWallDist = (mapY - posY + (1 - stepY) / 2.0) / rayDirY;
     double hitX = posX + rayDirX * perpWallDist;
-    double hitY = posY + rayDirY * perpWallDist;
-    draw_line(posX * 64, posY * 64, hitX * 64, hitY * 64);
+    //double hitY = posY + rayDirY * perpWallDist;
+    int lineHeight = (int)(1080 / perpWallDist);
+    int drawStart = -lineHeight / 2 + 1080 / 2;
+    if(drawStart < 0)
+        drawStart = 0;
+    int drawEnd = lineHeight / 2 + 1080 / 2;
+    if(drawEnd >= 1080)
+        drawEnd = 1080 - 1;
+    int texX = (int)(hitX * 1080);
+    if(side == 0 && rayDirX > 0) 
+        texX = 1080 - texX - 1;
+    if(side == 1 && rayDirY < 0)
+        texX = 1080 - texX - 1;
+    while(drawStart <= drawEnd)
+    {
+         int texY = drawStart * 256 - 1080 * 128 + lineHeight * 128;
+	   int texYY =  (((texY * 1080) / lineHeight) / 256);
+        my_mlx_pixel_put(&game()->canvas, drawX, drawStart, my_mlx_pixel_get(&game()->st_anim[0], texX, texYY));
+        drawStart++;
+    }
+    //draw_line(posX * 64, posY * 64, hitX * 64, hitY * 64);
 }
 
 void dda_fov(void)
 {
     double dirX = game()->raycast.ray_x;
     double dirY = game()->raycast.ray_y;
-
+    int drawX = 0;
     double planeX = game()->raycast.plane_x;
     double planeY = game()->raycast.plane_y;
     int i =0;
-    while (i < 100)
+    while (i < 1920)
     {
-        double cameraX = 2 * i / (double)(100 - 1) - 1;
+        drawX = 0;
+        double cameraX = 2 * i / (double)(1920 - 1) - 1;
         double rayDirX = dirX + planeX * cameraX;
         double rayDirY = dirY + planeY * cameraX;
-        dda_test(rayDirX, rayDirY);
+        dda_test(rayDirX, rayDirY, i);
         i++;
     }
 }

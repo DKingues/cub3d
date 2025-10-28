@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 17:37:00 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/27 15:51:41 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/28 10:56:25 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	loop(void *nada)
 void	game_loop(int change)
 {
 	double posX, posY;
-	//timer(game()->game_start, 10);
+	timer(game()->game_start, 10);
 	if(game()->player.sprint_count == 0)
 		game()->offset = 10;
 	else if (game()->player.sprint_count == 10)
