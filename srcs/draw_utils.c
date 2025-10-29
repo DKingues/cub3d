@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:06:48 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/23 17:33:02 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/29 14:44:18 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,11 @@ int	my_mlx_pixel_get(t_data *data, int x, int y)
 	return (*(unsigned int *)dst);
 }
 
-int	my_mlx_pixel_get_dim(t_data *data, int x, int y, float factor)
+int	dim_clr(unsigned int color, float factor)
 {
-	unsigned int color;
 	unsigned char	r;
 	unsigned char	g;
 	unsigned char	b;
-	(void)factor;
-	color = my_mlx_pixel_get(data, x, y);
 	if(color == 0x66FF00)
 		return color;
 	r = (color >> 16) & 0xFF;
@@ -46,7 +43,16 @@ int	my_mlx_pixel_get_dim(t_data *data, int x, int y, float factor)
 	r = (unsigned char)(r * factor);
 	g = (unsigned char)(g * factor);
 	b = (unsigned char)(b * factor);
-	return ((r << 16) | (g << 8) | b);
+		return ((r << 16) | (g << 8) | b);
+}
+
+int	my_mlx_pixel_get_dim(t_data *data, int x, int y, float factor)
+{
+	unsigned int color;
+
+	color = my_mlx_pixel_get(data, x, y);
+	color = dim_clr(color, factor);
+	return (color);
 }
 
 t_data	load_img(char *path)

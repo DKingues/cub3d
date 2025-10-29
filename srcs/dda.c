@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:06:18 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/29 12:52:01 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/29 16:28:25 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,26 +60,27 @@ void dda_test(double rayDirX, double rayDirY, int drawX)
     else
         perpWallDist = (mapY - posY + (1 - stepY) / 2.0) / rayDirY;
     double hitX;
-    double hitY;
+    t_data tex_clr;
+    if (side == 0)
+	{
+		if (rayDirX > 0)
+			tex_clr = game()->map.west;
+		else
+			tex_clr = game()->map.east;
+	}
+	else
+	{
+		if (rayDirY > 0)
+			tex_clr = game()->map.north;
+		else
+			tex_clr = game()->map.south;
+	}
+    if(game()->map.map[mapY][mapX] == 'C')
+        tex_clr = game()->st_anim[0];
     if(side == 0)
         hitX = posY + rayDirY * perpWallDist;
     else
          hitX = posX + rayDirX * perpWallDist;
-    if(side == 0)
-        hitY = posX + rayDirX * perpWallDist;
-    else
-         hitY = posY + rayDirY * perpWallDist;
-    t_data tex_clr;
-    printf("HITX: %f HITY: %f ", hitX, hitY);
-    printf("MAPX: %d MAPY: %d\n", (int)mapX, (int)mapY);
-    if(hitY > mapY && mapX == floor(hitX) && hitY != mapX)
-        tex_clr = game()->map.south;
-    else if (mapY >= hitY && mapX == floor(hitX))
-        tex_clr = game()->map.north;
-    else if (hitY == mapX)
-        tex_clr = game()->map.west;
-    else
-        tex_clr = game()->map.east;
     hitX -= floor(hitX);
     int lineHeight = (int)(1080 / perpWallDist);
     int drawStart = -lineHeight / 2 + 1080 / 2;

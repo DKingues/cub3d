@@ -136,6 +136,7 @@ typedef struct s_game
 	int 		release;
 	void		*mlx;
 	void		*win;
+	t_data 		frcg;
 	t_frame		frame;
 	t_state		state;
 	t_data		canvas;
@@ -184,7 +185,7 @@ typedef struct s_game
 
 //fullscreen.c
 void	*my_mlx_new_window(t_xvar *xvar,int size_x,int size_y,char *title);
-
+void	draw_fc(void);
 //GNL
 # define BUFFER_SIZE 1
 # define PI 3.141592653589793
@@ -259,6 +260,7 @@ float sign (t_cord p1, t_cord p2, t_cord p3);
 int find_point(t_cord pt, t_cord v1, t_cord v2, t_cord v3);
 int	ft_usleep(int micro);
 char *nbr_hx_clr(int nbr);
+int	dim_clr(unsigned int color, float factor);
 //handler.c
 void gameplay(void);
 

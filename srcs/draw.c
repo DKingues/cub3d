@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:05:06 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/28 14:53:35 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/29 16:27:57 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	draw_fc(void)
 {
 	int	sx;
 	int	sy;
+	float factor = 0.7;
 
 	sy = 0;
 	while (sy < 540)
@@ -91,9 +92,11 @@ void	draw_fc(void)
 		while (sx < 1920)
 		{
 			my_mlx_pixel_put(&game()->canvas, sx, sy,
-				game()->map.C);
+				(dim_clr(game()->map.C, factor)));
 			sx++;
 		}
+		if(factor > 0)
+			factor -= 0.00148;
 		sy++;
 	}
 	while (sy < 1080)
@@ -102,9 +105,11 @@ void	draw_fc(void)
 		while (sx < 1920)
 		{
 			my_mlx_pixel_put(&game()->canvas, sx, sy,
-				game()->map.F);
+				(dim_clr(game()->map.F, factor)));
 			sx++;
 		}
+		if(factor < 0.7)
+			factor += 0.00148;
 		sy++;
 	}
 }
