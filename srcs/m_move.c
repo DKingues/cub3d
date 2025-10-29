@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 17:40:39 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/27 17:26:38 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/29 12:10:13 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,19 +162,21 @@ void	game_move(int *last_x)
 	int sens;
 
 	sens = (80 / (game()->frame.sens_tg + 1));
-	if(game()->mouse.y < 1010)
-		mlx_mouse_move(game()->mlx, game()->win, game()->mouse.x, 1020);
-	if(game()->mouse.x <= 5)
+	if(game()->mouse.y >= 1000)
+		mlx_mouse_move(game()->mlx, game()->win, game()->mouse.x, 90);
+	if(game()->mouse.y <= 80)
+		mlx_mouse_move(game()->mlx, game()->win, game()->mouse.x, 990);
+	if(game()->mouse.x <= 80)
 	{
-		mlx_mouse_move(game()->mlx, game()->win, 1890, game()->mouse.y);
-		game()->mouse.x = 1890;
-		*last_x = 1920;
+		mlx_mouse_move(game()->mlx, game()->win, 1830, game()->mouse.y);
+		game()->mouse.x = 1830;
+		*last_x = 1860;
 	}
-	if(game()->mouse.x >= 1915)
+	if(game()->mouse.x >= 1840)
 	{
-		mlx_mouse_move(game()->mlx, game()->win, 30, game()->mouse.y);
-		game()->mouse.x = 30;
-		*last_x = 0;
+		mlx_mouse_move(game()->mlx, game()->win, 90, game()->mouse.y);
+		game()->mouse.x = 90;
+		*last_x = 60;
 	}
 	if (game()->mouse.x > *last_x)
 		rotate_ray((1 + (game()->mouse.x - *last_x)) / sens);

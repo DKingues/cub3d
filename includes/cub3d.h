@@ -109,6 +109,10 @@ typedef struct s_map
 	long F;
 	long C;
 	int		max_y;
+	t_data	north;
+	t_data	south;
+	t_data	west;
+	t_data	east;
 }				t_map;
 
 typedef enum s_state

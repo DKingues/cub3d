@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:06:18 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/28 18:04:58 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/29 12:52:01 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,28 @@ void dda_test(double rayDirX, double rayDirY, int drawX)
         perpWallDist = (mapX - posX + (1 - stepX) / 2.0) / rayDirX;
     else
         perpWallDist = (mapY - posY + (1 - stepY) / 2.0) / rayDirY;
-    double hitX = posX + rayDirX * perpWallDist;
-    //double hitY = posY + rayDirY * perpWallDist;
+    double hitX;
+    double hitY;
+    if(side == 0)
+        hitX = posY + rayDirY * perpWallDist;
+    else
+         hitX = posX + rayDirX * perpWallDist;
+    if(side == 0)
+        hitY = posX + rayDirX * perpWallDist;
+    else
+         hitY = posY + rayDirY * perpWallDist;
+    t_data tex_clr;
+    printf("HITX: %f HITY: %f ", hitX, hitY);
+    printf("MAPX: %d MAPY: %d\n", (int)mapX, (int)mapY);
+    if(hitY > mapY && mapX == floor(hitX) && hitY != mapX)
+        tex_clr = game()->map.south;
+    else if (mapY >= hitY && mapX == floor(hitX))
+        tex_clr = game()->map.north;
+    else if (hitY == mapX)
+        tex_clr = game()->map.west;
+    else
+        tex_clr = game()->map.east;
+    hitX -= floor(hitX);
     int lineHeight = (int)(1080 / perpWallDist);
     int drawStart = -lineHeight / 2 + 1080 / 2;
     if(drawStart < 0)
@@ -68,16 +88,18 @@ void dda_test(double rayDirX, double rayDirY, int drawX)
     int drawEnd = lineHeight / 2 + 1080 / 2;
     if(drawEnd >= 1080)
         drawEnd = 1080 - 1;
-    int texX = (int)(hitX * 1080);
-    if(side == 0 && rayDirX > 0) 
-        texX = 1080 - texX - 1;
-    if(side == 1 && rayDirY < 0)
-        texX = 1080 - texX - 1;
+    int texX = (int)(hitX * tex_clr.res_x);
+    if(side == 0 && rayDirX < 0) 
+        texX = tex_clr.res_x - texX - 1;
+    if(side == 1 && rayDirY > 0)
+        texX = tex_clr.res_x - texX - 1;
     while(drawStart <= drawEnd)
     {
-         int texY = drawStart * 256 - 1080 * 128 + lineHeight * 128;
-	   int texYY =  (((texY * 1080) / lineHeight) / 256);
-        my_mlx_pixel_put(&game()->canvas, drawX, drawStart, my_mlx_pixel_get(&game()->st_anim[0], texX, texYY));
+        int texY = drawStart * 256 - 1080 * 128 + lineHeight * 128;
+	    int texYY =  (((texY * tex_clr.res_y) / lineHeight) / 256);
+        if(texYY >= 1080)
+            texYY = 1080 - 1;
+        my_mlx_pixel_put(&game()->canvas, drawX, drawStart, my_mlx_pixel_get(&tex_clr, texX, texYY));
         drawStart++;
     }
     //draw_line(posX * 64, posY * 64, hitX * 64, hitY * 64);
