@@ -6,11 +6,19 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:06:48 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/29 14:44:18 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/30 17:02:17 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+void	my_mlx_pixel_put2(t_data *data, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
+}
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {

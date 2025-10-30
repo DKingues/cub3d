@@ -28,6 +28,7 @@
 
 typedef	struct s_frame
 {
+	int			restart_tg;
 	int			return_menu_tg;
 	int			continue_tg;
 	int			sens_tg;
@@ -167,6 +168,7 @@ typedef struct s_game
 	t_data		left_bt[2];
 	t_data		right_bt[2];
 	t_data		continue_bt[2];
+	t_data		restart_bt[2];
 	t_data		sens_nb[5];
 	t_data		diff_nb[3];
 	t_data		loading_screen;
@@ -186,6 +188,7 @@ typedef struct s_game
 //fullscreen.c
 void	*my_mlx_new_window(t_xvar *xvar,int size_x,int size_y,char *title);
 void	draw_fc(void);
+void	my_mlx_pixel_put2(t_data *data, int x, int y, int color);
 //GNL
 # define BUFFER_SIZE 1
 # define PI 3.141592653589793

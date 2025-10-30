@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/29 16:28:34 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/30 17:41:17 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ void	reinit(void)
 	game()->game_over = 0;
 	game()->game_start = -1;
 	game()->frame.return_menu_tg = 0;
+	game()->frame.restart_tg = 0;
 	game()->frame.continue_tg = 0;
 	game()->frame.anim_tg = 0;
 	game()->frame.play_tg = 0;
@@ -150,7 +151,7 @@ void	reinit(void)
 	game()->player.player_y = game()->player.start_y;
 	set_rays(game()->map.map[(int)game()->player.player_y][(int)game()->player.player_x]);
 	set_fov(66.0);
-	//ins_map();
+	ins_map();
 }
 
 void init(void)
@@ -180,6 +181,9 @@ void init(void)
 	load_full_img(&game()->maze_nm, "textures/buttons/maze_nm.xpm");
 	load_full_img(&game()->ctrl_menu, "textures/buttons/ctrl_menu.xpm");
 	load_multiple_images(game()->return_menu_bt, "textures/buttons/return_menu_bt", 412, 79, 2);
+
+	load_multiple_images(game()->restart_bt, "textures/buttons/restart_bt", 412, 79, 2);
+	
 	load_multiple_images(game()->play_bt, "textures/buttons/play_bt", 576, 116, 2);
 	load_multiple_images(game()->option_bt, "textures/buttons/option_bt", 576, 116, 2);
 	load_multiple_images(game()->quit_bt, "textures/buttons/quit_bt", 576, 116, 2);

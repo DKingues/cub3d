@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:06:18 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/29 16:28:25 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/30 17:07:25 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void dda_test(double rayDirX, double rayDirY, int drawX)
 	    int texYY =  (((texY * tex_clr.res_y) / lineHeight) / 256);
         if(texYY >= 1080)
             texYY = 1080 - 1;
-        my_mlx_pixel_put(&game()->canvas, drawX, drawStart, my_mlx_pixel_get(&tex_clr, texX, texYY));
+        my_mlx_pixel_put2(&game()->canvas, drawX, drawStart, my_mlx_pixel_get(&tex_clr, texX, texYY));
         drawStart++;
     }
     //draw_line(posX * 64, posY * 64, hitX * 64, hitY * 64);
@@ -130,7 +130,7 @@ void	rotate_ray(int dir)
 {
 	double oldrayX = game()->raycast.ray_x;
     double oldPlaneX = game()->raycast.plane_x;
-    double rot = dir * 0.035;
+    double rot = dir * 0.04;
 
     game()->raycast.ray_x = game()->raycast.ray_x * cos(rot) - game()->raycast.ray_y * sin(rot);
     game()->raycast.ray_y = oldrayX * sin(rot) + game()->raycast.ray_y * cos(rot);
