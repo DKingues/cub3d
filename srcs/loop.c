@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 17:37:00 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/31 17:02:00 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/31 18:09:05 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,7 @@ int	pause_put(void)
 	draw_img(&game()->pause_bt, &temp, 672, 236, 1.0);
 	draw_img(&game()->continue_bt[game()->frame.continue_tg], &temp, 754, 412, 1.0);
 	draw_img(&game()->option_p_bt[game()->frame.option_p_tg], &temp, 754, 613, 1.0);
-	draw_img(&game()->restart_bt[0], &temp, 754, 513, 1.0);
+	draw_img(&game()->restart_bt[game()->frame.restart_tg], &temp, 754, 513, 1.0);
 	draw_img(&game()->return_menu_bt[game()->frame.return_menu_tg], &temp, 754, 713, 1.0);
 	draw_img(&game()->quit_p_bt[game()->frame.quit_p_tg], &temp, 754, 814, 1.0);
 	mlx_put_image_to_window(game()->mlx, game()->win, temp.img, 0, 0);
