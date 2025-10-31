@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:06:18 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/30 17:07:25 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/31 15:05:44 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ void dda_test(double rayDirX, double rayDirY, int drawX)
     if (side == 0)
 	{
 		if (rayDirX > 0)
-			tex_clr = game()->map.west;
-		else
 			tex_clr = game()->map.east;
+		else
+			tex_clr = game()->map.west;
 	}
 	else
 	{

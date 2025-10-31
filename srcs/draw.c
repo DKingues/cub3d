@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:05:06 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/30 17:15:20 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/31 15:40:31 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,31 @@ void	assign_f(void)
 	game()->map.F = ft_strtol(game()->map.map_F[0]);
 }
 
+void	draw_sprint(void)
+{
+	int	var;
+	int var2 = 765;
+	/* if (game()->player.sprint_count < 10)
+		return ; */
+	float var3 = 3.9 * (int)game()->player.sprint_count;
+	//printf("CORD: %d\n", 39 * ((int)game()->player.sprint_count / 10));
+	while(var2 < (int)var3 + 765)
+	{
+		var = 1035;
+		while(var < 1048)
+		{
+			my_mlx_pixel_put(&game()->canvas, var2, var, 0x00FFFF);
+			var++;
+		}
+		var2++;
+	}
+}
+
+void	draw_minimap(void)
+{
+	draw_img(&game()->person, &game()->canvas, 100, 100, 1.0);
+}
+
 void	ins_map(void)
 {
 	// int	var2;
@@ -192,5 +217,7 @@ void	ins_map(void)
 	dda_fov();
 	draw_img(&game()->timer, &game()->canvas, 0, 0, 1.0);
 	draw_time();
+	draw_minimap();
+	draw_sprint();
 	
 }
