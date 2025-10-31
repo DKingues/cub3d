@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:05:06 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/31 15:40:31 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/31 17:30:24 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	draw_fc(void)
 		while (sx < 1920)
 		{
 			my_mlx_pixel_put2(&game()->canvas, sx, sy,
-				(dim_clr(game()->map.F, factor)));
+				(dim_clr(game()->map.F, 1.0)));
 			sx++;
 		}
 		if(factor < 0.7)
@@ -162,7 +162,7 @@ void	assign_f(void)
 
 void	draw_sprint(void)
 {
-	int	var;
+	int	var;2
 	int var2 = 765;
 	/* if (game()->player.sprint_count < 10)
 		return ; */
