@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 12:04:13 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/22 12:54:33 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/31 11:42:39 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	*my_mlx_new_window(t_xvar *xvar,int size_x,int size_y,char *title)
 	xswa.event_mask = 0xFFFFFF;	/* all events */
 	if (!(new_win = malloc(sizeof(*new_win))))
 		return ((void *)0);
-	new_win->window = XCreateWindow(xvar->display,xvar->root,0,0,size_x,size_y,
+	new_win->window = XCreateWindow(xvar->display,xvar->root,0,0,size_x-1,size_y-1,
 					0,CopyFromParent,InputOutput,xvar->visual,
 					CWEventMask|CWBackPixel|CWBorderPixel|
 					CWColormap,&xswa);      

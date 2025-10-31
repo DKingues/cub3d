@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 17:37:00 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/30 17:42:51 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/31 11:42:47 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	game_loop(int change)
 	if(game()->player.rot_r == 1)
 		rotate_ray(1);
 	ins_map();
-	ft_usleep(13000);
+	//ft_usleep(13000);
 	mlx_put_image_to_window(game()->mlx, game()->win, game()->canvas.img, 0, 0);
 }
 
