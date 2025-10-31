@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 17:43:00 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/30 17:00:08 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/31 17:07:13 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	main_press(void)
 		game_move(&mx);
 		darken(game()->st_anim[game()->frame.anim_tg], 1.0, -0.05);
 		game()->frame.play_tg = 0;
+		reinit();
 		lighten(game()->canvas, 0.0);
 		game()->state = GAME;
 	}

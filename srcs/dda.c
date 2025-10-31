@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:06:18 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/31 15:05:44 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/31 17:03:06 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void dda_test(double rayDirX, double rayDirY, int drawX)
             mapY += stepY;
             side = 1;
         }
-        if (game()->map.map[mapY][mapX] == '1' || game()->map.map[mapY][mapX] == 'C')
+        if (game()->map.map[mapY][mapX] == '1' || game()->map.map[mapY][mapX] == 'C' || game()->map.map[mapY][mapX] == 'G')
             hit = 1;
     }
     double perpWallDist;
@@ -77,6 +77,8 @@ void dda_test(double rayDirX, double rayDirY, int drawX)
 	}
     if(game()->map.map[mapY][mapX] == 'C')
         tex_clr = game()->st_anim[0];
+    if(game()->map.map[mapY][mapX] == 'G')
+        tex_clr = game()->glitch.glitch[0];
     if(side == 0)
         hitX = posY + rayDirY * perpWallDist;
     else

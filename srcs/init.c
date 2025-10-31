@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/30 17:41:17 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/31 17:06:08 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,18 @@ void	load_multiple_images(t_data *texture, char *path, int x, int y, int quantit
 	}
 }
 
+void	set_difficulty(void)
+{
+	if (game()->frame.diff_tg == 0)
+		game()->glitch.spread_delay = 4;
+	else if (game()->frame.diff_tg == 1)
+		game()->glitch.spread_delay = 2;
+	else if (game()->frame.diff_tg == 2)
+		game()->glitch.spread_delay = 1;
+	game()->time = tt_glitch_map();
+	printf("%d\n", game()->time);
+}
+
 void	reinit(void)
 {
 	//mlx_mouse_move(game()->mlx, game()->win, 960, 512);
@@ -146,6 +158,9 @@ void	reinit(void)
 	game()->player.rot_r = 0;
 	game()->mouse.x = 0;
 	game()->mouse.y = 0;
+	set_difficulty();
+	game()->glitch.glitch_spawned = 0;
+	game()->glitch.glitch_i = 0;
 	game()->offset = 0;
 	game()->player.player_x = game()->player.start_x;
 	game()->player.player_y = game()->player.start_y;
@@ -205,7 +220,7 @@ void init(void)
 	load_full_img(&game()->closed_door, "textures/doorC.xpm");
 	load_full_img(&game()->open_door, "textures/doorO.xpm");
 	load_full_img(&game()->timer, "textures/timer.xpm");
-	load_multiple_images(game()->glitch, "textures/glitch/Glitch", 432, 432, 20);
+	load_multiple_images(game()->glitch.glitch, "textures/glitch64/Glitch", 64, 64, 10);
 	load_multiple_images(game()->timer_nbr, "textures/numbers/", 31, 31, 10);
 	game()->sleft_c[0].x = 1004;
 	game()->sleft_c[0].y = 501.5;
@@ -244,6 +259,9 @@ void init(void)
 	game()->sright_pause_c[2].x = 1337; 
 	game()->sright_pause_c[2].y = 570;
 	game()->release = 0;
+
+	
+	
 	init_vid();
 	game()->state = MENU;
 	game()->mouse.toggle_arrow = mlx_mouse_show(game()->mlx, game()->win); 

@@ -185,6 +185,16 @@ void	draw_minimap(void)
 	draw_img(&game()->person, &game()->canvas, 100, 100, 1.0);
 }
 
+void draw_glitch(int var, int var2)
+{
+	static int i;
+
+	if (i == 10)
+		i = 0;
+	draw_img(&game()->glitch.glitch[i], &game()->canvas, var * 64, var2 * 64, 1.0);
+	i++;
+}
+
 void	ins_map(void)
 {
 	// int	var2;

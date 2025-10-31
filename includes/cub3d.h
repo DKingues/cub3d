@@ -127,6 +127,17 @@ typedef enum s_state
 	GAME,
 }				t_state;
 
+typedef	struct	s_glitch
+{
+	t_data 	glitch[10];
+	int		glitch_spawned;
+	long	last_glitch_time;
+	int		glitch_i;
+	int		spread_delay;
+
+}				t_glitch;
+
+
 typedef struct s_game
 {
 	int offset;
@@ -134,6 +145,7 @@ typedef struct s_game
 	long		game_start;
 	int			minutes;
 	int			seconds;
+	int			time;
 	int 		release;
 	void		*mlx;
 	void		*win;
@@ -147,7 +159,7 @@ typedef struct s_game
 	t_data		open_door;
 	t_data		timer;
 	t_data		timer_nbr[10];
-	t_data		glitch[21];
+	t_glitch 	glitch;
 	t_data		person;
 	t_data		pause_bt;
 	t_data		return_menu_bt[2];
@@ -306,5 +318,20 @@ void ctrl_p_put(void);
 void	draw_dim_img(t_data *src, t_data *dst, int x, int y, float factor);
 void	darken(t_data src, float st_factor, float max_factor);
 void	lighten(t_data src, float st_factor);
+
+
+// time.c
+
+long 	get_elapsed_sec(void);
+long	get_time(void);
+int		tt_glitch_map(void);
+int		count_zero(char **map);
+
+// glitch.c
+
+void	glitch_consume(int spawn_delay);
+char	**copy_map(char **new_map, char **map_to_copy);
+void	set_difficulty(void);
+
 
 # endif
