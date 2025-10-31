@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/30 17:41:17 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/30 23:10:52 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,65 +64,47 @@ void	init_vid(void)
 	}
 }
 
-int	get_res(char id, char *path)
-{
-	int fd;
-	char *line;
-	char **res;
-	fd = open(path, O_RDONLY);
-	if(fd < 0)
-		exit(1);
-	line = get_next_line(fd);
-	while(line[0] != '\"')
-	{
-		free(line);
-		line = get_next_line(fd);
-	}
-	res = ft_split(&line[1], ' ');
-	close(fd);
-	free(line);
-	if(id == 'x')
-		fd = ft_atoi(res[0]);
-	else if(id == 'y')
-		fd = ft_atoi(res[1]);
-	else
-		exit(1);
-	ft_free(res);
-	return (fd);
-}
-
-void load_full_img(t_data *texture, char *path)
+void load_full_img(t_data *texture, char *path, int x, int y)
 {
 	(*texture) = load_img(path);
-	(*texture).res_x = get_res('x', path);
-	(*texture).res_y = get_res('y', path);
+	(*texture).res_x = x;
+	(*texture).res_y = y;
 }
 
 void	load_multiple_images(t_data *texture, char *path, int x, int y, int quantity)
 {
 	int i;
 	char *str;
-	(void)x;
-	(void)y;
+
 	i = 0;
 	while (i < quantity)
 	{
 		str = ft_strjoin(ft_strdup(path), ft_itoa(i));
 		str = ft_strjoin(str, ".xpm");
-		load_full_img(&texture[i], str);
+		load_full_img(&texture[i], str, x, y);
 		free(str);
 		i++;
 	}
 }
-
+void	set_difficulty(void)
+{
+	if (game()->frame.diff_tg == 0)
+		game()->glitch.spread_delay = 4;
+	else if (game()->frame.diff_tg == 1)
+		game()->glitch.spread_delay = 2;
+	else if (game()->frame.diff_tg == 2)
+		game()->glitch.spread_delay = 1;
+	game()->time = tt_glitch_map();
+	printf("%d\n", game()->time);
+}
 void	reinit(void)
 {
 	//mlx_mouse_move(game()->mlx, game()->win, 960, 512);
 	game()->game_over = 0;
 	game()->game_start = -1;
 	game()->frame.return_menu_tg = 0;
-	game()->frame.restart_tg = 0;
 	game()->frame.continue_tg = 0;
+	game()->frame.sens_tg = 0;
 	game()->frame.anim_tg = 0;
 	game()->frame.play_tg = 0;
 	game()->frame.option_tg = 0;
@@ -136,8 +118,8 @@ void	reinit(void)
 	game()->frame.ctrlback_tg = 0;
 	game()->frame.quit_p_tg = 0;
 	game()->frame.option_p_tg = 0;
-	game()->player.sprint = 0;
-	game()->player.sprint_count = 100;
+	game()->frame.diff_tg = 0;
+	game()->player.diff = 0;
 	game()->player.moving_w = 0;
 	game()->player.moving_a = 0;
 	game()->player.moving_s = 0;
@@ -146,7 +128,7 @@ void	reinit(void)
 	game()->player.rot_r = 0;
 	game()->mouse.x = 0;
 	game()->mouse.y = 0;
-	game()->offset = 0;
+	set_difficulty();
 	game()->player.player_x = game()->player.start_x;
 	game()->player.player_y = game()->player.start_y;
 	set_rays(game()->map.map[(int)game()->player.player_y][(int)game()->player.player_x]);
@@ -160,30 +142,21 @@ void init(void)
 
 	game()->mlx = mlx_init();
 	game()->win = my_mlx_new_window(game()->mlx, 1920, 1080, "cub3D");
-	load_full_img(&game()->loading_screen, "textures/loading/LoadingScreen.xpm");
+	load_full_img(&game()->loading_screen, "textures/loading/LoadingScreen.xpm", 1920, 1080);
 	load_multiple_images(game()->loading_bar, "textures/loading/LoadingScreenBar", 1218, 32, 20);
 	lighten(game()->loading_screen, 0.0);
-	game()->canvas.img = mlx_new_image(game()->mlx, (1920), (1080));
+	game()->canvas.img = mlx_new_image(game()->mlx, (1920), (1024));
 	game()->canvas.addr = mlx_get_data_addr(game()->canvas.img,
 			&game()->canvas.bits_per_pixel, &game()->canvas.line_length,
 			&game()->canvas.endian);
 	game()->canvas.res_x = 1920;
-	game()->canvas.res_y = 1080;
-	game()->frame.sens_tg = 0;
-	game()->frame.diff_tg = 0;
-	load_full_img(&game()->map.north, game()->map.info[0]);
-	load_full_img(&game()->map.south, game()->map.info[1]);
-	load_full_img(&game()->map.east, game()->map.info[2]);
-	load_full_img(&game()->map.west, game()->map.info[3]);
-	load_full_img(&game()->wall, "textures/1.xpm");
-	load_full_img(&game()->floor, "textures/2.xpm");
-	load_full_img(&game()->person, "textures/3.xpm");
-	load_full_img(&game()->maze_nm, "textures/buttons/maze_nm.xpm");
-	load_full_img(&game()->ctrl_menu, "textures/buttons/ctrl_menu.xpm");
+	game()->canvas.res_y = 1024;
+	load_full_img(&game()->wall, "textures/1.xpm", 64, 64);
+	load_full_img(&game()->floor, "textures/2.xpm", 64, 64);
+	load_full_img(&game()->person, "textures/3.xpm", 64, 64);
+	load_full_img(&game()->maze_nm, "textures/buttons/maze_nm.xpm", 1110, 135);
+	load_full_img(&game()->ctrl_menu, "textures/buttons/ctrl_menu.xpm", 1920, 1080);
 	load_multiple_images(game()->return_menu_bt, "textures/buttons/return_menu_bt", 412, 79, 2);
-
-	load_multiple_images(game()->restart_bt, "textures/buttons/restart_bt", 412, 79, 2);
-	
 	load_multiple_images(game()->play_bt, "textures/buttons/play_bt", 576, 116, 2);
 	load_multiple_images(game()->option_bt, "textures/buttons/option_bt", 576, 116, 2);
 	load_multiple_images(game()->quit_bt, "textures/buttons/quit_bt", 576, 116, 2);
@@ -192,21 +165,22 @@ void init(void)
 	load_multiple_images(game()->ctrlback_bt, "textures/buttons/ctrlback_bt", 1195, 79, 2);
 	load_multiple_images(game()->left_bt, "textures/buttons/left_bt", 30, 34, 2);
 	load_multiple_images(game()->right_bt, "textures/buttons/right_bt", 30, 34, 2);
-	load_full_img(&game()->diff_bt, "textures/buttons/diff_bt.xpm");
-	load_full_img(&game()->sens_bt, "textures/buttons/sens_bt.xpm");
+	load_full_img(&game()->diff_bt, "textures/buttons/diff_bt.xpm", 411, 78);
+	load_full_img(&game()->sens_bt, "textures/buttons/sens_bt.xpm", 411, 78);
 	load_multiple_images(game()->sens_nb, "textures/buttons/sens_nb", 31, 31, 5);
 	load_multiple_images(game()->diff_nb, "textures/buttons/diff_nb", 131, 31, 3);
 	mlx_destroy_image(game()->mlx, game()->diff_nb[1].img);
-	load_full_img(&game()->diff_nb[1], "textures/buttons/diff_nb1.xpm");
+	load_full_img(&game()->diff_nb[1], "textures/buttons/diff_nb1.xpm", 198, 31);
 	load_multiple_images(game()->continue_bt, "textures/buttons/continue_bt", 410, 78, 2);
 	load_multiple_images(game()->option_p_bt, "textures/buttons/option_p_bt", 410, 78, 2);
-	load_full_img(&game()->pause_bt, "textures/buttons/pause_bt.xpm");
+	load_full_img(&game()->pause_bt, "textures/buttons/pause_bt.xpm", 576, 116);
 	load_multiple_images(game()->quit_p_bt, "textures/buttons/quit_p_bt", 410, 78, 2);
-	load_full_img(&game()->closed_door, "textures/doorC.xpm");
-	load_full_img(&game()->open_door, "textures/doorO.xpm");
-	load_full_img(&game()->timer, "textures/timer.xpm");
-	load_multiple_images(game()->glitch, "textures/glitch/Glitch", 432, 432, 20);
+	load_full_img(&game()->closed_door, "textures/doorC.xpm", 64, 64);
+	load_full_img(&game()->open_door, "textures/doorO.xpm", 64, 64);
+	load_full_img(&game()->timer, "textures/hud.xpm", 1920, 1080);
+	load_multiple_images(game()->glitch.glitch, "textures/glitch64/Glitch", 64, 64, 10);
 	load_multiple_images(game()->timer_nbr, "textures/numbers/", 31, 31, 10);
+	//load_multiple_images(game()->stamina_bar, "textures/stamina/", 390, 19, 26);
 	game()->sleft_c[0].x = 1004;
 	game()->sleft_c[0].y = 501.5;
 	game()->sright_c[0].x = 1383; 
@@ -244,21 +218,21 @@ void init(void)
 	game()->sright_pause_c[2].x = 1337; 
 	game()->sright_pause_c[2].y = 570;
 	game()->release = 0;
+
+	game()->glitch.glitch_spawned = 0;
+	game()->glitch.glitch_i = 0;
+
 	init_vid();
 	game()->state = MENU;
 	game()->mouse.toggle_arrow = mlx_mouse_show(game()->mlx, game()->win); 
 	main_move();
-	assign_f();
-	assign_c();
-	free(game()->map.map_F);
-	free(game()->map.map_C);
 	reinit();
 	draw_img(&game()->loading_bar[19], &game()->loading_screen, 351, 826, 1.0);
 	darken(game()->loading_screen, 1.0, -0.05);
 	temp.img = mlx_new_image(game()->mlx, 1920, 1080);
 	temp.addr = mlx_get_data_addr(temp.img,
-	&temp.bits_per_pixel, &temp.line_length,
-	&temp.endian);
+		&temp.bits_per_pixel, &temp.line_length,
+		&temp.endian);
 	draw_img(&game()->st_anim[0], &temp, 0, 0, 1.0);
 	draw_img(&game()->maze_nm, &temp, 404, 166, 1.0);
 	draw_img(&game()->play_bt[game()->frame.play_tg], &temp, 672, 500, 1.0);

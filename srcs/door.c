@@ -6,7 +6,7 @@
 /*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 15:15:29 by dicosta-          #+#    #+#             */
-/*   Updated: 2025/10/22 17:39:15 by dicosta-         ###   ########.fr       */
+/*   Updated: 2025/10/30 16:33:26 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,12 @@ void	draw_time(void)
 		draw_img(&game()->timer_nbr[0], &game()->canvas, 980, 23, 1.0);
 		draw_img(&game()->timer_nbr[0], &game()->canvas, 1017, 23, 1.0);
 	}
+	// else
+	// {
+	// 	draw_img(&game()->timer_nbr[0], &game()->canvas, 875, 23, 1.0);
+	// 	draw_img(&game()->timer_nbr[0], &game()->canvas, 909, 23, 1.0);
+	// 	draw_img(&game()->timer_nbr[0], &game()->canvas, 980, 23, 1.0);
+	// 	draw_img(&game()->timer_nbr[0], &game()->canvas, 1017, 23, 1.0);
+	// }
 }
 

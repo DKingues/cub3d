@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 17:42:20 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/27 15:09:55 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/22 17:50:30 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	game_press(int keycode)
 	if (keycode == XK_p)
 		pause_game();
 	if (keycode == XK_Shift_L)
-		game()->player.sprint = 1;
+		game()->player.diff = 1;
 	if (keycode == XK_d)
 		game()->player.moving_d = 1;
 	if (keycode == XK_s)
@@ -62,7 +62,7 @@ int	key_release(int keycode, t_game *nada)
 	if(game()->state != GAME)
 		return (0);
 	if (keycode == XK_Shift_L)
-		game()->player.sprint = 0;
+		game()->player.diff = 0;
 	if (keycode == XK_d)
 		game()->player.moving_d = 0;
 	if (keycode == XK_s)

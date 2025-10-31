@@ -228,7 +228,7 @@ int	map_chars(char *av)
 		}
 		while(line[var] && line[var] != '\n')
 		{
-			if(line[var] != '0' && line[var] != 'N' && line[var] != '1' && line[var] != 'E' && line[var] != 'S' && line[var] != 'W' && line[var] != ' ' && line[var] != 'C' &&  line[var] != 'O')
+			if(line[var] != '0' && line[var] != 'N' && line[var] != '1' && line[var] != 'E' && line[var] != 'S' && line[var] != 'W' && line[var] != ' ' && line[var] != 'C' &&  line[var] != 'O' && line[var] != 'G')
 				return (close(fd), printf("Invalid character '%c' inside the map.\n", line[var]), free(line),  1);
 			if (line[var] == 'N' || line[var] == 'E' || line[var] == 'S' || line[var] == 'W')
 				check++;

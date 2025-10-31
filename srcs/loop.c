@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 17:37:00 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/31 15:51:00 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/23 12:50:06 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 int	loop(void *nada)
 {
+	float change;
 	struct timeval	start;
 	(void)nada;
+	change = 0.05;
 	if(game()->state == MENU)
 		menu_put(0, NULL);
 	else if(game()->state == OPT_M)
@@ -35,74 +37,50 @@ int	loop(void *nada)
 			gettimeofday(&start, NULL);
 			game()->game_start = start.tv_sec;
 		}
-		game_loop(18);
+		game_loop(change);
 	}
 	return (0);
 }
-
-void	game_loop(int change)
+int	game_over_check(void)
 {
-	double posX, posY;
-	timer(game()->game_start, 10);
-	if(game()->player.sprint_count == 0)
-		game()->offset = 5;
-	else if (game()->player.sprint_count == 5)
-		game()->offset = 0;
-	if (game()->player.sprint == 1 && game()->player.sprint_count > game()->offset && (game()->player.moving_w == 1 || game()->player.moving_s == 1 || game()->player.moving_a == 1 || game()->player.moving_d == 1))
-	{
-		game()->player.sprint_count -= 1;
-		change = 9;
-	}
-	else
-		if(game()->player.sprint_count < 100)
-			game()->player.sprint_count += 0.25;
-	if (game()->player.moving_d == 1)
-	{
-		posX = game()->player.player_x + ((game()->raycast.ray_y * -1) / ((change / 2)));
-		posY = game()->player.player_y + ((game()->raycast.ray_x) / ((change / 2)));
-		if (game()->map.map[(int)(posY)][(int)posX] != '1' && game()->map.map[(int)(posY)][(int)posX] != 'C')
-		{
-			game()->player.player_x = game()->player.player_x + ((game()->raycast.ray_y * -1) / change);
-			game()->player.player_y = game()->player.player_y + ((game()->raycast.ray_x) / change);
-		}
-	}
-	if (game()->player.moving_s == 1)
-	{
-		posX = game()->player.player_x + ((game()->raycast.ray_x * -1) / ((change / 2)));
-		posY = game()->player.player_y + ((game()->raycast.ray_y * -1) / ((change / 2)));
-		if (game()->map.map[(int)(posY)][(int)posX] != '1' && game()->map.map[(int)(posY)][(int)posX] != 'C')
-		{
-			game()->player.player_x = game()->player.player_x + ((game()->raycast.ray_x * -1) / change);
-			game()->player.player_y = game()->player.player_y + ((game()->raycast.ray_y * -1) / change);
-		}
-	}
-	if (game()->player.moving_a == 1)
-	{
-		posX = game()->player.player_x + ((game()->raycast.ray_y) / ((change / 2)));
-		posY = game()->player.player_y + ((game()->raycast.ray_x * -1) / ((change / 2)));
-		if (game()->map.map[(int)(posY)][(int)posX] != '1' && game()->map.map[(int)(posY)][(int)posX] != 'C')
-		{
-			game()->player.player_x = game()->player.player_x + ((game()->raycast.ray_y) / change);
-			game()->player.player_y = game()->player.player_y + ((game()->raycast.ray_x * -1) / change);
-		}
-	}
-	if (game()->player.moving_w == 1)
-	{
-		posX = game()->player.player_x + (game()->raycast.ray_x / ((change / 2)));
-		posY = game()->player.player_y + (game()->raycast.ray_y / ((change / 2)));
-		if (game()->map.map[(int)(posY)][(int)posX] != '1' && game()->map.map[(int)(posY)][(int)posX] != 'C')
-		{
-			game()->player.player_x = game()->player.player_x + (game()->raycast.ray_x / change);
-			game()->player.player_y = game()->player.player_y + (game()->raycast.ray_y / change);
-		}
-	}
-	if(game()->player.rot_l == 1)
-		rotate_ray(-1);
-	if(game()->player.rot_r == 1)
-		rotate_ray(1);
-	ins_map();
-	//ft_usleep(13000);
-	mlx_put_image_to_window(game()->mlx, game()->win, game()->canvas.img, 0, 0);
+	if (game()->map.map[(int)game()->player.player_y][(int)game()->player.player_x] == 'G')
+		game()->game_over = 1;
+	if (game()->minutes == 0 && game()->seconds == 0)
+		game()->game_over = 1;
+	if (game()->game_over == 1)
+		return (0);
+	return (1);
+}
+void	game_loop(float change)
+{
+	// if (game_over_check() == 0)
+	// {
+		timer(game()->game_start, game()->time);
+		glitch_consume(2);
+		if (game()->player.diff == 1)
+		change = 0.1;
+		if (game()->player.moving_d == 1 && game()->map.map[(int)(game()->player.player_y)][(int)(game()->player.player_x + 0.1)] != '1' && game()->map.map[(int)(game()->player.player_y)][(int)(game()->player.player_x + 0.1)] != 'C')
+			game()->player.player_x += change;
+		if (game()->player.moving_s == 1 && game()->map.map[(int)(game()->player.player_y + 0.1)][(int)game()->player.player_x] != '1' && game()->map.map[(int)(game()->player.player_y + 0.1)][(int)game()->player.player_x] != 'C')
+			game()->player.player_y += change;
+		if (game()->player.moving_a == 1 && game()->map.map[(int)(game()->player.player_y)][(int)(game()->player.player_x - 0.1)] != '1' && game()->map.map[(int)(game()->player.player_y)][(int)(game()->player.player_x - 0.1)] != 'C')
+			game()->player.player_x -= change;
+		if (game()->player.moving_w == 1 && game()->map.map[(int)(game()->player.player_y - 0.1)][(int)game()->player.player_x] != '1' && game()->map.map[(int)(game()->player.player_y - 0.1)][(int)game()->player.player_x] != 'C')
+			game()->player.player_y -= change;
+		game_over_check();
+		if(game()->player.rot_l == 1)
+			rotate_ray(-1);
+		if(game()->player.rot_r == 1)
+			rotate_ray(1);
+		mlx_destroy_image(game()->mlx, game()->canvas.img);
+		game()->canvas.img = mlx_new_image(game()->mlx, 1920, 1024);
+		game()->canvas.addr = mlx_get_data_addr(game()->canvas.img,
+		&game()->canvas.bits_per_pixel, &game()->canvas.line_length,
+		&game()->canvas.endian);
+		ins_map();
+		mlx_put_image_to_window(game()->mlx, game()->win, game()->canvas.img, 0, 0);
+	// }
+	// printf("game_over\n");
 }
 
 int	menu_put(int keycode, void *nada)
@@ -191,11 +169,10 @@ int	pause_put(void)
 	&temp.endian);
 	draw_img(&game()->canvas, &temp, 0, 0, 0.4);
 	draw_img(&game()->pause_bt, &temp, 672, 236, 1.0);
-	draw_img(&game()->continue_bt[game()->frame.continue_tg], &temp, 754, 412, 1.0);
-	draw_img(&game()->option_p_bt[game()->frame.option_p_tg], &temp, 754, 613, 1.0);
-	draw_img(&game()->restart_bt[0], &temp, 754, 513, 1.0);
-	draw_img(&game()->return_menu_bt[game()->frame.return_menu_tg], &temp, 754, 713, 1.0);
-	draw_img(&game()->quit_p_bt[game()->frame.quit_p_tg], &temp, 754, 814, 1.0);
+	draw_img(&game()->continue_bt[game()->frame.continue_tg], &temp, 754, 463, 1.0);
+	draw_img(&game()->option_p_bt[game()->frame.option_p_tg], &temp, 754, 563, 1.0);
+	draw_img(&game()->return_menu_bt[game()->frame.return_menu_tg], &temp, 754, 664, 1.0);
+	draw_img(&game()->quit_p_bt[game()->frame.quit_p_tg], &temp, 754, 764, 1.0);
 	mlx_put_image_to_window(game()->mlx, game()->win, temp.img, 0, 0);
 	mlx_destroy_image(game()->mlx, temp.img);
 	return 0;

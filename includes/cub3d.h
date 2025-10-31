@@ -28,7 +28,6 @@
 
 typedef	struct s_frame
 {
-	int			restart_tg;
 	int			return_menu_tg;
 	int			continue_tg;
 	int			sens_tg;
@@ -67,14 +66,13 @@ typedef struct s_player
 	float	start_y;
 	float	player_x;
 	float	player_y;
-	int		sprint;
+	int		diff;
 	int		moving_w;
 	int		moving_a;
 	int		moving_s;
 	int		moving_d;
 	int		rot_r;
 	int		rot_l;
-	float 	sprint_count;
 }				t_player;
 
 typedef struct s_data
@@ -107,13 +105,7 @@ typedef struct s_map
 	char	**info;
 	char	**map_F;
 	char	**map_C;
-	long F;
-	long C;
 	int		max_y;
-	t_data	north;
-	t_data	south;
-	t_data	west;
-	t_data	east;
 }				t_map;
 
 typedef enum s_state
@@ -127,9 +119,19 @@ typedef enum s_state
 	GAME,
 }				t_state;
 
+
+typedef	struct	s_glitch
+{
+	t_data 	glitch[10];
+	int		glitch_spawned;
+	long	last_glitch_time;
+	int		glitch_i;
+	int		spread_delay;
+
+}				t_glitch;
+
 typedef struct s_game
 {
-	int offset;
 	int			game_over;
 	long		game_start;
 	int			minutes;
@@ -137,7 +139,8 @@ typedef struct s_game
 	int 		release;
 	void		*mlx;
 	void		*win;
-	t_data 		frcg;
+	int			time;
+	t_glitch	glitch;
 	t_frame		frame;
 	t_state		state;
 	t_data		canvas;
@@ -147,7 +150,7 @@ typedef struct s_game
 	t_data		open_door;
 	t_data		timer;
 	t_data		timer_nbr[10];
-	t_data		glitch[21];
+	t_data		stamina_bar[26];
 	t_data		person;
 	t_data		pause_bt;
 	t_data		return_menu_bt[2];
@@ -168,7 +171,6 @@ typedef struct s_game
 	t_data		left_bt[2];
 	t_data		right_bt[2];
 	t_data		continue_bt[2];
-	t_data		restart_bt[2];
 	t_data		sens_nb[5];
 	t_data		diff_nb[3];
 	t_data		loading_screen;
@@ -187,8 +189,7 @@ typedef struct s_game
 
 //fullscreen.c
 void	*my_mlx_new_window(t_xvar *xvar,int size_x,int size_y,char *title);
-void	draw_fc(void);
-void	my_mlx_pixel_put2(t_data *data, int x, int y, int color);
+
 //GNL
 # define BUFFER_SIZE 1
 # define PI 3.141592653589793
@@ -209,7 +210,7 @@ t_game	*game(void);
 void	reinit(void);
 
 //parsing.c
-int parsing(char **av);
+int	 parsing(char **av);
 int map_exists(char *av);
 int map_name(char *av);
 void	rewrite_map(void);
@@ -228,8 +229,8 @@ int texture_img(char *av);
 //mem_utils.c
 void	freeandcopy(int pos, char *line);
 void	set_gameinfo(char *line);
-int	fill(int x, int y);
-int texture_name(char *av);
+int		fill(int x, int y);
+int 	texture_name(char *av);
 char	*ft_strdupnonl(const char *s);
 
 //cleanup.c
@@ -237,7 +238,7 @@ void	singleton_free(void);
 int clean_exit(void *nada);
 
 //dda.c
-void dda_test(double rayDirX, double rayDirY, int drawX);
+void dda_test(double rayDirX, double rayDirY);
 void dda_fov(void);
 void	rotate_ray(int dir);
 
@@ -251,8 +252,7 @@ void	draw_time(void);
 void	draw_img(t_data *src, t_data *dst, int x, int y, float factor);
 void draw_line(float x0, float y0, float x1, float y1);
 void	ins_map(void);
-void	assign_f(void);
-void	assign_c(void);
+
 //draw_utils.c
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int	my_mlx_pixel_get(t_data *data, int x, int y);
@@ -262,8 +262,7 @@ t_data	load_img(char *path);
 float sign (t_cord p1, t_cord p2, t_cord p3);
 int find_point(t_cord pt, t_cord v1, t_cord v2, t_cord v3);
 int	ft_usleep(int micro);
-char *nbr_hx_clr(int nbr);
-int	dim_clr(unsigned int color, float factor);
+
 //handler.c
 void gameplay(void);
 
@@ -294,7 +293,7 @@ int	key_release(int keycode, t_game *nada);
 
 //loop.c
 int	loop(void *nada);
-void	game_loop(int change);
+void	game_loop(float change);
 int	menu_put(int keycode, void *nada);
 void opt_m_put(void);
 void ctrl_m_put(void);
@@ -306,5 +305,18 @@ void ctrl_p_put(void);
 void	draw_dim_img(t_data *src, t_data *dst, int x, int y, float factor);
 void	darken(t_data src, float st_factor, float max_factor);
 void	lighten(t_data src, float st_factor);
+
+// time.c
+
+long 	get_elapsed_sec(void);
+long	get_time(void);
+int		tt_glitch_map(void);
+int		count_zero(char **map);
+
+// glitch.c
+
+void	glitch_consume(int spawn_delay);
+char	**copy_map(char **new_map, char **map_to_copy);
+void	set_difficulty(void);
 
 # endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_press.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 17:43:00 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/30 17:00:08 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/30 23:06:55 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	main_press(void)
 		mlx_mouse_get_pos(game()->mlx, game()->win, &game()->mouse.x, &game()->mouse.y);
 		mlx_mouse_move(game()->mlx, game()->win, game()->mouse.x, 1070);
 		mx = game()->mouse.x;
+		set_difficulty();
 		game_move(&mx);
 		darken(game()->st_anim[game()->frame.anim_tg], 1.0, -0.05);
 		game()->frame.play_tg = 0;
@@ -111,7 +112,7 @@ void	pause_press(void)
 {
 	int last_x;
 	mlx_mouse_get_pos(game()->mlx, game()->win, &game()->mouse.x, &game()->mouse.y);
-	if((game()->mouse.x >= 754 && game()->mouse.x <= 1164) && (game()->mouse.y >= 412 && game()->mouse.y <= 491))
+		if((game()->mouse.x >= 754 && game()->mouse.x <= 1164) && (game()->mouse.y >= 463 && game()->mouse.y <= 542))
 	{
 		mlx_mouse_get_pos(game()->mlx, game()->win, &game()->mouse.x, &game()->mouse.y);
 		mlx_mouse_move(game()->mlx, game()->win, game()->mouse.x, 1070);
@@ -120,45 +121,21 @@ void	pause_press(void)
 		game()->state = GAME;
 		lighten(game()->canvas, 0.4);
 	}
-	if((game()->mouse.x >= 754 && game()->mouse.x <= 1164) && (game()->mouse.y >= 513 && game()->mouse.y <= 593))
-	{
-		darken(game()->canvas, 0.4, -0.05);
-		mlx_clear_window(game()->mlx, game()->win);
-		game_move(&last_x);
-		reset_map();
-		mlx_destroy_image(game()->mlx, game()->canvas.img);
-		game()->canvas.img = mlx_new_image(game()->mlx, (1920), (1080));
-		game()->canvas.addr = mlx_get_data_addr(game()->canvas.img,
-		&game()->canvas.bits_per_pixel, &game()->canvas.line_length,
-		&game()->canvas.endian);
-		reinit();
-		ins_map();
-		ft_usleep(15000);
-		lighten(game()->canvas, 0.0);
-		game()->state = GAME;
-	}
-	if((game()->mouse.x >= 754 && game()->mouse.x <= 1164) && (game()->mouse.y >= 613 && game()->mouse.y <= 692))
+	if((game()->mouse.x >= 754 && game()->mouse.x <= 1164) && (game()->mouse.y >= 563 && game()->mouse.y <= 641))
 	{
 		opt_p_move();
 		game()->state = OPT_P;
 	}
-	if((game()->mouse.x >= 754 && game()->mouse.x <= 1164) && (game()->mouse.y >= 713 && game()->mouse.y <= 793))
+	if((game()->mouse.x >= 754 && game()->mouse.x <= 1164) && (game()->mouse.y >= 664 && game()->mouse.y <= 743))
 	{
 		darken(game()->canvas, 0.4, -0.05);
-		mlx_clear_window(game()->mlx, game()->win);
 		lighten(game()->st_anim[game()->frame.anim_tg], 0.0);
 		main_move();
 		reset_map();
-		mlx_destroy_image(game()->mlx, game()->canvas.img);
-		game()->canvas.img = mlx_new_image(game()->mlx, (1920), (1080));
-		game()->canvas.addr = mlx_get_data_addr(game()->canvas.img,
-			&game()->canvas.bits_per_pixel, &game()->canvas.line_length,
-			&game()->canvas.endian);
 		reinit();
-		ins_map();
 		game()->state = MENU;
 	}
-	if((game()->mouse.x >= 754 && game()->mouse.x <= 1164) && (game()->mouse.y >= 814 && game()->mouse.y <= 894))
+	if((game()->mouse.x >= 754 && game()->mouse.x <= 1164) && (game()->mouse.y >= 764 && game()->mouse.y <= 843))
 		clean_exit(NULL);
 }
 
