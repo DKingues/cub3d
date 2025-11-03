@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 17:37:00 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/31 17:02:00 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/03 19:37:14 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	game_loop(int change)
 {
 	double posX, posY;
 	timer(game()->game_start, game()->time);
-	glitch_consume(2);
+	glitch_consume(4);
 	if(game()->player.sprint_count == 0)
 		game()->offset = 5;
 	else if (game()->player.sprint_count == 5)

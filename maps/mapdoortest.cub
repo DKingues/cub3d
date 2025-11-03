@@ -1,10 +1,10 @@
-NO ./textures/wall.xpm
+NO ./textures/wall/wall.xpm
 
-SO ./textures/wall.xpm
+SO ./textures/wall/wall.xpm
 
-WE ./textures/wall.xpm
+WE ./textures/wall/wall.xpm
 
-EA ./textures/wall.xpm
+EA ./textures/wall/wall.xpm
 
 F 43,36,46
 

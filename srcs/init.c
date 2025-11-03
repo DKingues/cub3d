@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/31 17:06:08 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/03 19:36:36 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,6 @@ void	set_difficulty(void)
 	else if (game()->frame.diff_tg == 2)
 		game()->glitch.spread_delay = 1;
 	game()->time = tt_glitch_map();
-	printf("%d\n", game()->time);
 }
 
 void	reinit(void)
@@ -195,6 +194,17 @@ void init(void)
 	load_full_img(&game()->person, "textures/3.xpm");
 	load_full_img(&game()->maze_nm, "textures/buttons/maze_nm.xpm");
 	load_full_img(&game()->ctrl_menu, "textures/buttons/ctrl_menu.xpm");
+	load_full_img(&game()->diff_bt, "textures/buttons/diff_bt.xpm");
+	load_full_img(&game()->sens_bt, "textures/buttons/sens_bt.xpm");
+	
+	load_full_img(&game()->diff_nb[1], "textures/buttons/diff_nb1.xpm");
+	
+	load_full_img(&game()->pause_bt, "textures/buttons/pause_bt.xpm");
+	
+	load_full_img(&game()->closed_door, "textures/doorC.xpm");
+	load_full_img(&game()->open_door, "textures/doorO.xpm");
+	load_full_img(&game()->timer, "textures/timer.xpm");
+	
 	load_multiple_images(game()->return_menu_bt, "textures/buttons/return_menu_bt", 412, 79, 2);
 
 	load_multiple_images(game()->restart_bt, "textures/buttons/restart_bt", 412, 79, 2);
@@ -207,20 +217,13 @@ void init(void)
 	load_multiple_images(game()->ctrlback_bt, "textures/buttons/ctrlback_bt", 1195, 79, 2);
 	load_multiple_images(game()->left_bt, "textures/buttons/left_bt", 30, 34, 2);
 	load_multiple_images(game()->right_bt, "textures/buttons/right_bt", 30, 34, 2);
-	load_full_img(&game()->diff_bt, "textures/buttons/diff_bt.xpm");
-	load_full_img(&game()->sens_bt, "textures/buttons/sens_bt.xpm");
 	load_multiple_images(game()->sens_nb, "textures/buttons/sens_nb", 31, 31, 5);
 	load_multiple_images(game()->diff_nb, "textures/buttons/diff_nb", 131, 31, 3);
 	mlx_destroy_image(game()->mlx, game()->diff_nb[1].img);
-	load_full_img(&game()->diff_nb[1], "textures/buttons/diff_nb1.xpm");
 	load_multiple_images(game()->continue_bt, "textures/buttons/continue_bt", 410, 78, 2);
 	load_multiple_images(game()->option_p_bt, "textures/buttons/option_p_bt", 410, 78, 2);
-	load_full_img(&game()->pause_bt, "textures/buttons/pause_bt.xpm");
 	load_multiple_images(game()->quit_p_bt, "textures/buttons/quit_p_bt", 410, 78, 2);
-	load_full_img(&game()->closed_door, "textures/doorC.xpm");
-	load_full_img(&game()->open_door, "textures/doorO.xpm");
-	load_full_img(&game()->timer, "textures/timer.xpm");
-	load_multiple_images(game()->glitch.glitch, "textures/glitch64/Glitch", 64, 64, 10);
+	load_multiple_images(game()->glitch.glitch, "textures/glitch/Glitch", 432, 432, 20);
 	load_multiple_images(game()->timer_nbr, "textures/numbers/", 31, 31, 10);
 	game()->sleft_c[0].x = 1004;
 	game()->sleft_c[0].y = 501.5;

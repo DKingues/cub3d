@@ -6,7 +6,7 @@
 /*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 16:10:20 by dicosta-          #+#    #+#             */
-/*   Updated: 2025/10/30 23:11:57 by dicosta-         ###   ########.fr       */
+/*   Updated: 2025/11/03 21:08:34 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,26 @@ int	count_zero(char **map)
 	}
 	return (blocks_to_glitch);
 }
+
+// int	count_zero_r(char **map, int y, int x)
+// {
+// 	static int zero_count;
+// 	char **map_to_iter = copy_map(map);
+// 	if (map_to_iter[y][x] == 0)
+// 	{
+// 		zero_count++;
+// 		map_to_iter[y][x] = '-';
+// 		if (map_to_iter[y][x + 1] != '1')
+// 			count_zero_r(map_to_iter, y, x + 1);
+// 		if (map_to_iter[y + 1][x] != '1')
+// 			count_zero_r(map_to_iter, y + 1, x);
+// 		if (map_to_iter[y][x - 1] != '1')
+// 			count_zero_r(map_to_iter, y, x - 1);
+// 		if (map_to_iter[y - 1][x] != '1')
+// 			count_zero_r(map_to_iter, y - 1, x);
+// 	}
+// 	return (zero_count);
+// }
 
 int	tt_glitch_map(void)
 {
@@ -97,5 +117,5 @@ int	tt_glitch_map(void)
 		ft_free(temp_map);
 	if (temp_map2)
 		ft_free(temp_map2);
-	return (game()->glitch.glitch_i * game()->glitch.spread_delay);
+	return ((game()->glitch.glitch_i * game()->glitch.spread_delay) + 4);
 }
