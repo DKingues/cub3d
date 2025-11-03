@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmota-ma <rmota-ma@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:05:06 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/31 18:08:30 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/03 23:05:20 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,9 +180,53 @@ void	draw_sprint(void)
 	}
 }
 
+/*player.x += 1.0f / 64.0f;
+player.y += 1.0f / 64.0f;
+
+// move one pixel when position is in pixels
+player_px_x += 1;
+player_px_y += 1;
+
+// convert between systems
+float px_to_cells = px_value / 64.0f;2
+int cells_to_px = (int)(cells_value * 64);*/
+
 void	draw_minimap(void)
 {
-	draw_img(&game()->person, &game()->canvas, 100, 100, 1.0);
+	int y = 0;
+	int x = 0;
+	int				tex_x;
+	int				tex_y;
+	while(y < 192)
+	{
+		x = 0;
+		while(x < 192)
+		{
+			float fx = (x / 64.0f) + (game()->player.player_x - 1.5f);
+			float fy = (y / 64.0f) + (game()->player.player_y - 1.5f);
+			float world_pixel_x = (game()->player.player_x - 1.5f) * 64.0f + x;
+			float world_pixel_y = (game()->player.player_y - 1.5f) * 64.0f + y;
+			tex_x = (int)floor(world_pixel_x) % 64;
+			tex_y = (int)floor(world_pixel_y) % 64;
+			char map_char = '\0';
+			if(fx < 0 || fy < 0)
+				map_char = '\0';
+			else if (game()->map.map[(int)fy] && game()->map.map[(int)fy][(int)fx])
+				map_char = game()->map.map[(int)fy][(int)fx];
+			unsigned int color = 0x000000;
+			if (map_char == '1')
+				color = my_mlx_pixel_get(&game()->wall, tex_x, tex_y); 
+			else if (map_char == '0' || map_char == 'N' || map_char == 'W' || 
+			         map_char == 'S' || map_char == 'E' || map_char == 'O')
+				color = 0xFFFFFF;
+			else if (map_char == 'C')
+				color = 0x00FF00;
+			my_mlx_pixel_put(&game()->canvas, x, y, color);
+			x++;
+		}
+		y++;
+	}
+	draw_img(&game()->person, &game()->canvas, 64, 64, 1.0);
 }
 
 void draw_glitch(int var, int var2)
@@ -227,7 +271,7 @@ void	ins_map(void)
 	dda_fov();
 	draw_img(&game()->timer, &game()->canvas, 0, 0, 1.0);
 	draw_time();
-	draw_minimap();
 	draw_sprint();
+	draw_minimap();
 	
 }

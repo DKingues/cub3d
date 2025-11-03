@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmota-ma <rmota-ma@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:06:18 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/31 17:03:06 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/03 22:26:47 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,13 +112,11 @@ void dda_fov(void)
 {
     double dirX = game()->raycast.ray_x;
     double dirY = game()->raycast.ray_y;
-    int drawX = 0;
     double planeX = game()->raycast.plane_x;
     double planeY = game()->raycast.plane_y;
     int i =0;
     while (i < 1920)
     {
-        drawX = 0;
         double cameraX = 2 * i / (double)(1920 - 1) - 1;
         double rayDirX = dirX + planeX * cameraX;
         double rayDirY = dirY + planeY * cameraX;
