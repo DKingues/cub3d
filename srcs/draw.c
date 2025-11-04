@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmota-ma <rmota-ma@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:05:06 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/04 17:09:48 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/04 23:19:08 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,9 +244,50 @@ void	draw_sprint(void)
 	}
 }
 
+int check_point(float fx, float fy)
+{
+   float x0 = game()->player.player_x;
+    float y0 = game()->player.player_y;
 
+    int map_x = (int)floor(x0);
+    int map_y = (int)floor(y0);
 
+    int end_x = (int)floor(fx);
+    int end_y = (int)floor(fy);
 
+    float dx = fx - x0;
+    float dy = fy - y0;
+
+    int step_x = (dx > 0) ? 1 : -1;
+    int step_y = (dy > 0) ? 1 : -1;
+
+    float t_max_x = (dx == 0) ? INFINITY :
+        ((step_x > 0 ? (map_x + 1.0 - x0) : (x0 - map_x)) / fabs(dx));
+    float t_max_y = (dy == 0) ? INFINITY :
+        ((step_y > 0 ? (map_y + 1.0 - y0) : (y0 - map_y)) / fabs(dy));
+
+    float t_delta_x = (dx == 0) ? INFINITY : 1.0 / fabs(dx);
+    float t_delta_y = (dy == 0) ? INFINITY : 1.0 / fabs(dy);
+
+    while (1) {
+        if (!game()->map.map[map_y] || game()->map.map[map_y][map_x] == '\0') 
+			break;
+        if (game()->map.map[map_y][map_x] == '1') 
+			return 1;
+        if (map_x == end_x && map_y == end_y) 
+			break;
+
+        if (t_max_x < t_max_y) {
+            t_max_x += t_delta_x;
+            map_x += step_x;
+        } else {
+            t_max_y += t_delta_y;
+            map_y += step_y;
+        }
+    }
+
+    return 0;
+}
     
 
 void	draw_rays(t_data *src, t_data *dst, int x, int y, float factor)
@@ -261,25 +302,23 @@ void	draw_rays(t_data *src, t_data *dst, int x, int y, float factor)
     float plane_x = game()->raycast.plane_x;
     float plane_y = game()->raycast.plane_y;
 
-	sx = 63;
-	while (sx >= 0)
+	sx = 0;
+	while (sx < 64)
 	{
-		sy = 63;
-		while (sy >= 0)
+		sy = 0;
+		while (sy < 64)
 		{
 			float dx = (sx + x - 96) / 64.0f;
             float dy = (sy + y - 96) / 64.0f;
             float fx = player_x + dx * plane_x + dy * dir_x;
             float fy = player_y + dx * plane_y + dy * dir_y;
 
-            if (game()->map.map[(int)fy] && game()->map.map[(int)fy][(int)fx] && game()->map.map[(int)fy][(int)fx] != '1')
+            if (game()->map.map[(int)fy] && game()->map.map[(int)fy][(int)fx] && game()->map.map[(int)fy][(int)fx] != '1' && !check_point(fx, fy))
 				my_mlx_pixel_put(dst, sx + x, sy + y,
 					my_mlx_pixel_get_dim(src, sx, sy, factor));
-			else
-				break;
-			sy--;
+			sy++;
 		}
-		sx--;
+		sx++;
 	}
 }
 
