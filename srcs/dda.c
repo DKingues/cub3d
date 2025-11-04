@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:06:18 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/03 22:26:47 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/04 14:51:27 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void dda_test(double rayDirX, double rayDirY, int drawX)
         hitX = posY + rayDirY * perpWallDist;
     else
          hitX = posX + rayDirX * perpWallDist;
+    //draw_line(rayDirX, rayDirY);
     hitX -= floor(hitX);
     int lineHeight = (int)(1080 / perpWallDist);
     int drawStart = -lineHeight / 2 + 1080 / 2;

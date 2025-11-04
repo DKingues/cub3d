@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/31 17:06:08 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/04 15:01:50 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,14 @@ void init(void)
 			&game()->canvas.endian);
 	game()->canvas.res_x = 1920;
 	game()->canvas.res_y = 1080;
+	load_full_img(&game()->rays, "textures/fov.xpm");
+	game()->minimap.img = mlx_new_image(game()->mlx, (192), (192));
+	game()->minimap.addr = mlx_get_data_addr(game()->minimap.img,
+			&game()->minimap.bits_per_pixel, &game()->minimap.line_length,
+			&game()->minimap.endian);
+	game()->minimap.res_x = 192;
+	game()->minimap.res_y = 192;
+	load_full_img(&game()->circle, "textures/circle.xpm");
 	game()->frame.sens_tg = 0;
 	game()->frame.diff_tg = 0;
 	load_full_img(&game()->map.north, game()->map.info[0]);
