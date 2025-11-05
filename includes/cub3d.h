@@ -28,6 +28,7 @@
 
 typedef	struct s_frame
 {
+	int			glitch_tg;
 	int			restart_tg;
 	int			return_menu_tg;
 	int			continue_tg;
@@ -140,6 +141,11 @@ typedef	struct	s_glitch
 
 typedef struct s_game
 {
+	t_data		door[57];
+	long		anim;
+	t_data	minimap;
+	t_data	circle;
+	t_data	rays;
 	int offset;
 	int			game_over;
 	long		game_start;
@@ -261,7 +267,7 @@ void	draw_time(void);
 
 //draw.c
 void	draw_img(t_data *src, t_data *dst, int x, int y, float factor);
-void draw_line(float x0, float y0, float x1, float y1);
+void draw_line(double rayDirX, double rayDirY);
 void	ins_map(void);
 void	assign_f(void);
 void	assign_c(void);

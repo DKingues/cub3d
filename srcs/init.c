@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/03 19:36:36 by dicosta-         ###   ########.fr       */
+/*   Updated: 2025/11/05 18:05:46 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,11 +128,11 @@ void	set_difficulty(void)
 
 void	reinit(void)
 {
-	//mlx_mouse_move(game()->mlx, game()->win, 960, 512);
 	game()->game_over = 0;
 	game()->game_start = -1;
 	game()->frame.return_menu_tg = 0;
 	game()->frame.restart_tg = 0;
+	game()->frame.glitch_tg = 0;
 	game()->frame.continue_tg = 0;
 	game()->frame.anim_tg = 0;
 	game()->frame.play_tg = 0;
@@ -183,6 +183,14 @@ void init(void)
 			&game()->canvas.endian);
 	game()->canvas.res_x = 1920;
 	game()->canvas.res_y = 1080;
+	load_full_img(&game()->rays, "textures/fov.xpm");
+	game()->minimap.img = mlx_new_image(game()->mlx, (192), (192));
+	game()->minimap.addr = mlx_get_data_addr(game()->minimap.img,
+			&game()->minimap.bits_per_pixel, &game()->minimap.line_length,
+			&game()->minimap.endian);
+	game()->minimap.res_x = 192;
+	game()->minimap.res_y = 192;
+	load_full_img(&game()->circle, "textures/circle.xpm");
 	game()->frame.sens_tg = 0;
 	game()->frame.diff_tg = 0;
 	load_full_img(&game()->map.north, game()->map.info[0]);
@@ -206,7 +214,7 @@ void init(void)
 	load_full_img(&game()->timer, "textures/timer.xpm");
 	
 	load_multiple_images(game()->return_menu_bt, "textures/buttons/return_menu_bt", 412, 79, 2);
-
+	load_multiple_images(game()->door, "textures/door/Porta", 0, 0, 57);
 	load_multiple_images(game()->restart_bt, "textures/buttons/restart_bt", 412, 79, 2);
 	
 	load_multiple_images(game()->play_bt, "textures/buttons/play_bt", 576, 116, 2);

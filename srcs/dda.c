@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:06:18 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/03 19:29:22 by dicosta-         ###   ########.fr       */
+/*   Updated: 2025/11/05 18:05:28 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,16 @@ void dda_test(double rayDirX, double rayDirY, int drawX)
 			tex_clr = game()->map.south;
 	}
     if(game()->map.map[mapY][mapX] == 'C')
-        tex_clr = game()->st_anim[0];
+        tex_clr = game()->door[0];
+    if(game()->map.map[mapY][mapX] == 'O')
+        tex_clr = game()->door[56];
     if(game()->map.map[mapY][mapX] == 'G')
-        tex_clr = game()->glitch.glitch[0];
+        tex_clr = game()->glitch.glitch[game()->frame.glitch_tg];
     if(side == 0)
         hitX = posY + rayDirY * perpWallDist;
     else
          hitX = posX + rayDirX * perpWallDist;
+    //draw_line(rayDirX, rayDirY);
     hitX -= floor(hitX);
     int lineHeight = (int)(1080 / perpWallDist);
     int drawStart = -lineHeight / 2 + 1080 / 2;
@@ -112,13 +115,11 @@ void dda_fov(void)
 {
     double dirX = game()->raycast.ray_x;
     double dirY = game()->raycast.ray_y;
-    // int drawX = 0;
     double planeX = game()->raycast.plane_x;
     double planeY = game()->raycast.plane_y;
     int i = 0;
     while (i < 1920)
     {
-        // drawX = 0;
         double cameraX = 2 * i / (double)(1920 - 1) - 1;
         double rayDirX = dirX + planeX * cameraX;
         double rayDirY = dirY + planeY * cameraX;
