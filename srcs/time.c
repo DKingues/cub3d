@@ -6,7 +6,7 @@
 /*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 16:10:20 by dicosta-          #+#    #+#             */
-/*   Updated: 2025/11/03 21:08:34 by dicosta-         ###   ########.fr       */
+/*   Updated: 2025/11/05 18:26:43 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,25 +52,50 @@ int	count_zero(char **map)
 	return (blocks_to_glitch);
 }
 
-// int	count_zero_r(char **map, int y, int x)
-// {
-// 	static int zero_count;
-// 	char **map_to_iter = copy_map(map);
-// 	if (map_to_iter[y][x] == 0)
-// 	{
-// 		zero_count++;
-// 		map_to_iter[y][x] = '-';
-// 		if (map_to_iter[y][x + 1] != '1')
-// 			count_zero_r(map_to_iter, y, x + 1);
-// 		if (map_to_iter[y + 1][x] != '1')
-// 			count_zero_r(map_to_iter, y + 1, x);
-// 		if (map_to_iter[y][x - 1] != '1')
-// 			count_zero_r(map_to_iter, y, x - 1);
-// 		if (map_to_iter[y - 1][x] != '1')
-// 			count_zero_r(map_to_iter, y - 1, x);
-// 	}
-// 	return (zero_count);
-// }
+int	count_zero_r(char **temp_map, int y, int x)
+{
+	int count;
+
+	count = 1;
+	if (temp_map[y][x] == '0' || temp_map[y][x] == 'C' || temp_map[y][x] == 'O' || temp_map[y][x] == 'N'
+	 || temp_map[y][x] == 'S' || temp_map[y][x] == 'E' || temp_map[y][x] == 'W')
+	{
+		temp_map[y][x] = '-';
+		if (temp_map[y][x + 1] != '1')
+			count += count_zero_r(temp_map, y, x + 1);
+		if (temp_map[y + 1][x] != '1')
+			count += count_zero_r(temp_map, y + 1, x);
+		if (temp_map[y][x - 1] != '1')
+			count += count_zero_r(temp_map, y, x - 1);
+		if (temp_map[y - 1][x] != '1')
+			count += count_zero_r(temp_map, y - 1, x);
+		return (count);
+	}
+	return (0);
+}
+
+int 	glitched_tiles(char **temp_map)
+{
+	int y;
+	int x;
+	int	g_counter;
+
+	y = 0;
+	x = 0;
+	g_counter = 0;
+	while (temp_map[y])
+	{
+		x = 0;
+		while (temp_map[y][x])
+		{
+			if (temp_map[y][x] == 'G')
+				g_counter++;
+			x++;
+		}
+		y++;
+	}
+	return (g_counter);
+}
 
 int	tt_glitch_map(void)
 {
@@ -86,7 +111,7 @@ int	tt_glitch_map(void)
 	temp_map2 = copy_map(temp_map2, game()->map.map);
 	temp_map2[(int)game()->player.start_y][(int)game()->player.start_x] = 'G';
 	game()->glitch.glitch_i = 0;
-	while (count_zero(temp_map2) > 0)
+	while (game()->glitch.to_glitch - glitched_tiles(temp_map2) > 0)
 	{
 		temp_map = copy_map(temp_map, temp_map2);
 		y = 0;

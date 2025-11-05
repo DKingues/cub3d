@@ -135,7 +135,7 @@ typedef	struct	s_glitch
 	long	last_glitch_time;
 	int		glitch_i;
 	int		spread_delay;
-
+	int		to_glitch;
 }				t_glitch;
 
 

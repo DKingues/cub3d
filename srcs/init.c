@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/05 18:05:46 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/05 18:28:13 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,11 @@ void	reinit(void)
 	game()->player.rot_r = 0;
 	game()->mouse.x = 0;
 	game()->mouse.y = 0;
+	char **temp_map = NULL;
+	game()->glitch.to_glitch = 0;
+	temp_map = copy_map(temp_map, game()->map.map);
+	game()->glitch.to_glitch = count_zero_r(temp_map, (int)game()->player.start_y, (int)game()->player.start_x);
+	ft_free(temp_map);
 	set_difficulty();
 	game()->glitch.glitch_spawned = 0;
 	game()->glitch.glitch_i = 0;
@@ -214,9 +219,8 @@ void init(void)
 	load_full_img(&game()->timer, "textures/timer.xpm");
 	
 	load_multiple_images(game()->return_menu_bt, "textures/buttons/return_menu_bt", 412, 79, 2);
-	load_multiple_images(game()->door, "textures/door/Porta", 0, 0, 57);
+	//load_multiple_images(game()->door, "textures/door/Porta", 432, 432, 56);
 	load_multiple_images(game()->restart_bt, "textures/buttons/restart_bt", 412, 79, 2);
-	
 	load_multiple_images(game()->play_bt, "textures/buttons/play_bt", 576, 116, 2);
 	load_multiple_images(game()->option_bt, "textures/buttons/option_bt", 576, 116, 2);
 	load_multiple_images(game()->quit_bt, "textures/buttons/quit_bt", 576, 116, 2);
