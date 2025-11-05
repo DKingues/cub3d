@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/05 14:21:23 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/05 16:53:16 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,7 +204,7 @@ void init(void)
 	load_full_img(&game()->maze_nm, "textures/buttons/maze_nm.xpm");
 	load_full_img(&game()->ctrl_menu, "textures/buttons/ctrl_menu.xpm");
 	load_multiple_images(game()->return_menu_bt, "textures/buttons/return_menu_bt", 412, 79, 2);
-
+	load_multiple_images(game()->door, "textures/door/Porta", 0, 0, 57);
 	load_multiple_images(game()->restart_bt, "textures/buttons/restart_bt", 412, 79, 2);
 	
 	load_multiple_images(game()->play_bt, "textures/buttons/play_bt", 576, 116, 2);

@@ -141,6 +141,7 @@ typedef	struct	s_glitch
 
 typedef struct s_game
 {
+	t_data		door[57];
 	long		anim;
 	t_data	minimap;
 	t_data	circle;
