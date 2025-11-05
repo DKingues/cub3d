@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:05:06 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/04 23:19:08 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/05 14:40:30 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,7 +272,7 @@ int check_point(float fx, float fy)
     while (1) {
         if (!game()->map.map[map_y] || game()->map.map[map_y][map_x] == '\0') 
 			break;
-        if (game()->map.map[map_y][map_x] == '1') 
+        if (game()->map.map[map_y][map_x] == '1' || game()->map.map[(int)map_y][(int)map_x] == 'C' || game()->map.map[(int)map_y][(int)map_x] == 'G') 
 			return 1;
         if (map_x == end_x && map_y == end_y) 
 			break;
@@ -313,7 +313,7 @@ void	draw_rays(t_data *src, t_data *dst, int x, int y, float factor)
             float fx = player_x + dx * plane_x + dy * dir_x;
             float fy = player_y + dx * plane_y + dy * dir_y;
 
-            if (game()->map.map[(int)fy] && game()->map.map[(int)fy][(int)fx] && game()->map.map[(int)fy][(int)fx] != '1' && !check_point(fx, fy))
+            if (game()->map.map[(int)fy] && game()->map.map[(int)fy][(int)fx] && game()->map.map[(int)fy][(int)fx] != '1' && game()->map.map[(int)fy][(int)fx] != 'C' && game()->map.map[(int)fy][(int)fx] != 'G' && !check_point(fx, fy))
 				my_mlx_pixel_put(dst, sx + x, sy + y,
 					my_mlx_pixel_get_dim(src, sx, sy, factor));
 			sy++;
@@ -364,13 +364,14 @@ void draw_minimap(void)
             unsigned int color = 0x000000;
             if (map_char == '1')
                 color = my_mlx_pixel_get(&game()->wall, tex_x, tex_y);
-			else if (map_char == '0' && (int)fy != (int)game()->player.player_y && (int)fx != (int)game()->player.player_x)
+			else if (map_char == 'O')
 				color = 0xFFFFFF;
-            else if (map_char == '0' || map_char == 'N' || map_char == 'W' ||
-                     map_char == 'S' || map_char == 'E' || map_char == 'O')
-                color = 0x66FF00;
             else if (map_char == 'C')
                 color = 0x00FF00;
+			else if (map_char == 'G')
+                color = my_mlx_pixel_get(&game()->glitch.glitch[game()->frame.glitch_tg], tex_x, tex_y);
+			else if (map_char == '0' || map_char == 'N' || map_char == 'S' || map_char == 'W' || map_char == 'E')
+                color = 0x2B242E;
 			y = 192 - y;
             my_mlx_pixel_put(&game()->minimap, x, y, color);
             x++;
@@ -473,33 +474,16 @@ void	draw_circle(t_data *src, t_data* dst, int x, int y)
 
 void	ins_map(void)
 {
-	// int	var2;
-	// int	var;
-
-	// var2 = 0;
+	static int offset = 0;
+	offset++;
+	if(offset % 5 == 0)
+	{
+		game()->frame.glitch_tg++;
+    	if(game()->frame.glitch_tg == 10)
+			game()->frame.glitch_tg = 0;
+		offset = 0;
+	}
 	draw_fc();
-	// game()->player.player_x -= 0.5;
-	// game()->player.player_y -= 0.5;
-	// while (game()->map.map[var2])
-	// {
-	// 	var = 0;
-	// 	while (game()->map.map[var2][var])
-	// 	{
-	// 		if (game()->map.map[var2][var] == '1')
-	// 			draw_img(&game()->wall, &game()->canvas, (var * 64), (var2 * 64), 1.0);
-	// 		else if (game()->map.map[var2][var] == 'C')
-	// 			draw_img(&game()->closed_door, &game()->canvas, (var * 64), (var2 * 64), 1.0);
-	// 		else if (game()->map.map[var2][var] == 'O')
-	// 			draw_img(&game()->open_door, &game()->canvas, (var * 64), (var2 * 64), 1.0);
-	// 		else
-	// 			draw_img(&game()->floor, &game()->canvas, (var * 64), (var2 * 64), 1.0);
-	// 		var++;
-	// 	}
-	// 	var2++;
-	// }
-	// draw_img(&game()->person, &game()->canvas, (game()->player.player_x * 64), (game()->player.player_y * 64), 1.0);
-	// game()->player.player_x += 0.5;
-	// game()->player.player_y += 0.5;
 	draw_minimap();
 	dda_fov();
 	draw_img(&game()->timer, &game()->canvas, 0, 0, 1.0);
@@ -507,5 +491,4 @@ void	ins_map(void)
 	draw_sprint();
 	//draw_circle(&game()->circle, &game()->minimap, 0, 0);
 	draw_img(&game()->minimap, &game()->canvas, 0, 0, 1.0);
-	
 }

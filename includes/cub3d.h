@@ -28,6 +28,7 @@
 
 typedef	struct s_frame
 {
+	int			glitch_tg;
 	int			restart_tg;
 	int			return_menu_tg;
 	int			continue_tg;
@@ -140,6 +141,7 @@ typedef	struct	s_glitch
 
 typedef struct s_game
 {
+	long		anim;
 	t_data	minimap;
 	t_data	circle;
 	t_data	rays;

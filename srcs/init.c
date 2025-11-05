@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/04 15:01:50 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/05 14:21:23 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,11 +129,11 @@ void	set_difficulty(void)
 
 void	reinit(void)
 {
-	//mlx_mouse_move(game()->mlx, game()->win, 960, 512);
 	game()->game_over = 0;
 	game()->game_start = -1;
 	game()->frame.return_menu_tg = 0;
 	game()->frame.restart_tg = 0;
+	game()->frame.glitch_tg = 0;
 	game()->frame.continue_tg = 0;
 	game()->frame.anim_tg = 0;
 	game()->frame.play_tg = 0;
