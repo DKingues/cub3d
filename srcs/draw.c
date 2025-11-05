@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:05:06 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/05 18:05:37 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/05 18:53:36 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -364,10 +364,10 @@ void draw_minimap(void)
             unsigned int color = 0x000000;
             if (map_char == '1')
                 color = my_mlx_pixel_get(&game()->wall, tex_x, tex_y);
-			else if (map_char == 'O')
-				color = 0xFFFFFF;
-            else if (map_char == 'C')
-                color = 0x00FF00;
+			else if (map_char == 'C')
+				 color = my_mlx_pixel_get(&game()->closed_door, tex_x, tex_y);
+            else if (map_char == 'O')
+                color = my_mlx_pixel_get(&game()->open_door, tex_x, tex_y);
 			else if (map_char == 'G')
                 color = my_mlx_pixel_get(&game()->glitch.glitch[game()->frame.glitch_tg], tex_x, tex_y);
 			else if (map_char == '0' || map_char == 'N' || map_char == 'S' || map_char == 'W' || map_char == 'E')
