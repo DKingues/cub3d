@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   door.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 15:15:29 by dicosta-          #+#    #+#             */
-/*   Updated: 2025/10/31 17:14:44 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/06 18:34:05 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,15 @@ int open_door(void)
 	
 	y = game()->player.player_y;
 	x = game()->player.player_x;
-	if (game()->map.map[y][x + 1] == 'C')
+	if (game()->map.map[y][x + 1] == 'L')
+		game()->game_over = 1;
+	else if (game()->map.map[y][x - 1] == 'L')
+		game()->game_over = 1;
+	else if (game()->map.map[y + 1][x] == 'L')
+		game()->game_over = 1;
+	else if (game()->map.map[y - 1][x] == 'L')
+		game()->game_over = 1;
+	else if (game()->map.map[y][x + 1] == 'C')
 		game()->map.map[y][x + 1] = 'O';
 	else if (game()->map.map[y][x - 1] == 'C')
 		game()->map.map[y][x - 1] = 'O';

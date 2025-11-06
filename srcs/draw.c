@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:05:06 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/05 18:05:37 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/06 19:47:39 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,15 +227,15 @@ void	assign_f(void)
 void	draw_sprint(void)
 {
 	int	var;
-	int var2 = 765;
+	int var2 = 768;
 	/* if (game()->player.sprint_count < 10)
 		return ; */
-	float var3 = 3.9 * (int)game()->player.sprint_count;
+	float var3 = 3.84 * (int)game()->player.sprint_count;
 	//printf("CORD: %d\n", 39 * ((int)game()->player.sprint_count / 10));
-	while(var2 < (int)var3 + 765)
+	while(var2 < (int)var3 + 768)
 	{
-		var = 1035;
-		while(var < 1048)
+		var = 1030;
+		while(var < 1042)
 		{
 			my_mlx_pixel_put(&game()->canvas, var2, var, 0x00FFFF);
 			var++;
@@ -370,6 +370,8 @@ void draw_minimap(void)
                 color = 0x00FF00;
 			else if (map_char == 'G')
                 color = my_mlx_pixel_get(&game()->glitch.glitch[game()->frame.glitch_tg], tex_x, tex_y);
+			else if (map_char == 'L')
+				color = my_mlx_pixel_get(&game()->exit, tex_x, tex_y);
 			else if (map_char == '0' || map_char == 'N' || map_char == 'S' || map_char == 'W' || map_char == 'E')
                 color = 0x2B242E;
 			y = 192 - y;
@@ -487,8 +489,9 @@ void	ins_map(void)
 	draw_minimap();
 	dda_fov();
 	draw_img(&game()->timer, &game()->canvas, 0, 0, 1.0);
+	//draw_circle(&game()->circle, &game()->minimap, 0, 0);
+	//draw_img(&game()->hud, &game()->canvas, 0, 0, 1.0);
 	draw_time();
 	draw_sprint();
-	//draw_circle(&game()->circle, &game()->minimap, 0, 0);
-	draw_img(&game()->minimap, &game()->canvas, 0, 0, 1.0);
+	draw_img(&game()->minimap, &game()->canvas, 47, 96, 1.0);
 }

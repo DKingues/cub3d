@@ -166,6 +166,7 @@ typedef struct s_game
 	t_data		timer;
 	t_data		timer_nbr[10];
 	t_glitch 	glitch;
+	t_data		exit;
 	t_data		person;
 	t_data		pause_bt;
 	t_data		return_menu_bt[2];
