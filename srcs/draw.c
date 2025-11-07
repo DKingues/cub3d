@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:05:06 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/07 12:12:01 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/07 12:23:53 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -337,7 +337,7 @@ void draw_minimap(void)
 		x = 0;
 		while(x < 192)
 		{
-			my_mlx_pixel_put(&game()->minimap, x, y, 0xFFFFFF);
+			my_mlx_pixel_put(&game()->minimap, x, y, 0x2B242E);
 			x++;
 		}
 		y++;
@@ -354,8 +354,10 @@ void draw_minimap(void)
             float fy = player_y + dx * plane_y + dy * dir_y;
             int tex_x = ((int)(fx * 64)) % 64;
             int tex_y = ((int)(fy * 64)) % 64;
-            if (tex_x < 0) tex_x += 64;
-            if (tex_y < 0) tex_y += 64;
+            if (tex_x < 0)
+				tex_x += 64;
+            if (tex_y < 0)
+				tex_y += 64;
             char map_char = '\0';
             if(fx < 0 || fy < 0)
 				map_char = '\0';
