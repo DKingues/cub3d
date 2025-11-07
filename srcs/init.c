@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/05 18:49:55 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/07 12:12:17 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,9 +214,11 @@ void init(void)
 	
 	load_full_img(&game()->pause_bt, "textures/buttons/pause_bt.xpm");
 	
+	load_full_img(&game()->exit, "textures/exit/Exit1.xpm");
+
 	load_full_img(&game()->closed_door, "textures/doorC.xpm");
 	load_full_img(&game()->open_door, "textures/doorO.xpm");
-	load_full_img(&game()->timer, "textures/timer.xpm");
+	load_full_img(&game()->timer, "textures/neon_hud.xpm");
 	
 	load_multiple_images(game()->return_menu_bt, "textures/buttons/return_menu_bt", 412, 79, 2);
 	load_multiple_images(game()->door, "textures/door/Porta", 432, 432, 56);

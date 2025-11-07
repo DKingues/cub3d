@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 17:37:00 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/05 18:05:53 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/06 18:26:31 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	game_loop(int change)
 	{
 		posX = game()->player.player_x + ((game()->raycast.ray_y * -1) / ((change / 2)));
 		posY = game()->player.player_y + ((game()->raycast.ray_x) / ((change / 2)));
-		if (game()->map.map[(int)(posY)][(int)posX] != '1' && game()->map.map[(int)(posY)][(int)posX] != 'C')
+		if (game()->map.map[(int)(posY)][(int)posX] != '1' && game()->map.map[(int)(posY)][(int)posX] != 'C' && game()->map.map[(int)(posY)][(int)posX] != 'L')
 		{
 			game()->player.player_x = game()->player.player_x + ((game()->raycast.ray_y * -1) / change);
 			game()->player.player_y = game()->player.player_y + ((game()->raycast.ray_x) / change);
@@ -71,7 +71,7 @@ void	game_loop(int change)
 	{
 		posX = game()->player.player_x + ((game()->raycast.ray_x * -1) / ((change / 2)));
 		posY = game()->player.player_y + ((game()->raycast.ray_y * -1) / ((change / 2)));
-		if (game()->map.map[(int)(posY)][(int)posX] != '1' && game()->map.map[(int)(posY)][(int)posX] != 'C')
+		if (game()->map.map[(int)(posY)][(int)posX] != '1' && game()->map.map[(int)(posY)][(int)posX] != 'C' && game()->map.map[(int)(posY)][(int)posX] != 'L')
 		{
 			game()->player.player_x = game()->player.player_x + ((game()->raycast.ray_x * -1) / change);
 			game()->player.player_y = game()->player.player_y + ((game()->raycast.ray_y * -1) / change);
@@ -81,7 +81,7 @@ void	game_loop(int change)
 	{
 		posX = game()->player.player_x + ((game()->raycast.ray_y) / ((change / 2)));
 		posY = game()->player.player_y + ((game()->raycast.ray_x * -1) / ((change / 2)));
-		if (game()->map.map[(int)(posY)][(int)posX] != '1' && game()->map.map[(int)(posY)][(int)posX] != 'C')
+		if (game()->map.map[(int)(posY)][(int)posX] != '1' && game()->map.map[(int)(posY)][(int)posX] != 'C' && game()->map.map[(int)(posY)][(int)posX] != 'L')
 		{
 			game()->player.player_x = game()->player.player_x + ((game()->raycast.ray_y) / change);
 			game()->player.player_y = game()->player.player_y + ((game()->raycast.ray_x * -1) / change);
@@ -91,7 +91,7 @@ void	game_loop(int change)
 	{
 		posX = game()->player.player_x + (game()->raycast.ray_x / ((change / 2)));
 		posY = game()->player.player_y + (game()->raycast.ray_y / ((change / 2)));
-		if (game()->map.map[(int)(posY)][(int)posX] != '1' && game()->map.map[(int)(posY)][(int)posX] != 'C')
+		if (game()->map.map[(int)(posY)][(int)posX] != '1' && game()->map.map[(int)(posY)][(int)posX] != 'C' && game()->map.map[(int)(posY)][(int)posX] != 'L')
 		{
 			game()->player.player_x = game()->player.player_x + (game()->raycast.ray_x / change);
 			game()->player.player_y = game()->player.player_y + (game()->raycast.ray_y / change);

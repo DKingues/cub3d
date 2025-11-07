@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:06:18 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/05 18:49:13 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/07 12:11:49 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void dda_test(double rayDirX, double rayDirY, int drawX)
             mapY += stepY;
             side = 1;
         }
-        if (game()->map.map[mapY][mapX] == '1' || game()->map.map[mapY][mapX] == 'C' || game()->map.map[mapY][mapX] == 'G')
+        if (game()->map.map[mapY][mapX] == '1' || game()->map.map[mapY][mapX] == 'C' || game()->map.map[mapY][mapX] == 'G' || game()->map.map[mapY][mapX] == 'L')
             hit = 1;
     }
     double perpWallDist;
@@ -75,10 +75,14 @@ void dda_test(double rayDirX, double rayDirY, int drawX)
 		else
 			tex_clr = game()->map.south;
 	}
-    if(game()->map.map[mapY][mapX] == 'C')
-        tex_clr = game()->door[0];
-    if(game()->map.map[mapY][mapX] == 'G')
-        tex_clr = game()->glitch.glitch[game()->frame.glitch_tg];
+	if(game()->map.map[mapY][mapX] == 'C')
+		tex_clr = game()->door[0];
+	if(game()->map.map[mapY][mapX] == 'O')
+		tex_clr = game()->door[56];
+	if(game()->map.map[mapY][mapX] == 'G')
+		tex_clr = game()->glitch.glitch[game()->frame.glitch_tg];
+	if(game()->map.map[mapY][mapX] == 'L')
+		tex_clr = game()->exit;
     if(side == 0)
         hitX = posY + rayDirY * perpWallDist;
     else
