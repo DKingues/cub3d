@@ -28,6 +28,7 @@
 
 typedef	struct s_frame
 {
+	int door_tg;
 	int			glitch_tg;
 	int			restart_tg;
 	int			return_menu_tg;
@@ -208,6 +209,7 @@ typedef struct s_game
 void	*my_mlx_new_window(t_xvar *xvar,int size_x,int size_y,char *title);
 void	draw_fc(void);
 void	my_mlx_pixel_put2(t_data *data, int x, int y, int color);
+void	door_handle(void);
 //GNL
 # define BUFFER_SIZE 1
 # define PI 3.141592653589793

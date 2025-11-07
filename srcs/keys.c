@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 17:42:20 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/27 15:09:55 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/07 17:59:23 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,29 @@ int	key_press(int keycode, t_game *nada)
 		lighten(game()->canvas, 0.4);
 	}
 	return (0);
+}
+
+void	door_handle(void)
+{
+	int	var = 0;
+	int	var2;
+	while(game()->map.map[var])
+	{
+		var2 = 0;
+		while(game()->map.map[var][var2])
+		{
+			if (game()->map.map[var][var2] >= -57 && game()->map.map[var][var2] < -1)
+				game()->map.map[var][var2] += 1;
+			else if (game()->map.map[var][var2] == -1)
+				game()->map.map[var][var2] = 'O';
+			else if (game()->map.map[var][var2] > -126 && game()->map.map[var][var2] <= -71)
+				game()->map.map[var][var2] -= 1;
+			else if (game()->map.map[var][var2] == -126)
+				game()->map.map[var][var2] = 'C';
+			var2++;
+		}
+		var++;
+	}
 }
 
 void	game_press(int keycode)

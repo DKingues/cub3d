@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   door.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 15:15:29 by dicosta-          #+#    #+#             */
-/*   Updated: 2025/11/06 18:34:05 by dicosta-         ###   ########.fr       */
+/*   Updated: 2025/11/07 17:54:55 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,21 @@ int open_door(void)
 	else if (game()->map.map[y - 1][x] == 'L')
 		game()->game_over = 1;
 	else if (game()->map.map[y][x + 1] == 'C')
-		game()->map.map[y][x + 1] = 'O';
+		game()->map.map[y][x + 1] = -57;
 	else if (game()->map.map[y][x - 1] == 'C')
-		game()->map.map[y][x - 1] = 'O';
+		game()->map.map[y][x - 1] = -57;
 	else if (game()->map.map[y + 1][x] == 'C')
-		game()->map.map[y + 1][x] = 'O';
+		game()->map.map[y + 1][x] = -57;
 	else if (game()->map.map[y - 1][x] == 'C')
-		game()->map.map[y - 1][x] = 'O';
+		game()->map.map[y - 1][x] = -57;
 	else if (game()->map.map[y][x + 1] == 'O')
-		game()->map.map[y][x + 1] = 'C';
+		game()->map.map[y][x + 1] = -71;
 	else if (game()->map.map[y][x - 1] == 'O')
-		game()->map.map[y][x - 1] = 'C';
+		game()->map.map[y][x - 1] = -71;
 	else if (game()->map.map[y + 1][x] == 'O')
-		game()->map.map[y + 1][x] = 'C';
+		game()->map.map[y + 1][x] = -71;
 	else if (game()->map.map[y - 1][x] == 'O')
-		game()->map.map[y - 1][x] = 'C';
+		game()->map.map[y - 1][x] = -71;
 	return (1);
 }
 

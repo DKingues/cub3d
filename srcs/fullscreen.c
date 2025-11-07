@@ -6,13 +6,11 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 12:04:13 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/31 15:48:29 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/07 16:15:25 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-#include "../minilibx-linux/mlx_int.h"
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
 

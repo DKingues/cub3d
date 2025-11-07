@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/07 12:12:17 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/07 17:17:35 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,7 @@ void	reinit(void)
 	game()->player.moving_d = 0;
 	game()->player.rot_l = 0;
 	game()->player.rot_r = 0;
+	game()->frame.door_tg = 0;
 	game()->mouse.x = 0;
 	game()->mouse.y = 0;
 	char **temp_map = NULL;
@@ -210,7 +211,7 @@ void init(void)
 	load_full_img(&game()->diff_bt, "textures/buttons/diff_bt.xpm");
 	load_full_img(&game()->sens_bt, "textures/buttons/sens_bt.xpm");
 	
-	load_full_img(&game()->diff_nb[1], "textures/buttons/diff_nb1.xpm");
+	//load_full_img(&game()->diff_nb[1], "textures/buttons/diff_nb1.xpm");
 	
 	load_full_img(&game()->pause_bt, "textures/buttons/pause_bt.xpm");
 	
@@ -233,7 +234,7 @@ void init(void)
 	load_multiple_images(game()->right_bt, "textures/buttons/right_bt", 30, 34, 2);
 	load_multiple_images(game()->sens_nb, "textures/buttons/sens_nb", 31, 31, 5);
 	load_multiple_images(game()->diff_nb, "textures/buttons/diff_nb", 131, 31, 3);
-	mlx_destroy_image(game()->mlx, game()->diff_nb[1].img);
+	//mlx_destroy_image(game()->mlx, game()->diff_nb[1].img);
 	load_multiple_images(game()->continue_bt, "textures/buttons/continue_bt", 410, 78, 2);
 	load_multiple_images(game()->option_p_bt, "textures/buttons/option_p_bt", 410, 78, 2);
 	load_multiple_images(game()->quit_p_bt, "textures/buttons/quit_p_bt", 410, 78, 2);
@@ -253,7 +254,7 @@ void init(void)
 	game()->sright_c[1].y = 484;
 	game()->dleft_c[1].x = 1035;
 	game()->dleft_c[1].y = 614;
-	game()->dright_c[1].x = 1353; 
+	game()->dright_c[1].x = 1353;
 	game()->dright_c[1].y = 614; 
 	game()->sleft_c[2].x = 1035;
 	game()->sleft_c[2].y = 519;
@@ -276,9 +277,6 @@ void init(void)
 	game()->sright_pause_c[2].x = 1337; 
 	game()->sright_pause_c[2].y = 570;
 	game()->release = 0;
-
-	
-	
 	init_vid();
 	game()->state = MENU;
 	game()->mouse.toggle_arrow = mlx_mouse_show(game()->mlx, game()->win); 
