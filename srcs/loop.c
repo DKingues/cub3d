@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 17:37:00 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/07 16:24:26 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/12 16:10:39 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,144 @@ int	loop(void *nada)
 	return (0);
 }
 
+void	wall_move(char keycode, int change)
+{
+	int	dir = -1;
+	double posX = game()->player.player_x, posY = game()->player.player_y;
+	double newRayX;
+	double newRayY;
+	
+	double newPlaneX = game()->raycast.plane_x;
+	double newPlaneY = game()->raycast.plane_y;
+    double oldPlaneX = newPlaneX;
+    double rot = dir * 0.04;
+	if(keycode == 'w')
+	{
+		newRayX = game()->raycast.ray_x;
+		newRayY = game()->raycast.ray_y;
+	}
+	if(keycode == 'a')
+	{
+		newRayX = game()->raycast.ray_x;
+		newRayY = game()->raycast.ray_y * -1;
+	}
+	if(keycode == 's')
+	{
+		newRayX = game()->raycast.ray_x * -1;
+		newRayY = game()->raycast.ray_y * -1;
+	}
+	if(keycode == 'd')
+	{
+		newRayX = game()->raycast.ray_x * -1;
+		newRayY = game()->raycast.ray_y;
+	}
+	double oldrayX = newRayX;
+	int	dir2 = 1;
+	double newRayX2 = game()->raycast.ray_x;
+	double newRayY2 = game()->raycast.ray_y;
+	double newPlaneX2 = game()->raycast.plane_x;
+	double newPlaneY2 = game()->raycast.plane_y;
+    double oldPlaneX2 = newPlaneX2;
+    double rot2 = dir2 * 0.04;
+	int rot_nb = 0;
+	if(keycode == 'w')
+	{
+		newRayX2 = game()->raycast.ray_x;
+		newRayY2 = game()->raycast.ray_y;
+	}
+	if(keycode == 'a')
+	{
+		newRayX2 = game()->raycast.ray_x;
+		newRayY2 = game()->raycast.ray_y * -1;
+	}
+	if(keycode == 's')
+	{
+		newRayX2 = game()->raycast.ray_x * -1;
+		newRayY2 = game()->raycast.ray_y * -1;
+	}
+	if(keycode == 'd')
+	{
+		newRayX2 = game()->raycast.ray_x * -1;
+		newRayY2 = game()->raycast.ray_y;
+	}
+	double oldrayX2 = newRayX2;
+
+	while(1)
+	{
+		if(rot_nb == 30)
+			break ;
+    	newRayX = newRayX * cos(rot) - newRayY * sin(rot);
+    	newRayY = oldrayX * sin(rot) + newRayY * cos(rot);
+    	newPlaneX = newPlaneX * cos(rot) - newPlaneY * sin(rot);
+    	newPlaneY = oldPlaneX * sin(rot) + newPlaneY * cos(rot);
+		double x, y;
+		if (newRayX > 0)
+			x = posX + ((newRayX + 0.9) / change);
+		else
+			x = posX + ((newRayX - 0.9) / change);
+		if (newRayY > 0)
+			y = posY + ((newRayY + 0.9) / change);
+		else
+			y = posY + ((newRayY - 0.9) / change);
+		if (game()->map.map[(int)y] && game()->map.map[(int)y][(int)x] && game()->map.map[(int)y][(int)x] != '1' && game()->map.map[(int)y][(int)x] != '1' && game()->map.map[(int)y][(int)x] != 'C' && game()->map.map[(int)y][(int)x] > 0)
+		{
+			x = posX + ((newRayX) / change);
+			y = posY + ((newRayY) / change);
+			if(game()->map.map[(int)y] && game()->map.map[(int)y][(int)x] && game()->map.map[(int)y][(int)x] != '1' && game()->map.map[(int)y][(int)x] != '1' && game()->map.map[(int)y][(int)x] != 'C' && game()->map.map[(int)y][(int)x] > 0)
+			{
+				game()->player.player_x = x;
+				game()->player.player_y = y;
+				break ;
+			}
+		}
+		newRayX2 = newRayX2 * cos(rot2) - newRayY2 * sin(rot2);
+    	newRayY2 = oldrayX2 * sin(rot2) + newRayY2 * cos(rot2);
+    	newPlaneX2 = newPlaneX2 * cos(rot2) - newPlaneY2 * sin(rot2);
+    	newPlaneY2 = oldPlaneX2 * sin(rot2) + newPlaneY2 * cos(rot2);
+		double x2, y2;
+		if (newRayX2 > 0)
+			x2 = posX + ((newRayX2 + 0.9) / change);
+		else
+			x2 = posX + ((newRayX2 - 0.9) / change);
+		if (newRayY > 0)
+			y2 = posY + ((newRayY2 + 0.9) / change);
+		else
+			y2 = posY + ((newRayY2 - 0.9) / change);
+		if (game()->map.map[(int)y2] && game()->map.map[(int)y2][(int)x2] && game()->map.map[(int)y2][(int)x2] != '1' && game()->map.map[(int)y2][(int)x2] != 'C' && game()->map.map[(int)y2][(int)x2] > 0)
+		{
+			x2 = posX + ((newRayX2) / change);
+			y2 = posY + ((newRayY2) / change);
+			if(game()->map.map[(int)y2] && game()->map.map[(int)y2][(int)x2] && game()->map.map[(int)y2][(int)x2] != '1' && game()->map.map[(int)y2][(int)x2] != 'C' && game()->map.map[(int)y2][(int)x2] > 0)
+			{
+				game()->player.player_x = x2;
+				game()->player.player_y = y2;
+				break ;
+			}
+		}
+		rot_nb++;
+	}
+}
+
+int	check_radius(char keycode, int change)
+{
+	double posX = game()->player.player_x, posY = game()->player.player_y;
+	double angle = 0;
+	double radius = 0.15;
+	while(angle < 361)
+	{
+		double x = posX + radius * cos(angle);
+		double y = posY + radius * sin(angle);
+		if((game()->map.map[(int)y][(int)x] == '1' || game()->map.map[(int)y][(int)x] == 'C' || game()->map.map[(int)y][(int)x] < 0) && (keycode != 'a' && keycode != 'd'))
+			return (wall_move(keycode, change), 1);
+		else if (keycode == 'a' || keycode == 'd')
+			return (0);
+		angle += 1;
+	}
+	return (0);
+}
+
 void	game_loop(int change)
 {
-	double posX, posY;
 	timer(game()->game_start, game()->time);
 	glitch_consume(4);
 	if(game()->player.sprint_count == 0)
@@ -59,39 +194,35 @@ void	game_loop(int change)
 			game()->player.sprint_count += 0.25;
 	if (game()->player.moving_d == 1)
 	{
-		posX = game()->player.player_x + ((game()->raycast.ray_y * -1) / ((change / 2)));
-		posY = game()->player.player_y + ((game()->raycast.ray_x) / ((change / 2)));
-		if (game()->map.map[(int)(posY)][(int)posX] != '1' && game()->map.map[(int)(posY)][(int)posX] != 'C' && game()->map.map[(int)(posY)][(int)posX] != 'X')
+		double x = (game()->player.player_x) + (((game()->raycast.ray_y + 0.05) * -1) / ((change)));
+		double y = (game()->player.player_y) + (((game()->raycast.ray_x + 0.05)) / ((change)));
+		if(!check_radius('d', change) && game()->map.map[(int)y][(int)x] != '1' && game()->map.map[(int)y][(int)x] != 'C' && game()->map.map[(int)y][(int)x] > 0)
 		{
-			game()->player.player_x = game()->player.player_x + ((game()->raycast.ray_y * -1) / change);
-			game()->player.player_y = game()->player.player_y + ((game()->raycast.ray_x) / change);
+			game()->player.player_x = x;
+			game()->player.player_y = y;
 		}
 	}
 	if (game()->player.moving_s == 1)
 	{
-		posX = game()->player.player_x + ((game()->raycast.ray_x * -1) / ((change / 2)));
-		posY = game()->player.player_y + ((game()->raycast.ray_y * -1) / ((change / 2)));
-		if (game()->map.map[(int)(posY)][(int)posX] != '1' && game()->map.map[(int)(posY)][(int)posX] != 'C' && game()->map.map[(int)(posY)][(int)posX] != 'X')
+		if(!check_radius('s', change))
 		{
-			game()->player.player_x = game()->player.player_x + ((game()->raycast.ray_x * -1) / change);
-			game()->player.player_y = game()->player.player_y + ((game()->raycast.ray_y * -1) / change);
+			game()->player.player_x = (game()->player.player_x) + (((game()->raycast.ray_x + 0.05) * -1) / ((change)));
+			game()->player.player_y = (game()->player.player_y) + (((game()->raycast.ray_y + 0.05) * -1) / ((change)));
 		}
 	}
 	if (game()->player.moving_a == 1)
 	{
-		posX = game()->player.player_x + ((game()->raycast.ray_y) / ((change / 2)));
-		posY = game()->player.player_y + ((game()->raycast.ray_x * -1) / ((change / 2)));
-		if (game()->map.map[(int)(posY)][(int)posX] != '1' && game()->map.map[(int)(posY)][(int)posX] != 'C' && game()->map.map[(int)(posY)][(int)posX] != 'X')
+		double x = (game()->player.player_x) + (((game()->raycast.ray_y + 0.05)) / ((change)));
+		double y = (game()->player.player_y) + (((game()->raycast.ray_x + 0.05) * -1) / ((change)));
+		if(!check_radius('a', change) && game()->map.map[(int)y][(int)x] != '1' && game()->map.map[(int)y][(int)x] != 'C' && game()->map.map[(int)y][(int)x] > 0)
 		{
-			game()->player.player_x = game()->player.player_x + ((game()->raycast.ray_y) / change);
-			game()->player.player_y = game()->player.player_y + ((game()->raycast.ray_x * -1) / change);
+			game()->player.player_x = x;
+			game()->player.player_y = y;
 		}
 	}
 	if (game()->player.moving_w == 1)
 	{
-		posX = game()->player.player_x + (game()->raycast.ray_x / ((change / 2)));
-		posY = game()->player.player_y + (game()->raycast.ray_y / ((change / 2)));
-		if (game()->map.map[(int)(posY)][(int)posX] != '1' && game()->map.map[(int)(posY)][(int)posX] != 'C' && game()->map.map[(int)(posY)][(int)posX] != 'X')
+		if(!check_radius('w', change))
 		{
 			game()->player.player_x = game()->player.player_x + (game()->raycast.ray_x / change);
 			game()->player.player_y = game()->player.player_y + (game()->raycast.ray_y / change);
