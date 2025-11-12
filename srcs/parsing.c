@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:54 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/07 17:17:35 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/10/23 15:26:39 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	rewrite_map(void)
 				game()->map.map[var2][var] = '0';
 			if (game()->map.map[var2][var] == 'c')
 				game()->map.map[var2][var] -= 32;
+			if (game()->map.map[var2][var] == 'l')
+				game()->map.map[var2][var] -= 32;
 			if (game()->map.map[var2][var] == 'n' || game()->map.map[var2][var] == 's' || game()->map.map[var2][var] == 'e' || game()->map.map[var2][var] == 'w')
 			{
 				game()->map.map[var2][var] -= 32;
@@ -70,6 +72,50 @@ void	rewrite_map(void)
 		}
 		var2++;
 	}
+}
+
+int	fill2(int x, int y)
+{
+	if (x < 0 || y < 0 || y > game()->map.max_y || !game()->map.map[y][x] || game()->map.map[y][x] == '\n'|| game()->map.map[y][x] == ' ')
+		return (1);
+	if ((game()->map.map[y][x] == 'l') || (game()->map.map[y][x] == 'c') || (game()->map.map[y][x] == 'o') || (game()->map.map[y][x] == '1') || (game()->map.map[y][x] == 'e') || (game()->map.map[y][x] == 'w') || (game()->map.map[y][x] == 'n') || (game()->map.map[y][x] == 's'))
+		return (0);
+	if (game()->map.map[y][x] == 'C')
+		game()->map.map[y][x] = 'c';
+	else if (game()->map.map[y][x] == '0')
+		game()->map.map[y][x] = 'o';
+	else if (game()->map.map[y][x] == 'N')
+		game()->map.map[y][x] = 'n';
+	else if (game()->map.map[y][x] == 'E')
+		game()->map.map[y][x] = 'e';
+	else if (game()->map.map[y][x] == 'W')
+		game()->map.map[y][x] = 'w';
+	else if (game()->map.map[y][x] == 'S')
+		game()->map.map[y][x] = 's';
+	else if (game()->map.map[y][x] == 'L')
+		game()->map.map[y][x] = 'l';
+	fill2((x - 1), y);
+	fill2((x + 1), y);
+	fill2(x, (y - 1));
+	fill2(x, (y + 1));
+	return (0);
+}
+
+int check_map2(void)
+{
+	int var = 0, var2 = 0;
+	while(game()->map.map[var])
+	{
+		var2 = 0;
+		while(game()->map.map[var][var2])
+		{
+			if (game()->map.map[var][var2] == 'N' || game()->map.map[var][var2] == 'W' || game()->map.map[var][var2] == 'E' || game()->map.map[var][var2] == 'S')
+				return (printf("The exit is uneccesseiblya\n"), ft_free(game()->map.map), exit(1), 1);
+			var2++;
+		}
+		var++;
+	}
+	return (0);
 }
 
 int parsing(char **av)
@@ -89,6 +135,23 @@ int parsing(char **av)
 		return (1);
 	if (map_walls(av[1]))
         return(1);
+	rewrite_map();
+	int var = 0, var2 = 0;
+	while(game()->map.map[var])
+	{
+		var2 = 0;
+		while(game()->map.map[var][var2])
+		{
+			if (game()->map.map[var][var2] == 'L')
+			{
+				fill2(var2, var);
+				break ;
+			}
+			var2++;
+		}
+		var++;
+	}
+	check_map2();
 	rewrite_map();
 	orig_map();
 	/* int var = 0;

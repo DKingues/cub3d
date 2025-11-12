@@ -38,7 +38,7 @@ int	fill(int x, int y)
 {
 	if (x < 0 || y < 0 || y > game()->map.max_y || !game()->map.map[y][x] || game()->map.map[y][x] == '\n'|| game()->map.map[y][x] == ' ')
 		return (printf("The map isn't closed.\n"), ft_free(game()->map.map), exit(1), 1);
-	if ((game()->map.map[y][x] == 'c') || (game()->map.map[y][x] == 'o') || (game()->map.map[y][x] == '1') || (game()->map.map[y][x] == 'e') || (game()->map.map[y][x] == 'w') || (game()->map.map[y][x] == 'n') || (game()->map.map[y][x] == 's'))
+	if ((game()->map.map[y][x] == 'L') || (game()->map.map[y][x] == 'c') || (game()->map.map[y][x] == 'o') || (game()->map.map[y][x] == '1') || (game()->map.map[y][x] == 'e') || (game()->map.map[y][x] == 'w') || (game()->map.map[y][x] == 'n') || (game()->map.map[y][x] == 's'))
 		return (0);
 	if (game()->map.map[y][x] == 'C')
 		game()->map.map[y][x] = 'c';

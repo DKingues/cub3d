@@ -28,7 +28,7 @@ int	loop(void *nada)
 		opt_p_put();
 	else if (game()->state == CTRL_P)
 		ctrl_p_put();
-	if(game()->state == GAME)
+	else if (game()->state == GAME)
 	{
 		if (game()->game_start == -1)
 		{
@@ -37,6 +37,14 @@ int	loop(void *nada)
 		}
 		game_loop(18);
 	}
+	else if (game()->state == G_OVER)
+		g_over_put();
+	else if (game()->state == G_WIN)
+		g_win_put();
+	else if (game()->state == OPT_G)
+		opt_g_put();
+	else if (game()->state == CTRL_G)
+		ctrl_g_put();
 	return (0);
 }
 
@@ -119,11 +127,11 @@ void	wall_move(char keycode, int change)
 			y = posY + ((newRayY + 0.9) / change);
 		else
 			y = posY + ((newRayY - 0.9) / change);
-		if (game()->map.map[(int)y] && game()->map.map[(int)y][(int)x] && game()->map.map[(int)y][(int)x] != '1' && game()->map.map[(int)y][(int)x] != '1' && game()->map.map[(int)y][(int)x] != 'C' && game()->map.map[(int)y][(int)x] > 0)
+		if (game()->map.map[(int)y] && game()->map.map[(int)y][(int)x] && game()->map.map[(int)y][(int)x] != 'L' && game()->map.map[(int)y][(int)x] != '1' && game()->map.map[(int)y][(int)x] != '1' && game()->map.map[(int)y][(int)x] != 'C' && game()->map.map[(int)y][(int)x] > 0)
 		{
 			x = posX + ((newRayX) / change);
 			y = posY + ((newRayY) / change);
-			if(game()->map.map[(int)y] && game()->map.map[(int)y][(int)x] && game()->map.map[(int)y][(int)x] != '1' && game()->map.map[(int)y][(int)x] != '1' && game()->map.map[(int)y][(int)x] != 'C' && game()->map.map[(int)y][(int)x] > 0)
+			if(game()->map.map[(int)y] && game()->map.map[(int)y][(int)x] && game()->map.map[(int)y][(int)x] != 'L' && game()->map.map[(int)y][(int)x] != '1' && game()->map.map[(int)y][(int)x] != '1' && game()->map.map[(int)y][(int)x] != 'C' && game()->map.map[(int)y][(int)x] > 0)
 			{
 				game()->player.player_x = x;
 				game()->player.player_y = y;
@@ -143,11 +151,11 @@ void	wall_move(char keycode, int change)
 			y2 = posY + ((newRayY2 + 0.9) / change);
 		else
 			y2 = posY + ((newRayY2 - 0.9) / change);
-		if (game()->map.map[(int)y2] && game()->map.map[(int)y2][(int)x2] && game()->map.map[(int)y2][(int)x2] != '1' && game()->map.map[(int)y2][(int)x2] != 'C' && game()->map.map[(int)y2][(int)x2] > 0)
+		if (game()->map.map[(int)y2] && game()->map.map[(int)y2][(int)x2] && game()->map.map[(int)y2][(int)x2] != 'L' && game()->map.map[(int)y2][(int)x2] != '1' && game()->map.map[(int)y2][(int)x2] != 'C' && game()->map.map[(int)y2][(int)x2] > 0)
 		{
 			x2 = posX + ((newRayX2) / change);
 			y2 = posY + ((newRayY2) / change);
-			if(game()->map.map[(int)y2] && game()->map.map[(int)y2][(int)x2] && game()->map.map[(int)y2][(int)x2] != '1' && game()->map.map[(int)y2][(int)x2] != 'C' && game()->map.map[(int)y2][(int)x2] > 0)
+			if(game()->map.map[(int)y2] && game()->map.map[(int)y2][(int)x2] && game()->map.map[(int)y2][(int)x2] != 'L' && game()->map.map[(int)y2][(int)x2] != '1' && game()->map.map[(int)y2][(int)x2] != 'C' && game()->map.map[(int)y2][(int)x2] > 0)
 			{
 				game()->player.player_x = x2;
 				game()->player.player_y = y2;
@@ -167,11 +175,23 @@ int	check_radius(char keycode, int change)
 	{
 		double x = posX + radius * cos(angle);
 		double y = posY + radius * sin(angle);
-		if((game()->map.map[(int)y][(int)x] == '1' || game()->map.map[(int)y][(int)x] == 'C' || game()->map.map[(int)y][(int)x] < 0) && (keycode != 'a' && keycode != 'd'))
+		if((game()->map.map[(int)y][(int)x] == '1' || game()->map.map[(int)y][(int)x] == 'L' || game()->map.map[(int)y][(int)x] == 'C' || game()->map.map[(int)y][(int)x] < 0) && (keycode != 'a' && keycode != 'd'))
 			return (wall_move(keycode, change), 1);
 		else if (keycode == 'a' || keycode == 'd')
 			return (0);
 		angle += 1;
+	}
+	return (0);
+}
+
+int game_over_check(void)
+{
+	if (game()->map.map[(int)game()->player.player_y][(int)game()->player.player_x] == 'G' || (game()->minutes == 0 && game()->seconds == 0))
+	{
+		darken(game()->canvas, 1.0, -0.05);
+		lighten(game()->st_anim[game()->frame.anim_tg], 0.0);
+		game()->state = G_OVER;
+		return (1);
 	}
 	return (0);
 }
@@ -196,7 +216,7 @@ void	game_loop(int change)
 	{
 		double x = (game()->player.player_x) + (((game()->raycast.ray_y + 0.05) * -1) / ((change)));
 		double y = (game()->player.player_y) + (((game()->raycast.ray_x + 0.05)) / ((change)));
-		if(!check_radius('d', change) && game()->map.map[(int)y][(int)x] != '1' && game()->map.map[(int)y][(int)x] != 'C' && game()->map.map[(int)y][(int)x] > 0)
+		if(!check_radius('d', change) && game()->map.map[(int)y][(int)x] != '1' && game()->map.map[(int)y][(int)x] != 'C' && game()->map.map[(int)y][(int)x] != 'L' && game()->map.map[(int)y][(int)x] > 0)
 		{
 			game()->player.player_x = x;
 			game()->player.player_y = y;
@@ -214,7 +234,7 @@ void	game_loop(int change)
 	{
 		double x = (game()->player.player_x) + (((game()->raycast.ray_y + 0.05)) / ((change)));
 		double y = (game()->player.player_y) + (((game()->raycast.ray_x + 0.05) * -1) / ((change)));
-		if(!check_radius('a', change) && game()->map.map[(int)y][(int)x] != '1' && game()->map.map[(int)y][(int)x] != 'C' && game()->map.map[(int)y][(int)x] > 0)
+		if(!check_radius('a', change) && game()->map.map[(int)y][(int)x] != '1' && game()->map.map[(int)y][(int)x] != 'C' && game()->map.map[(int)y][(int)x] != 'L' && game()->map.map[(int)y][(int)x] > 0)
 		{
 			game()->player.player_x = x;
 			game()->player.player_y = y;
@@ -235,7 +255,8 @@ void	game_loop(int change)
 	door_handle();
 	ins_map();
 	//ft_usleep(13000);
-	mlx_put_image_to_window(game()->mlx, game()->win, game()->canvas.img, 0, 0);
+	if(!game_over_check())
+		mlx_put_image_to_window(game()->mlx, game()->win, game()->canvas.img, 0, 0);
 }
 
 int	menu_put(int keycode, void *nada)
@@ -366,5 +387,102 @@ void ctrl_p_put(void)
 	draw_img(&game()->ctrl_menu, &temp, 0, 0, 1.0);
 	draw_img(&game()->ctrlback_bt[game()->frame.ctrlback_tg], &temp, 362, 914, 1.0);
 	mlx_put_image_to_window(game()->mlx, game()->win, temp.img, 0, 0);
+	mlx_destroy_image(game()->mlx, temp.img);
+}
+
+void g_win_put(void)
+{
+	t_data temp;
+	int	star = floor(game()->frame.star_tg /10);
+	if(game()->frame.anim_tg == 167)
+		game()->frame.anim_tg = 0;
+	temp.img = mlx_new_image(game()->mlx, 1920, 1080);
+	temp.addr = mlx_get_data_addr(temp.img,
+		&temp.bits_per_pixel, &temp.line_length,
+		&temp.endian);
+	draw_img(&game()->st_anim[game()->frame.anim_tg], &temp, 0, 0, 1.0);
+	draw_img(&game()->g_win_bg, &temp, 0, 0, 1.0);
+	draw_img(&game()->star[star], &temp, 701, 441, 1.0);
+	draw_img(&game()->return_menu_bt[game()->frame.return_menu_tg], &temp, 755, 666, 1.0);
+	draw_img(&game()->quit_p_bt[game()->frame.quit_p_tg], &temp, 755, 766, 1.0);
+	game()->frame.anim_tg++;
+	mlx_put_image_to_window(game()->mlx, game()->win, temp.img, 0, 0);
+	ft_usleep(15000);
+	mlx_destroy_image(game()->mlx, temp.img);
+	if(game()->frame.star_tg <( game()->frame.diff_tg + 1) * 10)
+		game()->frame.star_tg++;
+}
+
+void g_over_put(void)
+{
+	t_data temp;
+
+	if(game()->frame.anim_tg == 167)
+		game()->frame.anim_tg = 0;
+	temp.img = mlx_new_image(game()->mlx, 1920, 1080);
+	temp.addr = mlx_get_data_addr(temp.img,
+		&temp.bits_per_pixel, &temp.line_length,
+		&temp.endian);
+	draw_img(&game()->st_anim[game()->frame.anim_tg], &temp, 0, 0, 1.0);
+	draw_img(&game()->g_over, &temp, 0, 0, 1.0);
+	draw_img(&game()->restart_bt[game()->frame.restart_tg], &temp, 754, 464, 1.0);
+	draw_img(&game()->option_p_bt[game()->frame.option_p_tg], &temp, 754, 564, 1.0);
+	draw_img(&game()->return_menu_bt[game()->frame.return_menu_tg], &temp, 754, 664, 1.0);
+	draw_img(&game()->quit_p_bt[game()->frame.quit_p_tg], &temp, 754, 764, 1.0);
+	game()->frame.anim_tg++;
+	mlx_put_image_to_window(game()->mlx, game()->win, temp.img, 0, 0);	
+	ft_usleep(15000);
+	mlx_destroy_image(game()->mlx, temp.img);
+}
+
+void opt_g_put(void)
+{
+	t_data temp;
+
+	if(game()->frame.anim_tg == 167)
+		game()->frame.anim_tg = 0;
+	temp.img = mlx_new_image(game()->mlx, 1920, 1080);
+	temp.addr = mlx_get_data_addr(temp.img,
+		&temp.bits_per_pixel, &temp.line_length,
+		&temp.endian);
+	draw_img(&game()->st_anim[game()->frame.anim_tg], &temp, 0, 0, 1.0);
+	draw_img(&game()->option_bt[1], &temp, 672, 234, 1.0);
+	draw_img(&game()->sens_bt, &temp, 532, 462, 1.0);
+	draw_img(&game()->diff_bt, &temp, 532, 562, 1.0);
+	draw_img(&game()->ctrl_bt[game()->frame.ctrl_tg], &temp, 532, 663, 1.0);
+	draw_img(&game()->back_bt[game()->frame.back_tg], &temp, 532, 764, 1.0);
+	draw_img(&game()->left_bt[game()->frame.sleft_tg], &temp, 1005, 484, 1.0);
+	draw_img(&game()->right_bt[game()->frame.sright_tg], &temp, 1353, 484, 1.0);
+	draw_img(&game()->left_bt[game()->frame.dleft_tg], &temp, 1005, 579, 1.0);
+	draw_img(&game()->right_bt[game()->frame.dright_tg], &temp, 1353, 579, 1.0);
+	draw_img(&game()->sens_nb[game()->frame.sens_tg], &temp, 1178, 484, 1.0);
+	if (game()->frame.diff_tg == 0)
+		draw_img(&game()->diff_nb[0], &temp, 1128, 579, 1.0);
+	else if (game()->frame.diff_tg == 1)
+		draw_img(&game()->diff_nb[1], &temp, 1095, 579, 1.0);
+	else if (game()->frame.diff_tg == 2)
+		draw_img(&game()->diff_nb[2], &temp, 1128, 579, 1.0);
+	mlx_put_image_to_window(game()->mlx, game()->win, temp.img, 0, 0);
+	game()->frame.anim_tg++;
+	ft_usleep(15000);
+	mlx_destroy_image(game()->mlx, temp.img);
+}
+
+void ctrl_g_put(void)
+{
+	t_data temp;
+
+	if(game()->frame.anim_tg == 167)
+		game()->frame.anim_tg = 0;
+	temp.img = mlx_new_image(game()->mlx, 1920, 1080);
+	temp.addr = mlx_get_data_addr(temp.img,
+		&temp.bits_per_pixel, &temp.line_length,
+		&temp.endian);
+	draw_img(&game()->st_anim[game()->frame.anim_tg], &temp, 0, 0, 1.0);
+	draw_img(&game()->ctrl_menu, &temp, 0, 0, 1.0);
+	draw_img(&game()->ctrlback_bt[game()->frame.ctrlback_tg], &temp, 362, 914, 1.0);
+	mlx_put_image_to_window(game()->mlx, game()->win, temp.img, 0, 0);
+	game()->frame.anim_tg++;
+	ft_usleep(15000);
 	mlx_destroy_image(game()->mlx, temp.img);
 }

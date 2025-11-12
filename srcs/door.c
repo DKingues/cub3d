@@ -20,13 +20,25 @@ int open_door(void)
 	y = game()->player.player_y;
 	x = game()->player.player_x;
 	if (game()->map.map[y][x + 1] == 'L')
-		game()->game_over = 1;
+	{
+		darken(game()->canvas, 1.0, -0.05);	
+		game()->state = G_WIN;
+	}
 	else if (game()->map.map[y][x - 1] == 'L')
-		game()->game_over = 1;
+	{
+		darken(game()->canvas, 1.0, -0.05);
+		game()->state = G_WIN;
+	}
 	else if (game()->map.map[y + 1][x] == 'L')
-		game()->game_over = 1;
+	{
+		darken(game()->canvas, 1.0, -0.05);
+		game()->state = G_WIN;
+	}
 	else if (game()->map.map[y - 1][x] == 'L')
-		game()->game_over = 1;
+	{
+		darken(game()->canvas, 1.0, -0.05);
+		game()->state = G_WIN;
+	}
 	else if (game()->map.map[y][x + 1] == 'C')
 		game()->map.map[y][x + 1] = -57;
 	else if (game()->map.map[y][x - 1] == 'C')

@@ -48,6 +48,7 @@ typedef	struct s_frame
 	int			dleft_tg;
 	int			dright_tg;
 	int 		anim_tg;
+	int			star_tg;
 }				t_frame;
 
 typedef	struct s_cord
@@ -127,6 +128,10 @@ typedef enum s_state
 	OPT_P,
 	CTRL_P,
 	GAME,
+	G_OVER,
+	G_WIN,
+	OPT_G,
+	CTRL_G,
 }				t_state;
 
 typedef	struct	s_glitch
@@ -148,7 +153,6 @@ typedef struct s_game
 	t_data	circle;
 	t_data	rays;
 	int offset;
-	int			game_over;
 	long		game_start;
 	int			minutes;
 	int			seconds;
@@ -156,6 +160,10 @@ typedef struct s_game
 	int 		release;
 	void		*mlx;
 	void		*win;
+	t_data		g_over;
+	t_data		g_win[4];
+	t_data		star[4];
+	t_data		g_win_bg;
 	t_data 		frcg;
 	t_frame		frame;
 	t_state		state;
@@ -296,7 +304,11 @@ void	ctrl_m_press(void);
 void	pause_press(void);
 void	opt_p_press(void);
 void	ctrl_p_press(void);
-int	pause_game(void);
+void	win_press(void);
+void	gover_press(void);
+void	opt_g_press(void);
+void	ctrl_g_press(void);
+int		pause_game(void);
 
 //m_move.c
 int	mouse_move(int keycode, t_game *null);
@@ -306,6 +318,10 @@ void	ctrl_m_move(void);
 void	pause_move(void);
 void	opt_p_move(void);
 void	ctrl_p_move(void);
+void	win_move(void);
+void	gover_move(void);
+void	opt_g_move(void);
+void	ctrl_g_move(void);
 void	game_move(int *last_x);
 
 //keys.c
@@ -319,9 +335,13 @@ void	game_loop(int change);
 int	menu_put(int keycode, void *nada);
 void opt_m_put(void);
 void ctrl_m_put(void);
-int	pause_put(void);
 void opt_p_put(void);
 void ctrl_p_put(void);
+void g_win_put(void);
+void g_over_put(void);
+void opt_g_put(void);
+void ctrl_g_put(void);
+int	pause_put(void);
 
 //anim_utils.c
 void	draw_dim_img(t_data *src, t_data *dst, int x, int y, float factor);

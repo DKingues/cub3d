@@ -18,6 +18,7 @@ void	singleton_free(void)
 		ft_free(game()->map.map);
 	if(game()->map.info)
 		ft_free(game()->map.info);
+	
 }
 
 int clean_exit(void *nada)

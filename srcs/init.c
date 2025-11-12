@@ -128,7 +128,7 @@ void	set_difficulty(void)
 
 void	reinit(void)
 {
-	game()->game_over = 0;
+	char **temp_map = NULL;
 	game()->game_start = -1;
 	game()->frame.return_menu_tg = 0;
 	game()->frame.restart_tg = 0;
@@ -147,6 +147,7 @@ void	reinit(void)
 	game()->frame.ctrlback_tg = 0;
 	game()->frame.quit_p_tg = 0;
 	game()->frame.option_p_tg = 0;
+	game()->frame.star_tg = 0;
 	game()->player.sprint = 0;
 	game()->player.sprint_count = 100;
 	game()->player.moving_w = 0;
@@ -158,7 +159,6 @@ void	reinit(void)
 	game()->frame.door_tg = 0;
 	game()->mouse.x = 0;
 	game()->mouse.y = 0;
-	char **temp_map = NULL;
 	game()->glitch.to_glitch = 0;
 	temp_map = copy_map(temp_map, game()->map.map);
 	game()->glitch.to_glitch = count_zero_r(temp_map, (int)game()->player.start_y, (int)game()->player.start_x);
@@ -196,7 +196,6 @@ void init(void)
 			&game()->minimap.endian);
 	game()->minimap.res_x = 192;
 	game()->minimap.res_y = 192;
-	load_full_img(&game()->circle, "textures/circle.xpm");
 	game()->frame.sens_tg = 0;
 	game()->frame.diff_tg = 0;
 	load_full_img(&game()->map.north, game()->map.info[0]);
@@ -212,7 +211,10 @@ void init(void)
 	load_full_img(&game()->sens_bt, "textures/buttons/sens_bt.xpm");
 	
 	//load_full_img(&game()->diff_nb[1], "textures/buttons/diff_nb1.xpm");
-	
+	load_full_img(&game()->g_over, "textures/lose/gover_bg.xpm");
+	load_full_img(&game()->g_win_bg, "textures/win/win_victory.xpm");
+	load_multiple_images(game()->g_win, "textures/win/win", 1920, 1080, 4);
+	load_multiple_images(game()->star, "textures/stars/star", 122, 522, 4);
 	load_full_img(&game()->pause_bt, "textures/buttons/pause_bt.xpm");
 	
 	load_full_img(&game()->exit, "textures/exit/Exit1.xpm");

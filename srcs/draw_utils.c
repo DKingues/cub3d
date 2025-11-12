@@ -117,6 +117,8 @@ char *nbr_hx_clr(int nbr)
 	int var;
 	var = 1;
 	res = ft_calloc(sizeof(char), 3);
+	if (!res)
+		return (NULL);
 	while(nbr != 0)
 	{
 		temp = nbr % 16;
