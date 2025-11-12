@@ -285,7 +285,6 @@ int check_point(float fx, float fy)
             map_y += step_y;
         }
     }
-
     return 0;
 }
     

@@ -102,15 +102,18 @@ void	load_multiple_images(t_data *texture, char *path, int x, int y, int quantit
 {
 	int i;
 	char *str;
+	char *nbr;
 	(void)x;
 	(void)y;
 	i = 0;
 	while (i < quantity)
 	{
-		str = ft_strjoin(ft_strdup(path), ft_itoa(i));
+		nbr = ft_itoa(i);
+		str = ft_strjoin(ft_strdup(path), nbr);
 		str = ft_strjoin(str, ".xpm");
 		load_full_img(&texture[i], str);
 		free(str);
+		free(nbr);
 		i++;
 	}
 }
@@ -173,7 +176,48 @@ void	reinit(void)
 	set_fov(66.0);
 	ins_map();
 }
-
+void	load_images(void)
+{
+	load_full_img(&game()->map.north, game()->map.info[0]);
+	load_full_img(&game()->map.south, game()->map.info[1]);
+	load_full_img(&game()->map.east, game()->map.info[2]);
+	load_full_img(&game()->map.west, game()->map.info[3]);
+	load_full_img(&game()->wall, "textures/1.xpm");
+	load_full_img(&game()->floor, "textures/2.xpm");
+	load_full_img(&game()->person, "textures/3.xpm");
+	load_full_img(&game()->maze_nm, "textures/buttons/maze_nm.xpm");
+	load_full_img(&game()->ctrl_menu, "textures/buttons/ctrl_menu.xpm");
+	load_full_img(&game()->diff_bt, "textures/buttons/diff_bt.xpm");
+	load_full_img(&game()->sens_bt, "textures/buttons/sens_bt.xpm");
+	load_full_img(&game()->g_over, "textures/lose/gover_bg.xpm");
+	load_full_img(&game()->g_win_bg, "textures/win/win_victory.xpm");
+	load_full_img(&game()->pause_bt, "textures/buttons/pause_bt.xpm");
+	load_full_img(&game()->exit, "textures/exit/Exit1.xpm");
+	load_full_img(&game()->closed_door, "textures/doorC.xpm");
+	load_full_img(&game()->open_door, "textures/doorO.xpm");
+	load_full_img(&game()->timer, "textures/neon_hud.xpm");
+	load_multiple_images(game()->g_win, "textures/win/win", 1920, 1080, 4);
+	load_multiple_images(game()->star, "textures/stars/star", 122, 522, 4);
+	load_multiple_images(game()->return_menu_bt, "textures/buttons/return_menu_bt", 412, 79, 2);
+	load_multiple_images(game()->door, "textures/door/Porta", 432, 432, 56);
+	load_multiple_images(game()->restart_bt, "textures/buttons/restart_bt", 412, 79, 2);
+	load_multiple_images(game()->play_bt, "textures/buttons/play_bt", 576, 116, 2);
+	load_multiple_images(game()->option_bt, "textures/buttons/option_bt", 576, 116, 2);
+	load_multiple_images(game()->quit_bt, "textures/buttons/quit_bt", 576, 116, 2);
+	load_multiple_images(game()->back_bt, "textures/buttons/back_bt", 855, 79, 2);
+	load_multiple_images(game()->ctrl_bt, "textures/buttons/ctrl_bt", 855, 80, 2);
+	load_multiple_images(game()->ctrlback_bt, "textures/buttons/ctrlback_bt", 1195, 79, 2);
+	load_multiple_images(game()->left_bt, "textures/buttons/left_bt", 30, 34, 2);
+	load_multiple_images(game()->right_bt, "textures/buttons/right_bt", 30, 34, 2);
+	load_multiple_images(game()->sens_nb, "textures/buttons/sens_nb", 31, 31, 5);
+	load_multiple_images(game()->diff_nb, "textures/buttons/diff_nb", 131, 31, 3);
+	//mlx_destroy_image(game()->mlx, game()->diff_nb[1].img);
+	load_multiple_images(game()->continue_bt, "textures/buttons/continue_bt", 410, 78, 2);
+	load_multiple_images(game()->option_p_bt, "textures/buttons/option_p_bt", 410, 78, 2);
+	load_multiple_images(game()->quit_p_bt, "textures/buttons/quit_p_bt", 410, 78, 2);
+	load_multiple_images(game()->glitch.glitch, "textures/glitch/Glitch", 432, 432, 20);
+	load_multiple_images(game()->timer_nbr, "textures/numbers/", 31, 31, 10);
+}
 void init(void)
 {
 	t_data temp;
@@ -198,50 +242,8 @@ void init(void)
 	game()->minimap.res_y = 192;
 	game()->frame.sens_tg = 0;
 	game()->frame.diff_tg = 0;
-	load_full_img(&game()->map.north, game()->map.info[0]);
-	load_full_img(&game()->map.south, game()->map.info[1]);
-	load_full_img(&game()->map.east, game()->map.info[2]);
-	load_full_img(&game()->map.west, game()->map.info[3]);
-	load_full_img(&game()->wall, "textures/1.xpm");
-	load_full_img(&game()->floor, "textures/2.xpm");
-	load_full_img(&game()->person, "textures/3.xpm");
-	load_full_img(&game()->maze_nm, "textures/buttons/maze_nm.xpm");
-	load_full_img(&game()->ctrl_menu, "textures/buttons/ctrl_menu.xpm");
-	load_full_img(&game()->diff_bt, "textures/buttons/diff_bt.xpm");
-	load_full_img(&game()->sens_bt, "textures/buttons/sens_bt.xpm");
-	
+	load_images();
 	//load_full_img(&game()->diff_nb[1], "textures/buttons/diff_nb1.xpm");
-	load_full_img(&game()->g_over, "textures/lose/gover_bg.xpm");
-	load_full_img(&game()->g_win_bg, "textures/win/win_victory.xpm");
-	load_multiple_images(game()->g_win, "textures/win/win", 1920, 1080, 4);
-	load_multiple_images(game()->star, "textures/stars/star", 122, 522, 4);
-	load_full_img(&game()->pause_bt, "textures/buttons/pause_bt.xpm");
-	
-	load_full_img(&game()->exit, "textures/exit/Exit1.xpm");
-
-	load_full_img(&game()->closed_door, "textures/doorC.xpm");
-	load_full_img(&game()->open_door, "textures/doorO.xpm");
-	load_full_img(&game()->timer, "textures/neon_hud.xpm");
-	
-	load_multiple_images(game()->return_menu_bt, "textures/buttons/return_menu_bt", 412, 79, 2);
-	load_multiple_images(game()->door, "textures/door/Porta", 432, 432, 56);
-	load_multiple_images(game()->restart_bt, "textures/buttons/restart_bt", 412, 79, 2);
-	load_multiple_images(game()->play_bt, "textures/buttons/play_bt", 576, 116, 2);
-	load_multiple_images(game()->option_bt, "textures/buttons/option_bt", 576, 116, 2);
-	load_multiple_images(game()->quit_bt, "textures/buttons/quit_bt", 576, 116, 2);
-	load_multiple_images(game()->back_bt, "textures/buttons/back_bt", 855, 79, 2);
-	load_multiple_images(game()->ctrl_bt, "textures/buttons/ctrl_bt", 855, 80, 2);
-	load_multiple_images(game()->ctrlback_bt, "textures/buttons/ctrlback_bt", 1195, 79, 2);
-	load_multiple_images(game()->left_bt, "textures/buttons/left_bt", 30, 34, 2);
-	load_multiple_images(game()->right_bt, "textures/buttons/right_bt", 30, 34, 2);
-	load_multiple_images(game()->sens_nb, "textures/buttons/sens_nb", 31, 31, 5);
-	load_multiple_images(game()->diff_nb, "textures/buttons/diff_nb", 131, 31, 3);
-	//mlx_destroy_image(game()->mlx, game()->diff_nb[1].img);
-	load_multiple_images(game()->continue_bt, "textures/buttons/continue_bt", 410, 78, 2);
-	load_multiple_images(game()->option_p_bt, "textures/buttons/option_p_bt", 410, 78, 2);
-	load_multiple_images(game()->quit_p_bt, "textures/buttons/quit_p_bt", 410, 78, 2);
-	load_multiple_images(game()->glitch.glitch, "textures/glitch/Glitch", 432, 432, 20);
-	load_multiple_images(game()->timer_nbr, "textures/numbers/", 31, 31, 10);
 	game()->sleft_c[0].x = 1004;
 	game()->sleft_c[0].y = 501.5;
 	game()->sright_c[0].x = 1383; 

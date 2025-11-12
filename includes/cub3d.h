@@ -28,7 +28,7 @@
 
 typedef	struct s_frame
 {
-	int door_tg;
+	int			door_tg;
 	int			glitch_tg;
 	int			restart_tg;
 	int			return_menu_tg;
@@ -184,7 +184,6 @@ typedef struct s_game
 	t_data		maze_nm;
 	t_data		ctrl_menu;
 	t_data		*st_anim;
-	t_data		*st_anim_dim;
 	t_data		play_bt[2];
 	t_data		option_bt[2];
 	t_data		option_p_bt[2];
@@ -363,5 +362,13 @@ char	**copy_map(char **new_map, char **map_to_copy);
 void	set_difficulty(void);
 
 int	count_zero_r(char **map, int y, int x);
+
+//movements.c
+
+void	w_move(int change);
+void	a_move(int change);
+void	s_move(int change);
+void	d_move(int change);
+int		check_radius(char keycode, int change);
 
 # endif

@@ -22,7 +22,7 @@ CFLAGS = -Wall -Wextra -Werror -g -O3
 
 LIBFT = includes/libft/libft.a
 
-SRCS = main.c glitch.c time.c init.c parsing.c map_parse.c file_parse.c mem_utils.c cleanup.c dda.c door.c draw.c draw_utils.c anim_utils.c handler.c keys.c m_press.c m_move.c loop.c fullscreen.c
+SRCS = main.c glitch.c time.c init.c parsing.c map_parse.c file_parse.c mem_utils.c cleanup.c dda.c door.c draw.c draw_utils.c anim_utils.c handler.c keys.c m_press.c m_move.c loop.c fullscreen.c movements.c
 
 GNL = get_next_line.c get_next_line_utils.c
 

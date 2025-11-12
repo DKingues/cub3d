@@ -213,41 +213,13 @@ void	game_loop(int change)
 		if(game()->player.sprint_count < 100)
 			game()->player.sprint_count += 0.25;
 	if (game()->player.moving_d == 1)
-	{
-		double x = (game()->player.player_x) + (((game()->raycast.ray_y + 0.05) * -1) / ((change)));
-		double y = (game()->player.player_y) + (((game()->raycast.ray_x + 0.05)) / ((change)));
-		if(!check_radius('d', change) && game()->map.map[(int)y][(int)x] != '1' && game()->map.map[(int)y][(int)x] != 'C' && game()->map.map[(int)y][(int)x] != 'L' && game()->map.map[(int)y][(int)x] > 0)
-		{
-			game()->player.player_x = x;
-			game()->player.player_y = y;
-		}
-	}
+		d_move(change);
 	if (game()->player.moving_s == 1)
-	{
-		if(!check_radius('s', change))
-		{
-			game()->player.player_x = (game()->player.player_x) + (((game()->raycast.ray_x + 0.05) * -1) / ((change)));
-			game()->player.player_y = (game()->player.player_y) + (((game()->raycast.ray_y + 0.05) * -1) / ((change)));
-		}
-	}
+		s_move(change);
 	if (game()->player.moving_a == 1)
-	{
-		double x = (game()->player.player_x) + (((game()->raycast.ray_y + 0.05)) / ((change)));
-		double y = (game()->player.player_y) + (((game()->raycast.ray_x + 0.05) * -1) / ((change)));
-		if(!check_radius('a', change) && game()->map.map[(int)y][(int)x] != '1' && game()->map.map[(int)y][(int)x] != 'C' && game()->map.map[(int)y][(int)x] != 'L' && game()->map.map[(int)y][(int)x] > 0)
-		{
-			game()->player.player_x = x;
-			game()->player.player_y = y;
-		}
-	}
+		a_move(change);
 	if (game()->player.moving_w == 1)
-	{
-		if(!check_radius('w', change))
-		{
-			game()->player.player_x = game()->player.player_x + (game()->raycast.ray_x / change);
-			game()->player.player_y = game()->player.player_y + (game()->raycast.ray_y / change);
-		}
-	}
+		w_move(change);
 	if(game()->player.rot_l == 1)
 		rotate_ray(-1);
 	if(game()->player.rot_r == 1)
