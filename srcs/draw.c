@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:05:06 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/07 18:32:15 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/12 16:58:46 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,7 +272,7 @@ int check_point(float fx, float fy)
     while (1) {
         if (!game()->map.map[map_y] || game()->map.map[map_y][map_x] == '\0') 
 			break;
-        if (game()->map.map[map_y][map_x] == '1' || game()->map.map[(int)map_y][(int)map_x] == 'X' || game()->map.map[(int)map_y][(int)map_x] == 'C' || game()->map.map[(int)map_y][(int)map_x] == 'G') 
+        if (game()->map.map[map_y][map_x] == '1' || game()->map.map[(int)map_y][(int)map_x] == 'L' || game()->map.map[(int)map_y][(int)map_x] == 'C' || game()->map.map[(int)map_y][(int)map_x] == 'G') 
 			return 1;
         if (map_x == end_x && map_y == end_y) 
 			break;
@@ -368,7 +368,7 @@ void draw_minimap(void)
 				tex_clr = &game()->door[55];
 			else if (map_char == 'G')
 				tex_clr = &game()->glitch.glitch[game()->frame.glitch_tg];
-			else if (map_char == 'X')
+			else if (map_char == 'L')
 				tex_clr = &game()->exit;
 			else if ((map_char >= -127 &&  map_char <= -71))
         		tex_clr = &game()->door[map_char + 127];

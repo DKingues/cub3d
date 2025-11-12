@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:06:18 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/07 18:12:52 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/12 16:59:05 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void dda_door(double rayDirX, double rayDirY, int drawX)
             mapY += stepY;
             side = 1;
         }
-        if ((game()->map.map[mapY][mapX] >= -57 &&  game()->map.map[mapY][mapX] <= 0) || (game()->map.map[mapY][mapX] >= -127 &&  game()->map.map[mapY][mapX] <= -71) || game()->map.map[mapY][mapX] == '1' || game()->map.map[mapY][mapX] == 'G' || game()->map.map[mapY][mapX] == 'X' || game()->map.map[mapY][mapX] == 'C')
+        if ((game()->map.map[mapY][mapX] >= -57 &&  game()->map.map[mapY][mapX] <= 0) || (game()->map.map[mapY][mapX] >= -127 &&  game()->map.map[mapY][mapX] <= -71) || game()->map.map[mapY][mapX] == '1' || game()->map.map[mapY][mapX] == 'G' || game()->map.map[mapY][mapX] == 'L' || game()->map.map[mapY][mapX] == 'C')
             hit = 1;
     }
     if (game()->map.map[mapY][mapX] != 'C' && !(game()->map.map[mapY][mapX] >= -57 &&  game()->map.map[mapY][mapX] <= 0) && !(game()->map.map[mapY][mapX] >= -127 &&  game()->map.map[mapY][mapX] <= -71))
@@ -138,7 +138,7 @@ void dda_test(double rayDirX, double rayDirY, int drawX)
             mapY += stepY;
             side = 1;
         }
-        if (game()->map.map[mapY][mapX] == '1' || game()->map.map[mapY][mapX] == 'G' || game()->map.map[mapY][mapX] == 'X')
+        if (game()->map.map[mapY][mapX] == '1' || game()->map.map[mapY][mapX] == 'G' || game()->map.map[mapY][mapX] == 'L')
             hit = 1;
     }
     double perpWallDist;
@@ -164,7 +164,7 @@ void dda_test(double rayDirX, double rayDirY, int drawX)
 	}
 	if(game()->map.map[mapY][mapX] == 'G')
 		tex_clr = game()->glitch.glitch[game()->frame.glitch_tg];
-	if(game()->map.map[mapY][mapX] == 'X')
+	if(game()->map.map[mapY][mapX] == 'L')
 		tex_clr = game()->exit;
     if(side == 0)
         hitX = posY + rayDirY * perpWallDist;
