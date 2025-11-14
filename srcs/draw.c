@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmota-ma <rmota-ma@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:05:06 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/12 16:58:46 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/14 16:53:31 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,7 +272,7 @@ int check_point(float fx, float fy)
     while (1) {
         if (!game()->map.map[map_y] || game()->map.map[map_y][map_x] == '\0') 
 			break;
-        if (game()->map.map[map_y][map_x] == '1' || game()->map.map[(int)map_y][(int)map_x] == 'L' || game()->map.map[(int)map_y][(int)map_x] == 'C' || game()->map.map[(int)map_y][(int)map_x] == 'G') 
+        if (game()->map.map[map_y][map_x] == '1' || game()->map.map[(int)map_y][(int)map_x] == 'L' || game()->map.map[(int)map_y][(int)map_x] == 'C' || game()->map.map[(int)map_y][(int)map_x] == 'G' || game()->map.map[(int)fy][(int)fx] < 0 ) 
 			return 1;
         if (map_x == end_x && map_y == end_y) 
 			break;
@@ -312,7 +312,7 @@ void	draw_rays(t_data *src, t_data *dst, int x, int y, float factor)
             float fx = player_x + dx * plane_x + dy * dir_x;
             float fy = player_y + dx * plane_y + dy * dir_y;
 
-            if (game()->map.map[(int)fy] && game()->map.map[(int)fy][(int)fx] && game()->map.map[(int)fy][(int)fx] != '1' && game()->map.map[(int)fy][(int)fx] != 'C' && game()->map.map[(int)fy][(int)fx] != 'G' && !check_point(fx, fy))
+            if (game()->map.map[(int)fy] && game()->map.map[(int)fy][(int)fx] && game()->map.map[(int)fy][(int)fx] != '1' && game()->map.map[(int)fy][(int)fx] != 'C' && game()->map.map[(int)fy][(int)fx] != 'G' && game()->map.map[(int)fy][(int)fx] > 0 && !check_point(fx, fy))
 				my_mlx_pixel_put(dst, sx + x, sy + y,
 					my_mlx_pixel_get_dim(src, sx, sy, factor));
 			sy++;
