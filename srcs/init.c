@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/12 16:31:27 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/15 16:11:19 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,13 +126,13 @@ void	set_difficulty(void)
 		game()->glitch.spread_delay = 2;
 	else if (game()->frame.diff_tg == 2)
 		game()->glitch.spread_delay = 1;
-	game()->time = tt_glitch_map();
+	game()->time.level_time = tt_glitch_map();
 }
 
 void	reinit(void)
 {
 	char **temp_map = NULL;
-	game()->game_start = -1;
+	game()->time.level_start = -1;
 	game()->frame.return_menu_tg = 0;
 	game()->frame.restart_tg = 0;
 	game()->frame.glitch_tg = 0;

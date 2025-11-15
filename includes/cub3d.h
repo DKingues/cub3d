@@ -144,6 +144,15 @@ typedef	struct	s_glitch
 	int		to_glitch;
 }				t_glitch;
 
+typedef struct s_time
+{
+	long		level_start;
+	long		elapsed_time;
+	long		paused_time;
+	int			minutes;
+	int			seconds;
+	int			level_time;
+}				t_time;
 
 typedef struct s_game
 {
@@ -153,10 +162,7 @@ typedef struct s_game
 	t_data	circle;
 	t_data	rays;
 	int offset;
-	long		game_start;
-	int			minutes;
-	int			seconds;
-	int			time;
+	t_time		time;
 	int 		release;
 	void		*mlx;
 	void		*win;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   door.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 15:15:29 by dicosta-          #+#    #+#             */
-/*   Updated: 2025/11/07 17:54:55 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/15 16:10:13 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,39 +80,39 @@ int timer(long start, int timer)
 	gettimeofday(&curr, NULL);
 	current = curr.tv_sec;
 	remaining = timer - (current - start);
-	game()->minutes = remaining / 60;
-	game()->seconds = remaining % 60;
+	game()->time.minutes = remaining / 60;
+	game()->time.seconds = remaining % 60;
 	return (0);
 }
 
 void	draw_time(void)
 {
-	if (int_size(game()->minutes) == 1 && game()->minutes != 0)
+	if (int_size(game()->time.minutes) == 1 && game()->time.minutes != 0)
 	{
 		draw_img(&game()->timer_nbr[0], &game()->canvas, 875, 23, 1.0);
-		draw_img(&game()->timer_nbr[game()->minutes], &game()->canvas, 909, 23, 1.0);
+		draw_img(&game()->timer_nbr[game()->time.minutes], &game()->canvas, 909, 23, 1.0);
 	}
-	else if (int_size(game()->minutes) == 2)
+	else if (int_size(game()->time.minutes) == 2)
 	{
-		draw_img(&game()->timer_nbr[game()->minutes / 10], &game()->canvas, 875, 23, 1.0);
-		draw_img(&game()->timer_nbr[game()->minutes % 10], &game()->canvas, 909, 23, 1.0);
+		draw_img(&game()->timer_nbr[game()->time.minutes / 10], &game()->canvas, 875, 23, 1.0);
+		draw_img(&game()->timer_nbr[game()->time.minutes % 10], &game()->canvas, 909, 23, 1.0);
 	}
-	else if (game()->minutes == 0)
+	else if (game()->time.minutes == 0)
 	{
 		draw_img(&game()->timer_nbr[0], &game()->canvas, 875, 23, 1.0);
 		draw_img(&game()->timer_nbr[0], &game()->canvas, 909, 23, 1.0);
 	}
-	if (int_size(game()->seconds) == 1 && game()->seconds != 0)
+	if (int_size(game()->time.seconds) == 1 && game()->time.seconds != 0)
 	{
 		draw_img(&game()->timer_nbr[0], &game()->canvas, 980 , 23, 1.0);
-		draw_img(&game()->timer_nbr[game()->seconds], &game()->canvas, 1017, 23, 1.0);
+		draw_img(&game()->timer_nbr[game()->time.seconds], &game()->canvas, 1017, 23, 1.0);
 	}
-	else if (int_size(game()->seconds) == 2 && game()->seconds != 0 )
+	else if (int_size(game()->time.seconds) == 2 && game()->time.seconds != 0 )
 	{
-		draw_img(&game()->timer_nbr[game()->seconds / 10], &game()->canvas, 980, 23, 1.0);
-		draw_img(&game()->timer_nbr[game()->seconds % 10], &game()->canvas, 1017, 23, 1.0);
+		draw_img(&game()->timer_nbr[game()->time.seconds / 10], &game()->canvas, 980, 23, 1.0);
+		draw_img(&game()->timer_nbr[game()->time.seconds % 10], &game()->canvas, 1017, 23, 1.0);
 	}
-	else if (game()->seconds == 0)
+	else if (game()->time.seconds == 0)
 	{
 		draw_img(&game()->timer_nbr[0], &game()->canvas, 980, 23, 1.0);
 		draw_img(&game()->timer_nbr[0], &game()->canvas, 1017, 23, 1.0);

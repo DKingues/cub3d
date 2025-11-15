@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 17:37:00 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/14 16:12:36 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/15 16:12:35 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ int	loop(void *nada)
 		ctrl_p_put();
 	else if (game()->state == GAME)
 	{
-		if (game()->game_start == -1)
+		if (game()->time.level_start == -1)
 		{
 			gettimeofday(&start, NULL);
-			game()->game_start = start.tv_sec;
+			game()->time.level_start = start.tv_sec;
 		}
 		game_loop(18);
 	}
@@ -50,7 +50,7 @@ int	loop(void *nada)
 
 int game_over_check(void)
 {
-	if (game()->map.map[(int)game()->player.player_y][(int)game()->player.player_x] == 'G' || (game()->minutes == 0 && game()->seconds == 0))
+	if (game()->map.map[(int)game()->player.player_y][(int)game()->player.player_x] == 'G' || (game()->time.minutes == 0 && game()->time.seconds == 0))
 	{
 		darken(game()->canvas, 1.0, -0.05);
 		lighten(game()->st_anim[game()->frame.anim_tg], 0.0);
@@ -62,7 +62,7 @@ int game_over_check(void)
 
 void	game_loop(int change)
 {
-	timer(game()->game_start, game()->time);
+	timer(game()->time.level_start, game()->time.level_time);
 	glitch_consume(4);
 	if(game()->player.sprint_count == 0)
 		game()->offset = 5;
