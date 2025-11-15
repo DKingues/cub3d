@@ -148,7 +148,8 @@ typedef struct s_time
 {
 	long		level_start;
 	long		elapsed_time;
-	long		paused_time;
+	long		pause_time;
+	long		pause_time_start;
 	int			minutes;
 	int			seconds;
 	int			level_time;

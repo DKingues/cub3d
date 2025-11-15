@@ -6,7 +6,7 @@
 /*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 17:37:00 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/15 16:12:35 by dicosta-         ###   ########.fr       */
+/*   Updated: 2025/11/15 19:00:37 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 int	loop(void *nada)
 {
 	struct timeval	start;
+	long   paused_for;
 	(void)nada;
+
 	if(game()->state == MENU)
 		menu_put(0, NULL);
 	else if(game()->state == OPT_M)
@@ -23,7 +25,14 @@ int	loop(void *nada)
 	else if(game()->state == CTRL_M)
 		ctrl_m_put();
 	else if(game()->state == PAUSE)
+	{
+		if (game()->time.pause_time_start == -1)
+		{	
+			gettimeofday(&start, NULL);
+			game()->time.pause_time_start = start.tv_sec;
+		}
 		pause_put();
+	}
 	else if (game()->state == OPT_P)
 		opt_p_put();
 	else if (game()->state == CTRL_P)
@@ -34,6 +43,13 @@ int	loop(void *nada)
 		{
 			gettimeofday(&start, NULL);
 			game()->time.level_start = start.tv_sec;
+		}
+		if (game()->time.pause_time_start != -1)
+		{
+			gettimeofday(&start, NULL);
+			paused_for = start.tv_sec - game()->time.pause_time_start;
+			game()->time.pause_time += paused_for;
+			game()->time.pause_time_start = -1;
 		}
 		game_loop(18);
 	}

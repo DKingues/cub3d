@@ -5,7 +5,6 @@ static void spawn_glitch(int spawn_delay)
 	long now;
 
 	now = get_elapsed_sec();
-
 	if (now == spawn_delay)
 	{
 		game()->map.map[(int)game()->player.start_y][(int)game()->player.start_x] = 'G';

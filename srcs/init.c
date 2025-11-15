@@ -6,7 +6,7 @@
 /*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/15 16:11:19 by dicosta-         ###   ########.fr       */
+/*   Updated: 2025/11/15 18:23:10 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,8 @@ void	reinit(void)
 	game()->mouse.x = 0;
 	game()->mouse.y = 0;
 	game()->glitch.to_glitch = 0;
+	game()->time.pause_time_start = -1;
+	game()->time.pause_time = 0;
 	temp_map = copy_map(temp_map, game()->map.map);
 	game()->glitch.to_glitch = count_zero_r(temp_map, (int)game()->player.start_y, (int)game()->player.start_x);
 	ft_free(temp_map);

@@ -6,7 +6,7 @@
 /*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 15:15:29 by dicosta-          #+#    #+#             */
-/*   Updated: 2025/11/15 16:10:13 by dicosta-         ###   ########.fr       */
+/*   Updated: 2025/11/15 18:57:20 by dicosta-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int timer(long start, int timer)
 	remaining = 0;
 	gettimeofday(&curr, NULL);
 	current = curr.tv_sec;
-	remaining = timer - (current - start);
+	remaining = timer - (current - start) + game()->time.pause_time;
 	game()->time.minutes = remaining / 60;
 	game()->time.seconds = remaining % 60;
 	return (0);
