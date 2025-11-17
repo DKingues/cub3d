@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:05:06 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/14 16:53:31 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/17 17:49:53 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,11 +194,8 @@ void	assign_c(void)
 	c_color = ft_strjoin(c_color, temp);
 	free(temp);
 	ft_free(game()->map.map_C);
-	game()->map.map_C = ft_calloc(sizeof(char *), 2);
-	game()->map.map_C[0] = ft_strdup(c_color);
-	game()->map.map_C[1] = ft_strdup("");
+	game()->map.C = ft_strtol(c_color);
 	free(c_color);
-	game()->map.C = ft_strtol(game()->map.map_C[0]);
 }
 
 void	assign_f(void)
@@ -217,11 +214,8 @@ void	assign_f(void)
 	f_color = ft_strjoin(f_color, temp);
 	free(temp);
 	ft_free(game()->map.map_F);
-	game()->map.map_F = ft_calloc(sizeof(char *), 2);
-	game()->map.map_F[0] = ft_strdup(f_color);
-	game()->map.map_F[1] = ft_strdup("");
+	game()->map.F = ft_strtol(f_color);
 	free(f_color);
-	game()->map.F = ft_strtol(game()->map.map_F[0]);
 }
 
 void	draw_sprint(void)

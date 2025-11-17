@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/15 18:23:10 by dicosta-         ###   ########.fr       */
+/*   Updated: 2025/11/17 17:53:28 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,8 +289,6 @@ void init(void)
 	main_move();
 	assign_f();
 	assign_c();
-	free(game()->map.map_F);
-	free(game()->map.map_C);
 	reinit();
 	draw_img(&game()->loading_bar[19], &game()->loading_screen, 351, 826, 1.0);
 	darken(game()->loading_screen, 1.0, -0.05);
@@ -304,6 +302,7 @@ void init(void)
 	draw_img(&game()->option_bt[game()->frame.option_tg], &temp, 672, 666, 1.0);
 	draw_img(&game()->quit_bt[game()->frame.quit_tg], &temp, 672, 831, 1.0);
 	lighten(temp, 0.0);
+	mlx_destroy_image(game()->mlx, temp.img);
 }
 
 void	set_rays(char dir)

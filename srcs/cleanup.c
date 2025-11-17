@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 17:20:48 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/23 18:23:23 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/17 18:10:41 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ void	singleton_free(void)
 		ft_free(game()->map.info);
 	if (game()->map.orig)
 		ft_free(game()->map.orig);
-	
 }
 
 int clean_exit(void *nada)
 {
 	(void)nada;
 	mlx_destroy_image(game()->mlx, game()->canvas.img);
+	mlx_destroy_image(game()->mlx, game()->minimap.img);
 	mlx_destroy_image(game()->mlx, game()->map.north.img);
 	mlx_destroy_image(game()->mlx, game()->map.south.img);
 	mlx_destroy_image(game()->mlx, game()->map.east.img);
@@ -58,7 +58,6 @@ int clean_exit(void *nada)
 	mlx_destroy_image(game()->mlx, game()->closed_door.img);
 	mlx_destroy_image(game()->mlx, game()->open_door.img);
 	mlx_destroy_image(game()->mlx, game()->timer.img);
-	mlx_destroy_window(game()->mlx, game()->win);
 	mlx_destroy_image_arr(game()->mlx, game()->g_win, 4);
 	mlx_destroy_image_arr(game()->mlx, game()->star, 4);
 	mlx_destroy_image_arr(game()->mlx, game()->return_menu_bt, 2);
@@ -72,14 +71,18 @@ int clean_exit(void *nada)
 	mlx_destroy_image_arr(game()->mlx, game()->ctrlback_bt, 2);
 	mlx_destroy_image_arr(game()->mlx, game()->left_bt, 2);
 	mlx_destroy_image_arr(game()->mlx, game()->right_bt, 2);
-	mlx_destroy_image_arr(game()->mlx, game()->sens_nb, 2);
-	mlx_destroy_image_arr(game()->mlx, game()->diff_nb, 2);
+	mlx_destroy_image_arr(game()->mlx, game()->sens_nb, 5);
+	mlx_destroy_image_arr(game()->mlx, game()->diff_nb, 3);
 	mlx_destroy_image_arr(game()->mlx, game()->continue_bt, 2);
 	mlx_destroy_image_arr(game()->mlx, game()->option_p_bt, 2);
 	mlx_destroy_image_arr(game()->mlx, game()->quit_p_bt, 2);
 	mlx_destroy_image_arr(game()->mlx, game()->glitch.glitch, 20);
 	mlx_destroy_image_arr(game()->mlx, game()->timer_nbr, 10);
+	mlx_destroy_image_arr(game()->mlx, game()->loading_bar, 20);
+	mlx_destroy_image_arr(game()->mlx, game()->st_anim, 167);
+	mlx_destroy_window(game()->mlx, game()->win);
 	mlx_destroy_display(game()->mlx);
+	free(game()->st_anim);
 	free(game()->mlx);
 	singleton_free();
 	exit(0);
