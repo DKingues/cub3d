@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/18 17:57:55 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/18 18:39:21 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	get_res(char id, char *path)
 	else if(id == 'y')
 		fd = ft_atoi(res[1]);
 	else
-		exit(1);
+		clean_exit(NULL);
 	ft_free(res);
 	return (fd);
 }

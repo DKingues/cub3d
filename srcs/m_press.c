@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 17:43:00 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/18 17:57:26 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/18 18:33:26 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,11 +135,6 @@ void	pause_press(void)
 		mlx_clear_window(game()->mlx, game()->win);
 		game_move(&last_x);
 		reset_map();
-		mlx_destroy_image(game()->mlx, game()->canvas.img);
-		game()->canvas.img = mlx_new_image(game()->mlx, (1920), (1080));
-		game()->canvas.addr = mlx_get_data_addr(game()->canvas.img,
-		&game()->canvas.bits_per_pixel, &game()->canvas.line_length,
-		&game()->canvas.endian);
 		reinit();
 		ft_usleep(15000);
 		lighten(game()->canvas, 0.0);
@@ -157,11 +152,6 @@ void	pause_press(void)
 		lighten(game()->st_anim[game()->frame.anim_tg], 0.0);
 		main_move();
 		reset_map();
-		mlx_destroy_image(game()->mlx, game()->canvas.img);
-		game()->canvas.img = mlx_new_image(game()->mlx, (1920), (1080));
-		game()->canvas.addr = mlx_get_data_addr(game()->canvas.img,
-			&game()->canvas.bits_per_pixel, &game()->canvas.line_length,
-			&game()->canvas.endian);
 		reinit();
 		game()->state = MENU;
 	}
@@ -238,10 +228,6 @@ void gover_press(void)
 		mlx_clear_window(game()->mlx, game()->win);
 		reset_map();
 		mlx_destroy_image(game()->mlx, game()->canvas.img);
-		game()->canvas.img = mlx_new_image(game()->mlx, (1920), (1080));
-		game()->canvas.addr = mlx_get_data_addr(game()->canvas.img,
-		&game()->canvas.bits_per_pixel, &game()->canvas.line_length,
-		&game()->canvas.endian);
 		reinit();
 		lighten(game()->canvas, 0.0);
 		game()->state = GAME;
@@ -255,11 +241,6 @@ void gover_press(void)
 		lighten(game()->st_anim[game()->frame.anim_tg], 0.0);
 		main_move();
 		reset_map();
-		mlx_destroy_image(game()->mlx, game()->canvas.img);
-		game()->canvas.img = mlx_new_image(game()->mlx, (1920), (1080));
-		game()->canvas.addr = mlx_get_data_addr(game()->canvas.img,
-			&game()->canvas.bits_per_pixel, &game()->canvas.line_length,
-			&game()->canvas.endian);
 		reinit();
 		game()->state = MENU;
 	}

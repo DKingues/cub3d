@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:05:06 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/17 17:49:53 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/18 18:41:44 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -387,7 +387,7 @@ void draw_minimap(void)
         }
         y++;
     }
-	draw_rays(&game()->rays, &game()->minimap, 63, 34, 1.0);
+	draw_rays(&game()->rays, &game()->minimap, 64, 34, 1.0);
     draw_img(&game()->person, &game()->minimap, 64, 64, 1.0);
 }
 
@@ -498,7 +498,7 @@ void	ins_map(void)
 	draw_img(&game()->timer, &game()->canvas, 0, 0, 1.0);
 	//draw_circle(&game()->circle, &game()->minimap, 0, 0);
 	//draw_img(&game()->hud, &game()->canvas, 0, 0, 1.0);
-	draw_time();
+	//draw_time();
 	draw_sprint();
 	draw_img(&game()->minimap, &game()->canvas, 47, 96, 1.0);
 }
