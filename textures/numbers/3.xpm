@@ -52,7 +52,7 @@ static char *out[] = {
 "z c #01FBFB",
 "x c #01FCFC",
 "c c #01FCFD",
-"v c cyan",
+"v c #01FCFD",
 /* pixels */
 "5666666666666666666666663-+    ",
 "cvvvvvvvvvvvvvvvvvvvvvvvvvz8X  ",

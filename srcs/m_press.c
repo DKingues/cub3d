@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 17:43:00 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/31 17:07:13 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/18 17:57:26 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,6 @@ void	pause_press(void)
 		&game()->canvas.bits_per_pixel, &game()->canvas.line_length,
 		&game()->canvas.endian);
 		reinit();
-		ins_map();
 		ft_usleep(15000);
 		lighten(game()->canvas, 0.0);
 		game()->state = GAME;
@@ -164,7 +163,6 @@ void	pause_press(void)
 			&game()->canvas.bits_per_pixel, &game()->canvas.line_length,
 			&game()->canvas.endian);
 		reinit();
-		ins_map();
 		game()->state = MENU;
 	}
 	if((game()->mouse.x >= 754 && game()->mouse.x <= 1164) && (game()->mouse.y >= 814 && game()->mouse.y <= 894))
@@ -245,7 +243,6 @@ void gover_press(void)
 		&game()->canvas.bits_per_pixel, &game()->canvas.line_length,
 		&game()->canvas.endian);
 		reinit();
-		ins_map();
 		lighten(game()->canvas, 0.0);
 		game()->state = GAME;
 	}
@@ -264,7 +261,6 @@ void gover_press(void)
 			&game()->canvas.bits_per_pixel, &game()->canvas.line_length,
 			&game()->canvas.endian);
 		reinit();
-		ins_map();
 		game()->state = MENU;
 	}
 	if ((game()->mouse.y >= 764 && game()->mouse.x >= 764) && (game()->mouse.y <= 842 && game()->mouse.x <= 1165))

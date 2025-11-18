@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/18 16:52:39 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/18 17:57:55 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,7 @@ void	reinit(void)
 	game()->player.player_y = game()->player.start_y;
 	set_rays(game()->map.map[(int)game()->player.player_y][(int)game()->player.player_x]);
 	set_fov(66.0);
+	timer(game()->time.level_start, game()->time.level_time);
 	ins_map();
 }
 void	load_images(void)

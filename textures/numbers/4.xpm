@@ -28,7 +28,7 @@ static char *out[] = {
 "5 c #01FCFC",
 "6 c #01FCFD",
 "7 c #00FDFD",
-"8 c cyan",
+"8 c #01FCFD",
 /* pixels */
 "&*****X                 $*****+",
 "688888o                 >88888=",

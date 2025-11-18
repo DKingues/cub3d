@@ -39,7 +39,7 @@ static char *out[] = {
 "y c #03F0F0",
 "u c #02F5F5",
 "i c #01FCFD",
-"p c cyan",
+"p c #01FCFD",
 /* pixels */
 "*,,,,,,,,,,,,,,,,,,,,,,,,,,,,,>",
 "<pppppppppppppppppppppppppppppi",
