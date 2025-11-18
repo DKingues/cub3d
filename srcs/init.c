@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/17 17:53:28 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/18 16:52:39 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,6 +224,8 @@ void init(void)
 {
 	t_data temp;
 
+	assign_f();
+	assign_c();
 	game()->mlx = mlx_init();
 	game()->win = my_mlx_new_window(game()->mlx, 1920, 1080, "cub3D");
 	load_full_img(&game()->loading_screen, "textures/loading/LoadingScreen.xpm");
@@ -233,6 +235,7 @@ void init(void)
 	game()->canvas.addr = mlx_get_data_addr(game()->canvas.img,
 			&game()->canvas.bits_per_pixel, &game()->canvas.line_length,
 			&game()->canvas.endian);
+	game()->canvas.loaded = 1;
 	game()->canvas.res_x = 1920;
 	game()->canvas.res_y = 1080;
 	load_full_img(&game()->rays, "textures/fov.xpm");
@@ -240,6 +243,7 @@ void init(void)
 	game()->minimap.addr = mlx_get_data_addr(game()->minimap.img,
 			&game()->minimap.bits_per_pixel, &game()->minimap.line_length,
 			&game()->minimap.endian);
+	game()->minimap.loaded = 1;
 	game()->minimap.res_x = 192;
 	game()->minimap.res_y = 192;
 	game()->frame.sens_tg = 0;
@@ -287,8 +291,6 @@ void init(void)
 	game()->state = MENU;
 	game()->mouse.toggle_arrow = mlx_mouse_show(game()->mlx, game()->win); 
 	main_move();
-	assign_f();
-	assign_c();
 	reinit();
 	draw_img(&game()->loading_bar[19], &game()->loading_screen, 351, 826, 1.0);
 	darken(game()->loading_screen, 1.0, -0.05);

@@ -46,7 +46,6 @@ void glitch_consume(int spawn_delay)
 	x = 0;
 	y = 0;
 	temp_map = NULL;
-	printf("Elapsed: [%ld]\n Spread: [%d]\n Paused: [%ld]\n LGlitch: [%ld]\n\n", get_elapsed_sec(), game()->glitch.spread_delay, game()->time.pause_time, game()->glitch.last_glitch_time);
 	if (game()->glitch.glitch_spawned == 0)
 		spawn_glitch(spawn_delay);
 	else if ((get_elapsed_sec() - game()->glitch.spread_delay) - game()->time.pause_time >= game()->glitch.last_glitch_time)

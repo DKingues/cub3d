@@ -6,11 +6,17 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 17:20:48 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/17 18:10:41 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/18 16:47:30 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+static void	destroy_image_safe(void *mlx, t_data texture)
+{
+	if(texture.img && texture.loaded == 1)
+		mlx_destroy_image(mlx, texture.img);
+}
 
 static void	mlx_destroy_image_arr(void *mlx, t_data *texture, int quantity)
 {
@@ -19,7 +25,8 @@ static void	mlx_destroy_image_arr(void *mlx, t_data *texture, int quantity)
 	i = 0;
 	while (i < quantity)
 	{
-		mlx_destroy_image(mlx, texture[i].img);
+		if(texture && texture[i].img && texture[i].loaded == 1)
+			mlx_destroy_image(mlx, texture[i].img);
 		i++;
 	}
 }
@@ -36,28 +43,28 @@ void	singleton_free(void)
 int clean_exit(void *nada)
 {
 	(void)nada;
-	mlx_destroy_image(game()->mlx, game()->canvas.img);
-	mlx_destroy_image(game()->mlx, game()->minimap.img);
-	mlx_destroy_image(game()->mlx, game()->map.north.img);
-	mlx_destroy_image(game()->mlx, game()->map.south.img);
-	mlx_destroy_image(game()->mlx, game()->map.east.img);
-	mlx_destroy_image(game()->mlx, game()->map.west.img);
-	mlx_destroy_image(game()->mlx, game()->wall.img);
-	mlx_destroy_image(game()->mlx, game()->floor.img);
-	mlx_destroy_image(game()->mlx, game()->person.img);
-	mlx_destroy_image(game()->mlx, game()->loading_screen.img);
-	mlx_destroy_image(game()->mlx, game()->rays.img);
-	mlx_destroy_image(game()->mlx, game()->maze_nm.img);
-	mlx_destroy_image(game()->mlx, game()->ctrl_menu.img);
-	mlx_destroy_image(game()->mlx, game()->diff_bt.img);
-	mlx_destroy_image(game()->mlx, game()->sens_bt.img);
-	mlx_destroy_image(game()->mlx, game()->g_over.img);
-	mlx_destroy_image(game()->mlx, game()->g_win_bg.img);
-	mlx_destroy_image(game()->mlx, game()->pause_bt.img);
-	mlx_destroy_image(game()->mlx, game()->exit.img);
-	mlx_destroy_image(game()->mlx, game()->closed_door.img);
-	mlx_destroy_image(game()->mlx, game()->open_door.img);
-	mlx_destroy_image(game()->mlx, game()->timer.img);
+	destroy_image_safe(game()->mlx, game()->canvas);
+	destroy_image_safe(game()->mlx, game()->minimap);
+	destroy_image_safe(game()->mlx, game()->map.north);
+	destroy_image_safe(game()->mlx, game()->map.south);
+	destroy_image_safe(game()->mlx, game()->map.east);
+	destroy_image_safe(game()->mlx, game()->map.west);
+	destroy_image_safe(game()->mlx, game()->wall);
+	destroy_image_safe(game()->mlx, game()->floor);
+	destroy_image_safe(game()->mlx, game()->person);
+	destroy_image_safe(game()->mlx, game()->loading_screen);
+	destroy_image_safe(game()->mlx, game()->rays);
+	destroy_image_safe(game()->mlx, game()->maze_nm);
+	destroy_image_safe(game()->mlx, game()->ctrl_menu);
+	destroy_image_safe(game()->mlx, game()->diff_bt);
+	destroy_image_safe(game()->mlx, game()->sens_bt);
+	destroy_image_safe(game()->mlx, game()->g_over);
+	destroy_image_safe(game()->mlx, game()->g_win_bg);
+	destroy_image_safe(game()->mlx, game()->pause_bt);
+	destroy_image_safe(game()->mlx, game()->exit);
+	destroy_image_safe(game()->mlx, game()->closed_door);
+	destroy_image_safe(game()->mlx, game()->open_door);
+	destroy_image_safe(game()->mlx, game()->timer);
 	mlx_destroy_image_arr(game()->mlx, game()->g_win, 4);
 	mlx_destroy_image_arr(game()->mlx, game()->star, 4);
 	mlx_destroy_image_arr(game()->mlx, game()->return_menu_bt, 2);
@@ -82,7 +89,8 @@ int clean_exit(void *nada)
 	mlx_destroy_image_arr(game()->mlx, game()->st_anim, 167);
 	mlx_destroy_window(game()->mlx, game()->win);
 	mlx_destroy_display(game()->mlx);
-	free(game()->st_anim);
+	if(game()->st_anim)
+		free(game()->st_anim);
 	free(game()->mlx);
 	singleton_free();
 	exit(0);

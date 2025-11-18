@@ -93,6 +93,7 @@ typedef struct s_data
 	int		endian;
 	int		res_x;
 	int		res_y;
+	int		loaded;
 }				t_data;
 
 typedef struct s_ray

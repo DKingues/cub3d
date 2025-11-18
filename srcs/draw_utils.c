@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:06:48 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/17 18:35:20 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/18 16:42:53 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,13 @@ t_data	load_img(char *path)
 	t_data	img;
 
 	img.img = mlx_xpm_file_to_image(game()->mlx, path, &img.w, &img.h);
+	if(!img.img)
+		return(printf("Erro na textura wi\n"), clean_exit(NULL), img);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel,
 			&img.line_length, &img.endian);
+	if(!img.addr)
+		return(printf("Erro na textura addr wi\n"), clean_exit(NULL), img);
+	img.loaded = 1;
 	return (img);
 }
 
