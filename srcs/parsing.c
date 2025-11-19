@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:54 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/19 12:35:56 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/19 16:27:43 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int check_map2(void)
 		while(game()->map.map[var][var2])
 		{
 			if (game()->map.map[var][var2] == 'N' || game()->map.map[var][var2] == 'W' || game()->map.map[var][var2] == 'E' || game()->map.map[var][var2] == 'S')
-				return (printf("The exit is uneccesseiblya\n"), singleton_free(1), exit(1), 1);
+				return (printf("Error\nThe exit is unaccessible\n"), singleton_free(1), exit(1), 1);
 			var2++;
 		}
 		var++;
@@ -120,11 +120,10 @@ int check_map2(void)
 
 int parsing(char **av)
 {
-	
 	if (map_exists(av[1]))
-		return (printf("The map doesn't exist.\n"), 1);
+		return (printf("Error\nThe map doesn't exist.\n"), 1);
 	if (map_name(av[1]))
-		return (printf("The map extension isn't valid. It should be a \".cub\".\n"), 1);
+		return (printf("Error\nThe map extension isn't valid. It should be a \".cub\".\n"), 1);
 	if (map_validate(av[1]))
 		return (1);
 	if (map_textures())
@@ -157,19 +156,19 @@ int parsing(char **av)
 	/* int var = 0;
 	while(game()->map.info[var])
 	{
-		printf("GAME()->INFO: %s\n", game()->map.info[var]);
+		printf("Error\nGAME()->INFO: %s\n", game()->map.info[var]);
 		var++;
 	}
 	var = 0;
 	while(game()->map.map_F[var])
 	{
-		printf("GAME()->map_F: %s\n", game()->map.map_F[var]);
+		printf("Error\nGAME()->map_F: %s\n", game()->map.map_F[var]);
 		var++;
 	}
 	var = 0;
 	while(game()->map.map_C[var])
 	{
-		printf("GAME()->map_C: %s\n", game()->map.map_C[var]);
+		printf("Error\nGAME()->map_C: %s\n", game()->map.map_C[var]);
 		var++;
 	} */
     return(0);

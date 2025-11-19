@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:05:06 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/19 12:32:01 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/19 17:11:22 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -320,7 +320,7 @@ void draw_minimap(void)
     float dir_y = game()->raycast.ray_y;
     float plane_x = game()->raycast.plane_x;
     float plane_y = game()->raycast.plane_y;
-	t_data *tex_clr;
+	t_data *tex_clr = NULL;
     y = 0;
 	while(y < 192)
 	{
@@ -361,10 +361,8 @@ void draw_minimap(void)
 				tex_clr = &game()->exit;
 			else if ((map_char >= -127 &&  map_char <= -71))
         		tex_clr = &game()->door[map_char + 127];
-    		else if (map_char < 0)
-			{
-        		tex_clr = &game()->door[map_char + 56];
-			}
+			else if (map_char < 0)
+				tex_clr = &game()->door[map_char + 56];
 			if(tex_clr)
 			{
 				int tex_x = ((int)(fx * tex_clr->res_x)) % tex_clr->res_x;
@@ -378,7 +376,6 @@ void draw_minimap(void)
 			y = 192 - y;
             my_mlx_pixel_put(&game()->minimap, x, y, color);
 			tex_clr = NULL;
-
             x++;
         }
         y++;

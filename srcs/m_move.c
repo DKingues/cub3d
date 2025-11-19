@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 17:40:39 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/30 16:57:56 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/19 15:42:14 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	mouse_move(int keycode, t_game *null)
 	else if (game()->state == CTRL_G)
 		ctrl_g_move();
 	last_x = game()->mouse.x;
-	//printf("last x = %d, mouse x: %d, mouse y: %d\n", last_x, game()->mouse.x, game()->mouse.y);
+	//printf("Error\nlast x = %d, mouse x: %d, mouse y: %d\n", last_x, game()->mouse.x, game()->mouse.y);
 	return (0);
 }
 

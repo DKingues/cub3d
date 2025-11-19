@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 16:10:20 by dicosta-          #+#    #+#             */
-/*   Updated: 2025/11/15 16:18:59 by dicosta-         ###   ########.fr       */
+/*   Updated: 2025/11/19 16:52:00 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,13 +123,13 @@ int	tt_glitch_map(void)
 			{
 				if (temp_map2[y][x] == 'G')
 				{
-					if (temp_map2[y][x - 1] != '1' && temp_map2[y][x - 1] != 'G')
+					if (temp_map2[y][x - 1] != 'L' &&temp_map2[y][x - 1] != '1' && temp_map2[y][x - 1] != 'G')
 						temp_map[y][x - 1] = 'G';
-					if (temp_map2[y - 1][x] != '1' && temp_map2[y - 1][x] != 'G')
+					if (temp_map2[y - 1][x] != 'L' && temp_map2[y - 1][x] != '1' && temp_map2[y - 1][x] != 'G')
 						temp_map[y - 1][x] = 'G';
-					if (temp_map2[y + 1][x] != '1' && temp_map2[y + 1][x] != 'G')
+					if (temp_map2[y + 1][x] != 'L' && temp_map2[y + 1][x] != '1' && temp_map2[y + 1][x] != 'G')
 						temp_map[y + 1][x] = 'G';
-					if (temp_map2[y][x + 1] != '1' && temp_map2[y][x + 1] != 'G')
+					if (temp_map2[y][x + 1] != 'L' && temp_map2[y][x + 1] != '1' && temp_map2[y][x + 1] != 'G')
 						temp_map[y][x + 1] = 'G';
 				}
 				x++;

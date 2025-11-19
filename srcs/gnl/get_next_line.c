@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 20:26:22 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/09/16 18:23:03 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/19 15:42:14 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*get_next_line(int fd)
 	while (i < 7)
 	{
 		line = get_next_line(fd);
-		printf("%s", line);
+		printf("Error\n%s", line);
 		free(line);
 		i++;
 	}

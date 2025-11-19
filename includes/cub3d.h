@@ -26,6 +26,7 @@
 # include "../minilibx-linux/mlx_int.h"
 # include "../includes/libft/libft.h"
 
+
 typedef	struct s_frame
 {
 	int			door_tg;
@@ -228,7 +229,9 @@ void	door_handle(void);
 //GNL
 # define BUFFER_SIZE 1
 # define PI 3.141592653589793
-
+# ifndef FS
+#  define FS 0
+# endif
 char	*get_next_line(int fd);
 int		ft_linelen(char *str);
 char	*ft_strjoin_gnl(char *s1, char *s2);

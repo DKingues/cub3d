@@ -6,7 +6,7 @@
 #    By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/21 15:04:39 by rmota-ma          #+#    #+#              #
-#    Updated: 2025/10/31 16:35:24 by rmota-ma         ###   ########.fr        #
+#    Updated: 2025/11/19 17:11:59 by rmota-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,9 @@ NAME = cub3D
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -g -O3
+CFLAGS = -Wall -Wextra -Werror -DFS=$(FS) -g -O3
+
+FS = 0
 
 # Sources and objects
 
@@ -107,5 +109,8 @@ fclean: clean
 	@$(CUB3D_KO)
 
 re: fclean all
+
+fs: fclean
+	@make all FS=1
 
 .PHONY: all clean fclean re

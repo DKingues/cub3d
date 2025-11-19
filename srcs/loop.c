@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 17:37:00 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/15 19:00:37 by dicosta-         ###   ########.fr       */
+/*   Updated: 2025/11/19 17:12:06 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	loop(void *nada)
 	long   paused_for;
 	(void)nada;
 
+	if(game()->state != GAME && FS == 1)
+		mlx_mouse_show(game()->mlx, game()->win);
 	if(game()->state == MENU)
 		menu_put(0, NULL);
 	else if(game()->state == OPT_M)
@@ -39,6 +41,8 @@ int	loop(void *nada)
 		ctrl_p_put();
 	else if (game()->state == GAME)
 	{
+		if(FS == 1)
+			mlx_mouse_hide(game()->mlx, game()->win);
 		if (game()->time.level_start == -1)
 		{
 			gettimeofday(&start, NULL);
@@ -106,7 +110,6 @@ void	game_loop(int change)
 		rotate_ray(1);
 	door_handle();
 	ins_map();
-	//ft_usleep(13000);
 	if(!game_over_check())
 		mlx_put_image_to_window(game()->mlx, game()->win, game()->canvas.img, 0, 0);
 }

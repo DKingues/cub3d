@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:06:18 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/12 16:59:05 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/19 17:21:11 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ void dda_door(double rayDirX, double rayDirY, int drawX)
             mapY += stepY;
             side = 1;
         }
-        if ((game()->map.map[mapY][mapX] >= -57 &&  game()->map.map[mapY][mapX] <= 0) || (game()->map.map[mapY][mapX] >= -127 &&  game()->map.map[mapY][mapX] <= -71) || game()->map.map[mapY][mapX] == '1' || game()->map.map[mapY][mapX] == 'G' || game()->map.map[mapY][mapX] == 'L' || game()->map.map[mapY][mapX] == 'C')
+        if ((game()->map.map[mapY][mapX] >= -57 &&  game()->map.map[mapY][mapX] <= 0) || (game()->map.map[mapY][mapX] >= -127 &&  game()->map.map[mapY][mapX] <= -71) || game()->map.map[mapY][mapX] == '1' || game()->map.map[mapY][mapX] == 'G' || game()->map.map[mapY][mapX] == 'L' || game()->map.map[mapY][mapX] == 'C' || game()->map.map[mapY][mapX] == 'O')
             hit = 1;
     }
-    if (game()->map.map[mapY][mapX] != 'C' && !(game()->map.map[mapY][mapX] >= -57 &&  game()->map.map[mapY][mapX] <= 0) && !(game()->map.map[mapY][mapX] >= -127 &&  game()->map.map[mapY][mapX] <= -71))
+    if (game()->map.map[mapY][mapX] != 'C' && !(game()->map.map[mapY][mapX] >= -57 &&  game()->map.map[mapY][mapX] <= 0) && !(game()->map.map[mapY][mapX] >= -127 &&  game()->map.map[mapY][mapX] <= -71) && game()->map.map[mapY][mapX] != 'O')
         return ;
     double perpWallDist;
     if (side == 0)
@@ -68,6 +68,8 @@ void dda_door(double rayDirX, double rayDirY, int drawX)
         tex_clr = game()->door[game()->map.map[mapY][mapX] + 127];
     else if (game()->map.map[mapY][mapX] < 0)
         tex_clr = game()->door[game()->map.map[mapY][mapX] + 56];
+	else if (game()->map.map[mapY][mapX] == 'O')
+		tex_clr = game()->door[55];
     else
         tex_clr = game()->door[0];
     if(side == 0)

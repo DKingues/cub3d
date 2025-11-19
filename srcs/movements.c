@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movements.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rmota-ma <rmota-ma@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 20:03:34 by dicosta-          #+#    #+#             */
-/*   Updated: 2025/11/14 16:11:44 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/19 17:17:50 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_wall(double x, double y)
 {
-	return(game()->map.map[(int)y][(int)x] == '1' || game()->map.map[(int)y][(int)x] == 'C' || game()->map.map[(int)y][(int)x] == 'L' || game()->map.map[(int)y][(int)x] < 0);
+	return(game()->map.map[(int)y][(int)x] == '1' || game()->map.map[(int)y][(int)x] == 'C' || game()->map.map[(int)y][(int)x] == 'L' || (game()->map.map[(int)y][(int)x] < -28 && game()->map.map[(int)y][(int)x] > -57) || game()->map.map[(int)y][(int)x] < -70);
 }
 
 int is_wall_radius(double x, double y)
