@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mem_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dicosta- <dicosta-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:25:50 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/06 18:04:36 by dicosta-         ###   ########.fr       */
+/*   Updated: 2025/11/19 12:38:02 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	set_gameinfo(char *line)
 int	fill(int x, int y)
 {
 	if (x < 0 || y < 0 || y > game()->map.max_y || !game()->map.map[y][x] || game()->map.map[y][x] == '\n'|| game()->map.map[y][x] == ' ')
-		return (printf("The map isn't closed.\n"), ft_free(game()->map.map), exit(1), 1);
+		return (printf("The map isn't closed.\n"), singleton_free(1), exit(1), 1);
 	if ((game()->map.map[y][x] == 'L') || (game()->map.map[y][x] == 'c') || (game()->map.map[y][x] == 'o') || (game()->map.map[y][x] == '1') || (game()->map.map[y][x] == 'e') || (game()->map.map[y][x] == 'w') || (game()->map.map[y][x] == 'n') || (game()->map.map[y][x] == 's'))
 		return (0);
 	if (game()->map.map[y][x] == 'C')

@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 17:20:48 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/18 16:47:30 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/19 12:28:47 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	mlx_destroy_image_arr(void *mlx, t_data *texture, int quantity)
 		i++;
 	}
 }
-void	singleton_free(void)
+void	singleton_free(int parse)
 {
 	if(game()->map.map)
 		ft_free(game()->map.map);
@@ -38,6 +38,13 @@ void	singleton_free(void)
 		ft_free(game()->map.info);
 	if (game()->map.orig)
 		ft_free(game()->map.orig);
+	if(parse == 1)
+	{
+		if (game()->map.map_C)
+			ft_free(game()->map.map_C);
+		if (game()->map.map_F)
+			ft_free(game()->map.map_F);
+	}
 }
 
 int clean_exit(void *nada)
@@ -92,7 +99,7 @@ int clean_exit(void *nada)
 	if(game()->st_anim)
 		free(game()->st_anim);
 	free(game()->mlx);
-	singleton_free();
+	singleton_free(0);
 	exit(0);
 	return (0);
 }

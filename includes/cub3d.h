@@ -269,7 +269,7 @@ int texture_name(char *av);
 char	*ft_strdupnonl(const char *s);
 
 //cleanup.c
-void	singleton_free(void);
+void	singleton_free(int parse);
 int clean_exit(void *nada);
 
 //dda.c

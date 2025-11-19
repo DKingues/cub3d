@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/18 18:39:21 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/19 12:16:57 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,7 +228,7 @@ void init(void)
 	assign_f();
 	assign_c();
 	game()->mlx = mlx_init();
-	game()->win = my_mlx_new_window(game()->mlx, 1920, 1080, "cub3D");
+	game()->win = mlx_new_window(game()->mlx, 1920, 1080, "cub3D");
 	load_full_img(&game()->loading_screen, "textures/loading/LoadingScreen.xpm");
 	load_multiple_images(game()->loading_bar, "textures/loading/LoadingScreenBar", 1218, 32, 20);
 	lighten(game()->loading_screen, 0.0);

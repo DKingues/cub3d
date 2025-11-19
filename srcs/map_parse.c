@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:24:40 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/12 16:58:36 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/19 12:31:11 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,8 +193,9 @@ int	map_chars(char *av)
 		return (1);
 	line = get_next_line(fd);
 	if(!line)
-		return (close(fd), printf("The map is missing.\n"), 1);
+		return (close(fd), printf("The map is missing.\n"), singleton_free(1), 1);
 	int check = 0;
+	int check2 = 0;
 	while(var < 6)
 	{
 		if(line[0] == '\n')
@@ -220,7 +221,7 @@ int	map_chars(char *av)
 			while(line)
 			{
 				if(line[0] != '\n')
-					return (close(fd), free(line), printf("Newline found inside the map.\n"), 1);
+					return (close(fd), free(line), printf("Newline found inside the map.\n"), singleton_free(1), 1);
 				free(line);
 				line = get_next_line(fd);
 			}
@@ -229,9 +230,11 @@ int	map_chars(char *av)
 		while(line[var] && line[var] != '\n')
 		{
 			if(line[var] != '0' && line[var] != 'N' && line[var] != '1' && line[var] != 'E' && line[var] != 'S' && line[var] != 'W' && line[var] != ' ' && line[var] != 'C' &&  line[var] != 'O' && line[var] != 'L')
-				return (close(fd), printf("Invalid character '%c' inside the map.\n", line[var]), free(line),  1);
+				return (close(fd), printf("Invalid character '%c' inside the map.\n", line[var]), singleton_free(1), free(line),  1);
 			if (line[var] == 'N' || line[var] == 'E' || line[var] == 'S' || line[var] == 'W')
 				check++;
+			if (line[var] == 'L')
+				check2++;
 			var++;
 		}
 		free(line);
@@ -239,8 +242,12 @@ int	map_chars(char *av)
 	}
 	close(fd);
 	if (!check)
-		return (printf("Player not found in the map.\n"), 1);
+		return (printf("Player not found in the map.\n"), singleton_free(1), 1);
 	else if (check != 1)
-		return (printf("Too many players found in the map.\n"), 1);
+		return (printf("Too many players found in the map.\n"), singleton_free(1), 1);
+	if (!check2)
+		return (printf("Exit not found in the map.\n"), singleton_free(1), 1);
+	else if (check2 != 1)
+		return (printf("Too many exits found in the map.\n"), singleton_free(1), 1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:24:55 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/23 18:23:52 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/19 12:29:06 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,25 +62,25 @@ int	map_colors(void)
 	while (game()->map.info[4][var])
 	{
 		if ((game()->map.info[4][var] > '9' || game()->map.info[4][var] < '0') && game()->map.info[4][var] != ',')
-			return(printf("Invalid row \"F %s\", it should only have digits.\n", game()->map.info[4]), singleton_free(), 1);
+			return(printf("Invalid row \"F %s\", it should only have digits.\n", game()->map.info[4]), singleton_free(1), 1);
 		if (game()->map.info[4][var] == ',')
 			check++;
 		var++;
 	}
 	if (check != 2 || var > 11 || var < 5)
-		return(printf("Invalid row \"F %s\". Example \"F 255,255,255\".\n", game()->map.info[4]), singleton_free(), 1);
+		return(printf("Invalid row \"F %s\". Example \"F 255,255,255\".\n", game()->map.info[4]), singleton_free(1), 1);
 	var = 0;
 	check = 0;
 	while (game()->map.info[5][var])
 	{
 		if ((game()->map.info[5][var] > '9' || game()->map.info[5][var] < '0') && game()->map.info[5][var] != ',')
-			return(printf("Invalid row \"C %s\", it should only have digits.\n", game()->map.info[5]), singleton_free(), 1);
+			return(printf("Invalid row \"C %s\", it should only have digits.\n", game()->map.info[5]), singleton_free(1), 1);
 		if (game()->map.info[5][var] == ',')
 			check++;
 		var++;
 	}
 	if (check != 2 || var > 11 || var < 5)
-		return(printf("Invalid row \"C %s\". Example \"C 255,255,255\".\n", game()->map.info[5]), singleton_free(), 1);
+		return(printf("Invalid row \"C %s\". Example \"C 255,255,255\".\n", game()->map.info[5]), singleton_free(1), 1);
 	int nbr;
 	game()->map.map_F = ft_split(game()->map.info[4], ',');
 	var = 0;
@@ -88,22 +88,22 @@ int	map_colors(void)
 	{
 		nbr = ft_atoi_check(game()->map.map_F[var]);
 		if(nbr < 0 || nbr > 255)
-			return (printf("Invalid row \"F %s\", every number should be between 0 and 255.\n", game()->map.info[4]), singleton_free(), 1);
+			return (printf("Invalid row \"F %s\", every number should be between 0 and 255.\n", game()->map.info[4]), singleton_free(1), 1);
 		var++;
 	}
 	if (var != 3)
-		return(printf("Invalid row \"F %s\". Example \"F 255,255,255\".\n", game()->map.info[4]), singleton_free(), 1);
+		return(printf("Invalid row \"F %s\". Example \"F 255,255,255\".\n", game()->map.info[4]), singleton_free(1), 1);
 	game()->map.map_C = ft_split(game()->map.info[5], ',');
 	var = 0;
 	while(game()->map.map_C[var])
 	{
 		nbr = ft_atoi_check(game()->map.map_C[var]);
 		if(nbr < 0 || nbr > 255)
-			return (printf("Invalid row \"C %s\", every number should be between 0 and 255.\n", game()->map.info[5]), singleton_free(), 1);
+			return (printf("Invalid row \"C %s\", every number should be between 0 and 255.\n", game()->map.info[5]), singleton_free(1), 1);
 		var++;
 	}
 	if (var != 3)
-		return(printf("Invalid row \"C %s\". Example \"C 255,255,255\".\n", game()->map.info[5]), singleton_free(), 1);
+		return(printf("Invalid row \"C %s\". Example \"C 255,255,255\".\n", game()->map.info[5]), singleton_free(1), 1);
 	return (0);
 }
 

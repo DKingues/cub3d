@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:05:06 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/18 18:41:44 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/19 12:32:01 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ void draw_line(double rayDirX, double rayDirY)
 		y1 = 192;
     while (1)    
 	{
-		//printf("X0:%f X1:%f Y0:%f Y1:%f\n", x0, x1, y0, y1);
         my_mlx_pixel_put(&game()->minimap, (x0), (y0), 0x0096FF);
 		if (!game()->map.map[(int)(y0 / 64)] || !game()->map.map[(int)(y0 / 64)][(int)(x0 / 64)])
 			break ;
@@ -222,14 +221,11 @@ void	draw_sprint(void)
 {
 	int	var;
 	int var2 = 768;
-	/* if (game()->player.sprint_count < 10)
-		return ; */
 	float var3 = 3.84 * (int)game()->player.sprint_count;
-	//printf("CORD: %d\n", 39 * ((int)game()->player.sprint_count / 10));
 	while(var2 < (int)var3 + 768)
 	{
 		var = 1030;
-		while(var < 1042)
+		while(var < 1043)
 		{
 			my_mlx_pixel_put(&game()->canvas, var2, var, 0x00FFFF);
 			var++;
@@ -498,7 +494,7 @@ void	ins_map(void)
 	draw_img(&game()->timer, &game()->canvas, 0, 0, 1.0);
 	//draw_circle(&game()->circle, &game()->minimap, 0, 0);
 	//draw_img(&game()->hud, &game()->canvas, 0, 0, 1.0);
-	//draw_time();
+	draw_time();
 	draw_sprint();
 	draw_img(&game()->minimap, &game()->canvas, 47, 96, 1.0);
 }

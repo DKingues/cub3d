@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 17:43:00 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/18 18:33:26 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/19 12:10:24 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,7 +227,6 @@ void gover_press(void)
 		darken(game()->canvas, 0.4, -0.05);
 		mlx_clear_window(game()->mlx, game()->win);
 		reset_map();
-		mlx_destroy_image(game()->mlx, game()->canvas.img);
 		reinit();
 		lighten(game()->canvas, 0.0);
 		game()->state = GAME;

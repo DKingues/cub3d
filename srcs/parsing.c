@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:54 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/23 15:26:39 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/19 12:35:56 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int check_map2(void)
 		while(game()->map.map[var][var2])
 		{
 			if (game()->map.map[var][var2] == 'N' || game()->map.map[var][var2] == 'W' || game()->map.map[var][var2] == 'E' || game()->map.map[var][var2] == 'S')
-				return (printf("The exit is uneccesseiblya\n"), ft_free(game()->map.map), exit(1), 1);
+				return (printf("The exit is uneccesseiblya\n"), singleton_free(1), exit(1), 1);
 			var2++;
 		}
 		var++;
