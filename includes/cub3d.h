@@ -320,16 +320,16 @@ int	dim_clr(unsigned int color, float factor);
 void gameplay(void);
 
 //m_press.c
-int	mouse_press(int keycode, void *nada);
-void	main_press(void);
-void	opt_m_press(void);
+int		mouse_press(int keycode, void *nada);
+void	main_press(int mx);
+void	*opt_m_press(void);
 void	ctrl_m_press(void);
-void	pause_press(void);
+void	*pause_press(void);
 void	opt_p_press(void);
 void	ctrl_p_press(void);
 void	win_press(void);
-void	gover_press(void);
-void	opt_g_press(void);
+void	*gover_press(void);
+void	*opt_g_press(void);
 void	ctrl_g_press(void);
 int		pause_game(void);
 
