@@ -229,6 +229,11 @@ void	door_handle(void);
 //GNL
 # define BUFFER_SIZE 1
 # define PI 3.141592653589793
+# define P1 "Error\nPlayer not found in the map.\n"
+# define P2 "Error\nToo many players found in the map.\n"
+# define E1 "Error\nExit not found in the map.\n"
+# define E2 "Error\nToo many exits found in the map.\n"
+
 # ifndef FS
 #  define FS 0
 # endif
@@ -240,7 +245,7 @@ void	ft_bzero(void *s, size_t n);
 char	*ft_strdup(const char *s);
 
 //init.c
-void	init_gameinfo(void);
+char	**init_gameinfo(void);
 void 	init(void);
 void 	set_fov(double fov_deg);
 void	set_rays(char dir);
@@ -255,9 +260,9 @@ void	rewrite_map(void);
 void	orig_map(void);
 void	reset_map(void);
 //map_parse.c
-int	map_validate(char *av);
+int	map_validate(char *av, int fd, int var, char *line);
 int map_walls(char *av);
-int	map_chars(char *av);
+int	map_chars(char *av, int var, int check, int check2);
 
 //file_parse.c
 int	map_textures(void);
@@ -292,6 +297,14 @@ void draw_line(double rayDirX, double rayDirY);
 void	ins_map(void);
 void	assign_f(void);
 void	assign_c(void);
+
+//str_help.c
+int	check_loop(char ***check, char *line, int *var, int var2);
+int	line_looping(int fd, int opt, char **line);
+int	line_helper(char **line, int var, int *check, int *check2);
+int	line_checks(int fd, char **line, int *check, int *check2);
+int	alloc_map(int fd, int var, char *av);
+
 //draw_utils.c
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int	my_mlx_pixel_get(t_data *data, int x, int y);

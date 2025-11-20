@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 17:15:07 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/10/23 18:20:30 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/20 15:05:14 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,14 @@ void	*ft_free(char **strs)
 	int	var;
 
 	var = 0;
-	if(!strs || !strs[0])
-		return NULL;
+	if (!strs || !strs[0])
+		return (NULL);
 	while (strs[var])
 	{
 		free(strs[var]);
 		var++;
 	}
-	if(strs)
+	if (strs)
 		free(strs);
 	return (NULL);
 }
@@ -75,8 +75,6 @@ static void	ft_init_var(size_t *var, int *var2, int *srch)
 	*var2 = 0;
 	*srch = -1;
 }
-
-#include <stdio.h>
 
 char	**ft_split(char const *s, char c)
 {

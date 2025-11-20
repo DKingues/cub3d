@@ -6,23 +6,32 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/19 16:04:27 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/20 15:11:56 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	init_gameinfo(void)
+char	**init_gameinfo(void)
 {
 	int	var;
+	char	**check;
 
 	var = 0;
+	check = ft_calloc(7, sizeof(char *));
 	game()->map.info = ft_calloc(7, sizeof(char *));
 	while(var < 6)
 	{
 		game()->map.info[var] = ft_strdup("init");
 		var++;
 	}
+	check[0] = ft_strdup("NO ");
+	check[1] = ft_strdup("SO ");
+	check[2] = ft_strdup("WE ");
+	check[3] = ft_strdup("EA ");
+	check[4] = ft_strdup("F ");
+	check[5] = ft_strdup("C ");
+	return (check);
 }
 
 void	draw_loading(int i)

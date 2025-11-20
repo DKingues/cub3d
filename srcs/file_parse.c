@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:24:55 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/19 15:42:14 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/20 16:37:23 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ int	map_colors(void)
 	if (check != 2 || var > 11 || var < 5)
 		return(printf("Error\nInvalid row \"C %s\". Example \"C 255,255,255\".\n", game()->map.info[5]), singleton_free(1), 1);
 	int nbr;
-	game()->map.map_F = ft_split(game()->map.info[4], ',');
+	char **temp22 = ft_split(game()->map.info[4], ',');
+	game()->map.map_F = temp22;
 	var = 0;
 	while(game()->map.map_F[var])
 	{
@@ -93,7 +94,8 @@ int	map_colors(void)
 	}
 	if (var != 3)
 		return(printf("Error\nInvalid row \"F %s\". Example \"F 255,255,255\".\n", game()->map.info[4]), singleton_free(1), 1);
-	game()->map.map_C = ft_split(game()->map.info[5], ',');
+	char **temp23 = ft_split(game()->map.info[5], ',');
+	game()->map.map_C = temp23;
 	var = 0;
 	while(game()->map.map_C[var])
 	{

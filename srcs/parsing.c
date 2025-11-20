@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:54 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/19 16:27:43 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/20 16:30:04 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,13 +124,13 @@ int parsing(char **av)
 		return (printf("Error\nThe map doesn't exist.\n"), 1);
 	if (map_name(av[1]))
 		return (printf("Error\nThe map extension isn't valid. It should be a \".cub\".\n"), 1);
-	if (map_validate(av[1]))
-		return (1);
+	if (map_validate(av[1], 0, 0, NULL))
+		return (printf("Error\nThe map file information is missing.\n"), 1);
 	if (map_textures())
 		return(1);
 	if (map_colors())
 		return (1);
-	if (map_chars(av[1]))
+	if (map_chars(av[1], 0, 0, 0))
 		return (1);
 	if (map_walls(av[1]))
         return(1);
@@ -153,24 +153,6 @@ int parsing(char **av)
 	check_map2();
 	rewrite_map();
 	orig_map();
-	/* int var = 0;
-	while(game()->map.info[var])
-	{
-		printf("Error\nGAME()->INFO: %s\n", game()->map.info[var]);
-		var++;
-	}
-	var = 0;
-	while(game()->map.map_F[var])
-	{
-		printf("Error\nGAME()->map_F: %s\n", game()->map.map_F[var]);
-		var++;
-	}
-	var = 0;
-	while(game()->map.map_C[var])
-	{
-		printf("Error\nGAME()->map_C: %s\n", game()->map.map_C[var]);
-		var++;
-	} */
     return(0);
 }
 
