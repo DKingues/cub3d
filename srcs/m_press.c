@@ -25,7 +25,7 @@ int	mouse_checks(void *nada, int keycode)
 
 int	mouse_press(int keycode, void *nada)
 {
-	if (mouse_checks(nada, keycode))
+	if (!mouse_checks(nada, keycode))
 		return (0);
 	if (game()->release)
 		return (0);

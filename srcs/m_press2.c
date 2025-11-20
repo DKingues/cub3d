@@ -14,8 +14,11 @@
 
 void	main_press(int mx)
 {
+	int my;
+
+	my = 0;
 	mx = 0;
-	mlx_mouse_get_pos(game()->mlx, game()->win, &mx, 0);
+	mlx_mouse_get_pos(game()->mlx, game()->win, &mx, &my);
 	if ((game()->mouse.x >= 672 && game()->mouse.x <= 1248)
 		&& (game()->mouse.y >= 500 && game()->mouse.y <= 616))
 	{

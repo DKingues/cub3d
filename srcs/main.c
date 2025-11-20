@@ -46,10 +46,10 @@ int main(int ac, char **av)
 		return (printf("Error\nToo many arguments.\n"), 1);
 	if (parsing(av))
 		return (1);
-	print_singleton();
-	singleton_free(1);
-	/*init();
-	gameplay();*/
+	// print_singleton();
+	// singleton_free(1);
+	init();
+	gameplay();
     return (0);
 }
 /*
