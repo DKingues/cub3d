@@ -12,16 +12,11 @@
 
 #include "../includes/cub3d.h"
 
-int open_door(void)
+void	open_L(int y, int x)
 {
-	int y;
-	int x;
-	
-	y = game()->player.player_y;
-	x = game()->player.player_x;
 	if (game()->map.map[y][x + 1] == 'L')
 	{
-		darken(game()->canvas, 1.0, -0.05);	
+		darken(game()->canvas, 1.0, -0.05);
 		game()->state = G_WIN;
 	}
 	else if (game()->map.map[y][x - 1] == 'L')
@@ -39,7 +34,17 @@ int open_door(void)
 		darken(game()->canvas, 1.0, -0.05);
 		game()->state = G_WIN;
 	}
-	else if (game()->map.map[y][x + 1] == 'C')
+}
+
+int	open_door(void)
+{
+	int	y;
+	int	x;
+
+	y = game()->player.player_y;
+	x = game()->player.player_x;
+	open_L(y, x);
+	if (game()->map.map[y][x + 1] == 'C')
 		game()->map.map[y][x + 1] = -57;
 	else if (game()->map.map[y][x - 1] == 'C')
 		game()->map.map[y][x - 1] = -57;
@@ -58,9 +63,11 @@ int open_door(void)
 	return (1);
 }
 
-int int_size(long time)
+int	int_size(long time)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (time > 0)
 	{
 		time /= 10;
@@ -69,12 +76,12 @@ int int_size(long time)
 	return (i);
 }
 
-int timer(long start, int timer)
+int	timer(long start, int timer)
 {
 	struct timeval	curr;
-	long current;
-	int remaining;
-	
+	long			current;
+	int				remaining;
+
 	current = 0;
 	remaining = 0;
 	gettimeofday(&curr, NULL);
@@ -85,47 +92,62 @@ int timer(long start, int timer)
 	return (0);
 }
 
-void    draw_time(void)
+void	draw_minutes(void)
 {
-    if (int_size(game()->time.minutes) == 1 && game()->time.minutes != 0)
-    {
-        draw_img(&game()->timer_nbr[0], &game()->canvas, 875, 23, 1.0);
-        draw_img(&game()->timer_nbr[game()->time.minutes], &game()->canvas, 909, 23, 1.0);
-    }
-    else if (int_size(game()->time.minutes) == 2)
-    {
-        draw_img(&game()->timer_nbr[game()->time.minutes / 10], &game()->canvas, 875, 23, 1.0);
-        draw_img(&game()->timer_nbr[game()->time.minutes % 10], &game()->canvas, 909, 23, 1.0);
-    }
-    else if (game()->time.minutes == 0)
-    {
-        draw_img(&game()->timer_nbr[0], &game()->canvas, 875, 23, 1.0);
-        draw_img(&game()->timer_nbr[0], &game()->canvas, 909, 23, 1.0);
-    }
-    else
-    {
-        draw_img(&game()->timer_nbr[0], &game()->canvas, 875, 23, 1.0);
-        draw_img(&game()->timer_nbr[0], &game()->canvas, 909, 23, 1.0);
-    }
-    if (int_size(game()->time.seconds) == 1 && game()->time.seconds != 0)
-    {
-        draw_img(&game()->timer_nbr[0], &game()->canvas, 980 , 23, 1.0);
-        draw_img(&game()->timer_nbr[game()->time.seconds], &game()->canvas, 1017, 23, 1.0);
-    }
-    else if (int_size(game()->time.seconds) == 2 && game()->time.seconds != 0 )
-    {
-        draw_img(&game()->timer_nbr[game()->time.seconds / 10], &game()->canvas, 980, 23, 1.0);
-        draw_img(&game()->timer_nbr[game()->time.seconds % 10], &game()->canvas, 1017, 23, 1.0);
-    }
-    else if (game()->time.seconds == 0)
-    {
-        draw_img(&game()->timer_nbr[0], &game()->canvas, 980, 23, 1.0);
-        draw_img(&game()->timer_nbr[0], &game()->canvas, 1017, 23, 1.0);
-    }
-    else
-    {
-        draw_img(&game()->timer_nbr[0], &game()->canvas, 980, 23, 1.0);
-        draw_img(&game()->timer_nbr[0], &game()->canvas, 1017, 23, 1.0);
-    }
+	if (int_size(game()->time.minutes) == 1 && game()->time.minutes != 0)
+	{
+		draw_img(&game()->timer_nbr[0], &game()->canvas, 875, 23, 1.0);
+		draw_img(&game()->timer_nbr[game()->time.minutes],
+			&game()->canvas, 909, 23, 1.0);
+	}
+	else if (int_size(game()->time.minutes) == 2)
+	{
+		draw_img(&game()->timer_nbr[game()->time.minutes / 10],
+			&game()->canvas, 875, 23, 1.0);
+		draw_img(&game()->timer_nbr[game()->time.minutes % 10],
+			&game()->canvas, 909, 23, 1.0);
+	}
+	else if (game()->time.minutes == 0)
+	{
+		draw_img(&game()->timer_nbr[0], &game()->canvas, 875, 23, 1.0);
+		draw_img(&game()->timer_nbr[0], &game()->canvas, 909, 23, 1.0);
+	}
+	else
+	{
+		draw_img(&game()->timer_nbr[0], &game()->canvas, 875, 23, 1.0);
+		draw_img(&game()->timer_nbr[0], &game()->canvas, 909, 23, 1.0);
+	}
 }
 
+void	draw_seconds(void)
+{
+	if (int_size(game()->time.seconds) == 1 && game()->time.seconds != 0)
+	{
+		draw_img(&game()->timer_nbr[0], &game()->canvas, 980, 23, 1.0);
+		draw_img(&game()->timer_nbr[game()->time.seconds],
+			&game()->canvas, 1017, 23, 1.0);
+	}
+	else if (int_size(game()->time.seconds) == 2 && game()->time.seconds != 0)
+	{
+		draw_img(&game()->timer_nbr[game()->time.seconds / 10],
+			&game()->canvas, 980, 23, 1.0);
+		draw_img(&game()->timer_nbr[game()->time.seconds % 10],
+			&game()->canvas, 1017, 23, 1.0);
+	}
+	else if (game()->time.seconds == 0)
+	{
+		draw_img(&game()->timer_nbr[0], &game()->canvas, 980, 23, 1.0);
+		draw_img(&game()->timer_nbr[0], &game()->canvas, 1017, 23, 1.0);
+	}
+	else
+	{
+		draw_img(&game()->timer_nbr[0], &game()->canvas, 980, 23, 1.0);
+		draw_img(&game()->timer_nbr[0], &game()->canvas, 1017, 23, 1.0);
+	}
+}
+
+void	draw_time(void)
+{
+	draw_minutes();
+	draw_seconds();
+}

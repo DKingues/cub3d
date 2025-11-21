@@ -443,7 +443,7 @@ int		count_zero(char **map);
 // glitch.c
 
 void	glitch_consume(int spawn_delay);
-char	**copy_map(char **new_map, char **map_to_copy);
+char	**copy_map(char **map_to_copy);
 void	set_difficulty(void);
 
 int	count_zero_r(char **map, int y, int x);

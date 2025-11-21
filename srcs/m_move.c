@@ -18,7 +18,6 @@ int	mouse_move(int keycode, t_game *null)
 
 	(void)null;
 	(void)keycode;
-
 	if(game()->state == MENU)
 		main_move();
 	else if(game()->state == OPT_M)
