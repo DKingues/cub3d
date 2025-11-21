@@ -6,254 +6,172 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:06:18 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/21 13:49:11 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/21 19:33:40 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	dda_door(double raydirx, double raydiry, int drawx)
+t_dda	dda_test2(double raydirx, double raydiry, t_dda s_dda)
 {
-	int		mapx;
-	int		mapy;
-	int		stepx;
-	int		stepy;
-	int		hit;
-	int		side;
-	double	hitx;
-	double	posx;
-	double	posy;
-	double	sidedistx;
-	double	sidedisty;
-	double	deltadistx;
-	double	deltadisty;
-	double	perpwalldist;
-	t_data	tex_clr;
-
-	hit = 0;
-	posx = game()->player.player_x;
-	posy = game()->player.player_y;
-	mapx = (int)posx;
-	mapy = (int)posy;
-	deltadistx = fabs(1.0 / raydirx);
-	deltadisty = fabs(1.0 / raydiry);
+	s_dda.posx = game()->player.player_x;
+	s_dda.posy = game()->player.player_y;
+	s_dda.mapx = (int)s_dda.posx;
+	s_dda.mapy = (int)s_dda.posy;
 	if (raydirx < 0)
 	{
-		stepx = -1;
-		sidedistx = (posx - mapx) * deltadistx;
+		s_dda.stepx = -1;
+		s_dda.sidedistx = (s_dda.posx - s_dda.mapx) * s_dda.deltadistx;
 	}
 	else
 	{
-		stepx = 1;
-		sidedistx = (mapx + 1.0 - posx) * deltadistx;
+		s_dda.stepx = 1;
+		s_dda.sidedistx = (s_dda.mapx + 1.0 - s_dda.posx) * s_dda.deltadistx;
 	}
 	if (raydiry < 0)
 	{
-		stepy = -1;
-		sidedisty = (posy - mapy) * deltadisty;
+		s_dda.stepy = -1;
+		s_dda.sidedisty = (s_dda.posy - s_dda.mapy) * s_dda.deltadisty;
 	}
 	else
 	{
-		stepy = 1;
-		sidedisty = (mapy + 1.0 - posy) * deltadisty;
+		s_dda.stepy = 1;
+		s_dda.sidedisty = (s_dda.mapy + 1.0 - s_dda.posy) * s_dda.deltadisty;
 	}
-	while (!hit)
-	{
-		if (sidedistx < sidedisty)
-		{
-			sidedistx += deltadistx;
-			mapx += stepx;
-			side = 0;
-		}
-		else
-		{
-			sidedisty += deltadisty;
-			mapy += stepy;
-			side = 1;
-		}
-		if ((game()->map.map[mapy][mapx] >= -57
-			&& game()->map.map[mapy][mapx] <= 0)
-				|| (game()->map.map[mapy][mapx] >= -127
-					&& game()->map.map[mapy][mapx] <= -71)
-					|| game()->map.map[mapy][mapx] == '1'
-					|| game()->map.map[mapy][mapx] == 'G'
-					|| game()->map.map[mapy][mapx] == 'L'
-					|| game()->map.map[mapy][mapx] == 'C'
-					|| game()->map.map[mapy][mapx] == 'O')
-			hit = 1;
-	}
-	if (game()->map.map[mapy][mapx] != 'C'
-		&& !(game()->map.map[mapy][mapx] >= -57
-		&&  game()->map.map[mapy][mapx] <= 0)
-		&& !(game()->map.map[mapy][mapx] >= -127
-		&&  game()->map.map[mapy][mapx] <= -71)
-		&& game()->map.map[mapy][mapx] != 'O')
-	    return ;
-	if (side == 0)
-	    perpwalldist = (mapx - posx + (1 - stepx) / 2.0) / raydirx;
-	else
-	    perpwalldist = (mapy - posy + (1 - stepy) / 2.0) / raydiry;
-	if ((game()->map.map[mapy][mapx] >= -127 &&  game()->map.map[mapy][mapx] <= -71))
-	    tex_clr = game()->door[game()->map.map[mapy][mapx] + 127];
-	else if (game()->map.map[mapy][mapx] < 0)
-	    tex_clr = game()->door[game()->map.map[mapy][mapx] + 56];
-	else if (game()->map.map[mapy][mapx] == 'O')
-		tex_clr = game()->door[55];
-	else
-	    tex_clr = game()->door[0];
-	if(side == 0)
-	    hitx = posy + raydiry * perpwalldist;
-	else
-	     hitx = posx + raydirx * perpwalldist;
-	hitx -= floor(hitx);
-	int lineHeight = (int)(1080 / perpwalldist);
-	int drawStart = -lineHeight / 2 + 1080 / 2;
-	if(drawStart < 0)
-	    drawStart = 0;
-	int drawEnd = lineHeight / 2 + 1080 / 2;
-	if(drawEnd >= 1080)
-	    drawEnd = 1080 - 1;
-	int texX = (int)(hitx * tex_clr.res_x);
-	if(side == 0 && raydirx < 0) 
-	    texX = tex_clr.res_x - texX - 1;
-	if(side == 1 && raydiry > 0)
-	    texX = tex_clr.res_x - texX - 1;
-	while(drawStart <= drawEnd)
-	{
-	    int texY = drawStart * 256 - 1080 * 128 + lineHeight * 128;
-	    int texYY =  (((texY * tex_clr.res_y) / lineHeight) / 256);
-	    if(texYY >= 1080)
-	        texYY = 1080 - 1;
-	    my_mlx_pixel_put(&game()->canvas, drawx, drawStart, my_mlx_pixel_get(&tex_clr, texX, texYY));
-	    drawStart++;
-	}
+	return (s_dda);
 }
 
-void dda_test(double rayDirX, double rayDirY, int drawX)
+t_dda	change_dvalue(t_dda s_dda)
 {
-    double posX = game()->player.player_x, posY = game()->player.player_y;
+	s_dda.hitcheck = 0;
+	s_dda.doorside = s_dda.side;
+	s_dda.sidedoorx = s_dda.sidedistx;
+	s_dda.sidedoory = s_dda.sidedisty;
+	s_dda.doorx = s_dda.mapx;
+	s_dda.doory = s_dda.mapy;
+	return (s_dda);
+}
 
-    int mapX = (int)posX;
-    int mapY = (int)posY;
-
-    double deltaDistX = fabs(1.0 / rayDirX);
-    double deltaDistY = fabs(1.0 / rayDirY);
-
-    int stepX, stepY;
-    double sideDistX, sideDistY;
-
-    if (rayDirX < 0) {
-        stepX = -1;
-        sideDistX = (posX - mapX) * deltaDistX;
-    } else {
-        stepX = 1;
-        sideDistX = (mapX + 1.0 - posX) * deltaDistX;
-    }
-    if (rayDirY < 0) {
-        stepY = -1;
-        sideDistY = (posY - mapY) * deltaDistY;
-    } else {
-        stepY = 1;
-        sideDistY = (mapY + 1.0 - posY) * deltaDistY;
-    }
-    int hit = 0;
-    int side;
-    while (!hit) {
-        if (sideDistX < sideDistY) {
-            sideDistX += deltaDistX;
-            mapX += stepX;
-            side = 0;
-        } else {
-            sideDistY += deltaDistY;
-            mapY += stepY;
-            side = 1;
-        }
-        if (game()->map.map[mapY][mapX] == '1' || game()->map.map[mapY][mapX] == 'G' || game()->map.map[mapY][mapX] == 'L')
-            hit = 1;
-    }
-    double perpWallDist;
-    if (side == 0)
-        perpWallDist = (mapX - posX + (1 - stepX) / 2.0) / rayDirX;
-    else
-        perpWallDist = (mapY - posY + (1 - stepY) / 2.0) / rayDirY;
-    double hitX;
-    t_data tex_clr;
-    if (side == 0)
+t_dda	dda_test3(t_dda s_dda)
+{
+	if (s_dda.sidedistx < s_dda.sidedisty)
 	{
-		if (rayDirX > 0)
-			tex_clr = game()->map.east;
-		else
-			tex_clr = game()->map.west;
+		s_dda.sidedistx += s_dda.deltadistx;
+		s_dda.mapx += s_dda.stepx;
+		s_dda.side = 0;
 	}
 	else
 	{
-		if (rayDirY > 0)
-			tex_clr = game()->map.north;
-		else
-			tex_clr = game()->map.south;
+		s_dda.sidedisty += s_dda.deltadisty;
+		s_dda.mapy += s_dda.stepy;
+		s_dda.side = 1;
 	}
-	if(game()->map.map[mapY][mapX] == 'G')
-		tex_clr = game()->glitch.glitch[game()->frame.glitch_tg];
-	if(game()->map.map[mapY][mapX] == 'L')
-		tex_clr = game()->exit;
-    if(side == 0)
-        hitX = posY + rayDirY * perpWallDist;
-    else
-         hitX = posX + rayDirX * perpWallDist;
-    //draw_line(rayDirX, rayDirY);
-    hitX -= floor(hitX);
-    int lineHeight = (int)(1080 / perpWallDist);
-    int drawStart = -lineHeight / 2 + 1080 / 2;
-    if(drawStart < 0)
-        drawStart = 0;
-    int drawEnd = lineHeight / 2 + 1080 / 2;
-    if(drawEnd >= 1080)
-        drawEnd = 1080 - 1;
-    int texX = (int)(hitX * tex_clr.res_x);
-    if(side == 0 && rayDirX < 0) 
-        texX = tex_clr.res_x - texX - 1;
-    if(side == 1 && rayDirY > 0)
-        texX = tex_clr.res_x - texX - 1;
-    while(drawStart <= drawEnd)
-    {
-        int texY = drawStart * 256 - 1080 * 128 + lineHeight * 128;
-	    int texYY =  (((texY * tex_clr.res_y) / lineHeight) / 256);
-        if(texYY >= 1080)
-            texYY = 1080 - 1;
-        my_mlx_pixel_put2(&game()->canvas, drawX, drawStart, my_mlx_pixel_get(&tex_clr, texX, texYY));
-        drawStart++;
-    }
-    //draw_line(posX * 64, posY * 64, hitX * 64, hitY * 64);
+	if (s_dda.hitcheck == -1 && ((game()->map.map[s_dda.mapy][s_dda.mapx] >= -57
+			&& game()->map.map[s_dda.mapy][s_dda.mapx] <= 0)
+				|| (game()->map.map[s_dda.mapy][s_dda.mapx] >= -127
+					&& game()->map.map[s_dda.mapy][s_dda.mapx] <= -71)))
+		s_dda = change_dvalue(s_dda);
+	if (game()->map.map[s_dda.mapy][s_dda.mapx] == '1'
+	|| game()->map.map[s_dda.mapy][s_dda.mapx] == 'L'
+	|| game()->map.map[s_dda.mapy][s_dda.mapx] == 'G'
+	|| game()->map.map[s_dda.mapy][s_dda.mapx] == 'C')
+		s_dda.hit = 1;
+	return (s_dda);
 }
 
-void dda_fov(void)
+t_dda	dda_test4(double raydirx, double raydiry, t_dda s_dda)
 {
-    double dirX = game()->raycast.ray_x;
-    double dirY = game()->raycast.ray_y;
-    double planeX = game()->raycast.plane_x;
-    double planeY = game()->raycast.plane_y;
-    int i = 0;
-    while (i < 1920)
-    {
-        double cameraX = 2 * i / (double)(1920 - 1) - 1;
-        double rayDirX = dirX + planeX * cameraX;
-        double rayDirY = dirY + planeY * cameraX;
-        dda_test(rayDirX, rayDirY, i);
-        dda_door(rayDirX, rayDirY, i);
-        i++;
-    }
+	if (s_dda.side == 0)
+		s_dda.perpwalldist = (s_dda.mapx - s_dda.posx + (1 - s_dda.stepx) / 2.0)
+			/ raydirx;
+	else
+		s_dda.perpwalldist = (s_dda.mapy - s_dda.posy + (1 - s_dda.stepy) / 2.0)
+			/ raydiry;
+	s_dda.tex_clr = choose_text(s_dda.side, raydirx, raydiry);
+	if (game()->map.map[s_dda.mapy][s_dda.mapx] == 'L')
+		s_dda.tex_clr = game()->exit;
+	else if (game()->map.map[s_dda.mapy][s_dda.mapx] == 'G')
+		s_dda.tex_clr = game()->glitch.glitch[game()->frame.glitch_tg];
+	else if (game()->map.map[s_dda.mapy][s_dda.mapx] == 'C')
+		s_dda.tex_clr = game()->door[0];
+	if (s_dda.side == 0)
+		s_dda.hitx = s_dda.posy + raydiry * s_dda.perpwalldist;
+	else
+		s_dda.hitx = s_dda.posx + raydirx * s_dda.perpwalldist;
+	s_dda.hitx -= floor(s_dda.hitx);
+	s_dda.lineHeight = (int)(1080 / s_dda.perpwalldist);
+	return (s_dda);
 }
 
+t_dda	dda_test5(double raydirx, double raydiry, t_dda s_dda, int drawx)
+{
+	s_dda.drawStart = -s_dda.lineHeight / 2 + 1080 / 2;
+	if (s_dda.drawStart < 0)
+		s_dda.drawStart = 0;
+	s_dda.drawEnd = s_dda.lineHeight / 2 + 1080 / 2;
+	if (s_dda.drawEnd >= 1080)
+		s_dda.drawEnd = 1080 - 1;
+	s_dda.texX = (int)(s_dda.hitx * s_dda.tex_clr.res_x);
+	if (s_dda.side == 0 && raydirx < 0)
+		s_dda.texX = s_dda.tex_clr.res_x - s_dda.texX - 1;
+	if (s_dda.side == 1 && raydiry > 0)
+		s_dda.texX = s_dda.tex_clr.res_x - s_dda.texX - 1;
+	while (s_dda.drawStart <= s_dda.drawEnd)
+	{
+		s_dda.texY = s_dda.drawStart * 256 - 1080 * 128 + s_dda.lineHeight
+			* 128;
+		s_dda.texYY = (((s_dda.texY * s_dda.tex_clr.res_y) / s_dda.lineHeight)
+				/ 256);
+		if (s_dda.texYY >= 1080)
+			s_dda.texYY = 1080 - 1;
+		my_mlx_pixel_put(&game()->canvas, drawx, s_dda.drawStart,
+			my_mlx_pixel_get(&s_dda.tex_clr, s_dda.texX, s_dda.texYY));
+		s_dda.drawStart++;
+	}
+	return (s_dda);
+}
+
+void	dda_test(double raydirx, double raydiry, int drawx)
+{
+	t_dda	s_dda;
+
+	s_dda.hitcheck = -1;
+	s_dda.hit = 0;
+	s_dda.doorx = -1;
+	s_dda.doory = -1;
+	s_dda.deltadistx = fabs(1.0 / raydirx);
+	s_dda.deltadisty = fabs(1.0 / raydiry);
+	s_dda = dda_test2(raydirx, raydiry, s_dda);
+	while (!s_dda.hit)
+		s_dda = dda_test3(s_dda);
+	s_dda = dda_test4(raydirx, raydiry, s_dda);
+	dda_test5(raydirx, raydiry, s_dda, drawx);
+	if (s_dda.hitcheck != -1)
+	{
+		s_dda.side = s_dda.doorside;
+		s_dda.sidedistx = s_dda.sidedoorx;
+		s_dda.sidedisty = s_dda.sidedoory;
+		s_dda.mapx = s_dda.doorx;
+		s_dda.mapy = s_dda.doory;
+		dda_door(raydirx, raydiry, drawx, s_dda);
+	}
+}
 
 void	rotate_ray(int dir)
 {
-	double oldrayX = game()->raycast.ray_x;
-    double oldPlaneX = game()->raycast.plane_x;
-    double rot = dir * 0.04;
+	double	oldrayx;
+	double	oldplanex;
+	double	rot;
 
-    game()->raycast.ray_x = game()->raycast.ray_x * cos(rot) - game()->raycast.ray_y * sin(rot);
-    game()->raycast.ray_y = oldrayX * sin(rot) + game()->raycast.ray_y * cos(rot);
-
-    game()->raycast.plane_x = game()->raycast.plane_x * cos(rot) - game()->raycast.plane_y * sin(rot);
-    game()->raycast.plane_y = oldPlaneX * sin(rot) + game()->raycast.plane_y * cos(rot);
+	oldrayx = game()->raycast.ray_x;
+	oldplanex = game()->raycast.plane_x;
+	rot = dir * 0.04;
+	game()->raycast.ray_x = game()->raycast.ray_x * cos(rot)
+	- game()->raycast.ray_y * sin(rot);
+	game()->raycast.ray_y = oldrayx * sin(rot) + game()->raycast.ray_y
+	* cos(rot);
+	game()->raycast.plane_x = game()->raycast.plane_x * cos(rot)
+	- game()->raycast.plane_y * sin(rot);
+	game()->raycast.plane_y = oldplanex * sin(rot) + game()->raycast.plane_y
+	* cos(rot);
 }

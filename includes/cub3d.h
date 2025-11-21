@@ -26,7 +26,6 @@
 # include "../minilibx-linux/mlx_int.h"
 # include "../includes/libft/libft.h"
 
-
 typedef	struct s_frame
 {
 	int			door_tg;
@@ -97,6 +96,37 @@ typedef struct s_data
 	int		loaded;
 }				t_data;
 
+typedef	struct s_dda
+{
+	int hitcheck;
+	int		doorside;
+	double	sidedoorx;
+	double	sidedoory;
+	int		doorx;
+	int	doory;
+	int		mapx;
+	int		mapy;
+	int		stepx;
+	int		stepy;
+	int		hit;
+	int		side;
+	double	hitx;
+	double	posx;
+	double	posy;
+	double	sidedistx;
+	double	sidedisty;
+	double	deltadistx;
+	double	deltadisty;
+	double	perpwalldist;
+	t_data	tex_clr;
+	int		lineHeight;
+	int		drawStart;
+	int		drawEnd;
+	int		texX;
+	int		texY;
+	int		texYY;
+}			t_dda;
+
 typedef struct s_ray
 {
 	double	plane_x;
@@ -159,6 +189,7 @@ typedef struct s_time
 
 typedef struct s_game
 {
+	t_dda		dda;
 	t_data		door[57];
 	long		anim;
 	t_data	minimap;
@@ -254,7 +285,6 @@ void	door_handle(void);
 # define P2 "Error\nToo many players found in the map.\n"
 # define E1 "Error\nExit not found in the map.\n"
 # define E2 "Error\nToo many exits found in the map.\n"
-# define E3 "Error\nThe map isn't closed.\n"
 
 # ifndef FS
 #  define FS 0
@@ -273,6 +303,7 @@ void 	set_fov(double fov_deg);
 void	set_rays(char dir);
 t_game	*game(void);
 void	reinit(void);
+t_data	choose_text(int side, double raydirx, double raydiry);
 
 //temp
 void	rewrite_map(int var, int var2);
@@ -310,6 +341,7 @@ int clean_exit(void *nada);
 
 //dda.c
 void dda_test(double rayDirX, double rayDirY, int drawX);
+void	dda_door(double raydirx, double raydiry, int drawx, t_dda s_dda);
 void dda_fov(void);
 void	rotate_ray(int dir);
 
@@ -410,7 +442,7 @@ int		count_zero(char **map);
 // glitch.c
 
 void	glitch_consume(int spawn_delay);
-char	**copy_map(char **map_to_copy);
+char	**copy_map(char **new_map, char **map_to_copy);
 void	set_difficulty(void);
 
 int	count_zero_r(char **map, int y, int x);
