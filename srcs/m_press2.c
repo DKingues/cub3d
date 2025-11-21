@@ -6,17 +6,14 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 18:49:34 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/20 18:54:06 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/21 11:02:57 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	main_press(int mx)
+void	main_press(int mx, int my)
 {
-	int my;
-
-	my = 0;
 	mx = 0;
 	mlx_mouse_get_pos(game()->mlx, game()->win, &mx, &my);
 	if ((game()->mouse.x >= 672 && game()->mouse.x <= 1248)

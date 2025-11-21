@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 17:43:00 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/20 18:55:10 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/21 11:03:15 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	mouse_press(int keycode, void *nada)
 	if (game()->release)
 		return (0);
 	else if (game()->state == MENU)
-		main_press(0);
+		main_press(0, 0);
 	else if (game()->state == OPT_M)
 		opt_m_press();
 	else if (game()->state == CTRL_M)

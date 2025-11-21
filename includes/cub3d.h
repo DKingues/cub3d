@@ -60,7 +60,7 @@ typedef	struct s_cord
 
 typedef	struct s_mouse
 {
-	int toggle_arrow;
+	int tg_ar;
 	int	x;
 	int	y;
 }				t_mouse;
@@ -221,6 +221,27 @@ typedef struct s_game
 	t_player	player;
 }				t_game;
 
+//inits
+char	**init_gameinfo(void);
+void	draw_loading(int i);
+void	init_vid(void);
+int	get_res(char id, char *path);
+void	load_full_img(t_data *texture, char *path);
+void	load_images(void);
+void	new_img(t_data *src, int x, int y);
+void	init_cords2(void);
+void	init_cords(void);
+void	first_ins(void);
+void	reinit(void);
+void	load_images2(void);
+void	init(void);
+void	set_rays(char dir);
+void	set_fov(double fov_deg);
+void	reinit2(void);
+void	reinit3(void);
+void	set_difficulty(void);
+void	load_multiple_images(t_data *texture, char *path, int quantity);
+
 //fullscreen.c
 void	*my_mlx_new_window(t_xvar *xvar,int size_x,int size_y,char *title);
 void	draw_fc(void);
@@ -252,11 +273,17 @@ void	set_rays(char dir);
 t_game	*game(void);
 void	reinit(void);
 
+//temp
+void	rewrite_map(int var, int var2);
+int	fill2(int x, int y);
+int	check_map2(void);
+void	find_exit(int var, int var2);
+
 //parsing.c
 int parsing(char **av);
 int map_exists(char *av);
 int map_name(char *av);
-void	rewrite_map(void);
+void	rewrite_map(int var, int var2);
 void	orig_map(void);
 void	reset_map(void);
 //map_parse.c
@@ -321,7 +348,7 @@ void gameplay(void);
 
 //m_press.c
 int		mouse_press(int keycode, void *nada);
-void	main_press(int mx);
+void	main_press(int mx, int my);
 void	*opt_m_press(void);
 void	ctrl_m_press(void);
 void	*pause_press(void);
