@@ -12,21 +12,20 @@
 
 #include "../includes/cub3d.h"
 
-int	loop(void *nada)
+void	main_menu(void)
 {
-	struct timeval	start;
-	long			paused_for;
-
-	(void)nada;
-	if (game()->state != GAME && FS == 1)
-		mlx_mouse_show(game()->mlx, game()->win);
 	if (game()->state == MENU)
 		menu_put(0, NULL);
 	else if (game()->state == OPT_M)
 		opt_m_put();
 	else if (game()->state == CTRL_M)
 		ctrl_m_put();
-	else if (game()->state == PAUSE)
+}
+
+void	pause_menu(void)
+{
+	struct timeval	start;
+	if (game()->state == PAUSE)
 	{
 		if (game()->time.pause_time_start == -1)
 		{
@@ -39,7 +38,24 @@ int	loop(void *nada)
 		opt_p_put();
 	else if (game()->state == CTRL_P)
 		ctrl_p_put();
-	else if (game()->state == GAME)
+}
+void	endgame_menu(void)
+{
+	if (game()->state == G_OVER)
+		g_over_put();
+	else if (game()->state == G_WIN)
+		g_win_put();
+	else if (game()->state == OPT_G)
+		opt_g_put();
+	else if (game()->state == CTRL_G)
+		ctrl_g_put();
+}
+void	game_menu(void)
+{
+	struct timeval	start;
+	long			paused_for;
+
+	if (game()->state == GAME)
 	{
 		if (FS == 1)
 			mlx_mouse_hide(game()->mlx, game()->win);
@@ -57,14 +73,17 @@ int	loop(void *nada)
 		}
 		game_loop(18);
 	}
-	else if (game()->state == G_OVER)
-		g_over_put();
-	else if (game()->state == G_WIN)
-		g_win_put();
-	else if (game()->state == OPT_G)
-		opt_g_put();
-	else if (game()->state == CTRL_G)
-		ctrl_g_put();
+}
+
+int	loop(void *nada)
+{
+	(void)nada;
+	if (game()->state != GAME && FS == 1)
+		mlx_mouse_show(game()->mlx, game()->win);
+	main_menu();
+	pause_menu();
+	game_menu();
+	endgame_menu();
 	return (0);
 }
 
@@ -86,18 +105,12 @@ int	game_over_check(void)
 	return (0);
 }
 
-void	game_loop(int change)
+void	movement(int change)
 {
-	timer(game()->time.level_start, game()->time.level_time);
-	glitch_consume(6);
-	if (game()->player.sprint_count == 0)
-		game()->offset = 5;
-	else if (game()->player.sprint_count == 5)
-		game()->offset = 0;
 	if (game()->player.sprint == 1
 		&& game()->player.sprint_count > game()->offset
 		&& (game()->player.moving_w == 1 || game()->player.moving_s == 1
-		|| game()->player.moving_a == 1 || game()->player.moving_d == 1))
+			|| game()->player.moving_a == 1 || game()->player.moving_d == 1))
 	{
 		game()->player.sprint_count -= 1;
 		change = 9;
@@ -117,11 +130,22 @@ void	game_loop(int change)
 		rotate_ray(-1);
 	if (game()->player.rot_r == 1)
 		rotate_ray(1);
+}
+
+void	game_loop(int change)
+{
+	timer(game()->time.level_start, game()->time.level_time);
+	glitch_consume(6);
+	if (game()->player.sprint_count == 0)
+		game()->offset = 5;
+	else if (game()->player.sprint_count == 5)
+		game()->offset = 0;
+	movement(change);
 	door_handle();
 	ins_map();
 	if (!game_over_check())
 		mlx_put_image_to_window(game()->mlx,
-		game()->win, game()->canvas.img, 0, 0);
+			game()->win, game()->canvas.img, 0, 0);
 }
 
 int	menu_put(int keycode, void *nada)
@@ -145,10 +169,20 @@ int	menu_put(int keycode, void *nada)
 	game()->frame.anim_tg++;
 	ft_usleep(15000);
 	mlx_destroy_image(game()->mlx, temp.img);
-	return 0;
+	return (0);
 }
 
-void opt_m_put(void)
+void	opt_m_put_aux(t_data temp)
+{
+	if (game()->frame.diff_tg == 0)
+		draw_img(&game()->diff_nb[0], &temp, 1128, 579, 1.0);
+	else if (game()->frame.diff_tg == 1)
+		draw_img(&game()->diff_nb[1], &temp, 1095, 579, 1.0);
+	else if (game()->frame.diff_tg == 2)
+		draw_img(&game()->diff_nb[2], &temp, 1128, 579, 1.0);
+}
+
+void	opt_m_put(void)
 {
 	t_data	temp;
 
@@ -169,12 +203,7 @@ void opt_m_put(void)
 	draw_img(&game()->left_bt[game()->frame.dleft_tg], &temp, 1005, 579, 1.0);
 	draw_img(&game()->right_bt[game()->frame.dright_tg], &temp, 1353, 579, 1.0);
 	draw_img(&game()->sens_nb[game()->frame.sens_tg], &temp, 1178, 484, 1.0);
-	if (game()->frame.diff_tg == 0)
-		draw_img(&game()->diff_nb[0], &temp, 1128, 579, 1.0);
-	else if (game()->frame.diff_tg == 1)
-		draw_img(&game()->diff_nb[1], &temp, 1095, 579, 1.0);
-	else if (game()->frame.diff_tg == 2)
-		draw_img(&game()->diff_nb[2], &temp, 1128, 579, 1.0);
+	opt_m_put_aux(temp);
 	mlx_put_image_to_window(game()->mlx, game()->win, temp.img, 0, 0);
 	game()->frame.anim_tg++;
 	ft_usleep(15000);
@@ -193,7 +222,8 @@ void	ctrl_m_put(void)
 			&temp.endian);
 	draw_img(&game()->st_anim[game()->frame.anim_tg], &temp, 0, 0, 1.0);
 	draw_img(&game()->ctrl_menu, &temp, 0, 0, 1.0);
-	draw_img(&game()->ctrlback_bt[game()->frame.ctrlback_tg], &temp, 362, 914, 1.0);
+	draw_img(&game()->ctrlback_bt[game()->frame.ctrlback_tg],
+		&temp, 362, 914, 1.0);
 	mlx_put_image_to_window(game()->mlx, game()->win, temp.img, 0, 0);
 	game()->frame.anim_tg++;
 	ft_usleep(15000);
@@ -210,17 +240,22 @@ int	pause_put(void)
 			&temp.endian);
 	draw_img(&game()->canvas, &temp, 0, 0, 0.4);
 	draw_img(&game()->pause_bt, &temp, 672, 236, 1.0);
-	draw_img(&game()->continue_bt[game()->frame.continue_tg], &temp, 754, 412, 1.0);
-	draw_img(&game()->option_p_bt[game()->frame.option_p_tg], &temp, 754, 613, 1.0);
-	draw_img(&game()->restart_bt[game()->frame.restart_tg], &temp, 754, 513, 1.0);
-	draw_img(&game()->return_menu_bt[game()->frame.return_menu_tg], &temp, 754, 713, 1.0);
-	draw_img(&game()->quit_p_bt[game()->frame.quit_p_tg], &temp, 754, 814, 1.0);
+	draw_img(&game()->continue_bt[game()->frame.continue_tg],
+		&temp, 754, 412, 1.0);
+	draw_img(&game()->option_p_bt[game()->frame.option_p_tg],
+		&temp, 754, 613, 1.0);
+	draw_img(&game()->restart_bt[game()->frame.restart_tg],
+		&temp, 754, 513, 1.0);
+	draw_img(&game()->return_menu_bt[game()->frame.return_menu_tg],
+		&temp, 754, 713, 1.0);
+	draw_img(&game()->quit_p_bt[game()->frame.quit_p_tg],
+		&temp, 754, 814, 1.0);
 	mlx_put_image_to_window(game()->mlx, game()->win, temp.img, 0, 0);
 	mlx_destroy_image(game()->mlx, temp.img);
 	return (0);
 }
 
-void opt_p_put(void)
+void	opt_p_put(void)
 {
 	t_data	temp;
 
@@ -240,7 +275,7 @@ void opt_p_put(void)
 	mlx_destroy_image(game()->mlx, temp.img);
 }
 
-void ctrl_p_put(void)
+void	ctrl_p_put(void)
 {
 	t_data	temp;
 
@@ -250,17 +285,18 @@ void ctrl_p_put(void)
 			&temp.endian);
 	draw_img(&game()->canvas, &temp, 0, 0, 0.4);
 	draw_img(&game()->ctrl_menu, &temp, 0, 0, 1.0);
-	draw_img(&game()->ctrlback_bt[game()->frame.ctrlback_tg], &temp, 362, 914, 1.0);
+	draw_img(&game()->ctrlback_bt[game()->frame.ctrlback_tg],
+		&temp, 362, 914, 1.0);
 	mlx_put_image_to_window(game()->mlx, game()->win, temp.img, 0, 0);
 	mlx_destroy_image(game()->mlx, temp.img);
 }
 
-void g_win_put(void)
+void	g_win_put(void)
 {
 	t_data	temp;
 	int		star;
 
-	star = floor(game()->frame.star_tg /10);
+	star = floor(game()->frame.star_tg / 10);
 	if (game()->frame.anim_tg == 167)
 		game()->frame.anim_tg = 0;
 	temp.img = mlx_new_image(game()->mlx, 1920, 1080);
@@ -270,13 +306,15 @@ void g_win_put(void)
 	draw_img(&game()->st_anim[game()->frame.anim_tg], &temp, 0, 0, 1.0);
 	draw_img(&game()->g_win_bg, &temp, 0, 0, 1.0);
 	draw_img(&game()->star[star], &temp, 701, 441, 1.0);
-	draw_img(&game()->return_menu_bt[game()->frame.return_menu_tg], &temp, 755, 666, 1.0);
-	draw_img(&game()->quit_p_bt[game()->frame.quit_p_tg], &temp, 755, 766, 1.0);
+	draw_img(&game()->return_menu_bt[game()->frame.return_menu_tg],
+		&temp, 755, 666, 1.0);
+	draw_img(&game()->quit_p_bt[game()->frame.quit_p_tg],
+		&temp, 755, 766, 1.0);
 	game()->frame.anim_tg++;
 	mlx_put_image_to_window(game()->mlx, game()->win, temp.img, 0, 0);
 	ft_usleep(15000);
 	mlx_destroy_image(game()->mlx, temp.img);
-	if (game()->frame.star_tg <( game()->frame.diff_tg + 1) * 10)
+	if (game()->frame.star_tg < (game()->frame.diff_tg + 1) * 10)
 		game()->frame.star_tg++;
 }
 
@@ -292,17 +330,31 @@ void	g_over_put(void)
 			&temp.endian);
 	draw_img(&game()->st_anim[game()->frame.anim_tg], &temp, 0, 0, 1.0);
 	draw_img(&game()->g_over, &temp, 0, 0, 1.0);
-	draw_img(&game()->restart_bt[game()->frame.restart_tg], &temp, 754, 464, 1.0);
-	draw_img(&game()->option_p_bt[game()->frame.option_p_tg], &temp, 754, 564, 1.0);
-	draw_img(&game()->return_menu_bt[game()->frame.return_menu_tg], &temp, 754, 664, 1.0);
-	draw_img(&game()->quit_p_bt[game()->frame.quit_p_tg], &temp, 754, 764, 1.0);
+	draw_img(&game()->restart_bt[game()->frame.restart_tg],
+		&temp, 754, 464, 1.0);
+	draw_img(&game()->option_p_bt[game()->frame.option_p_tg],
+		&temp, 754, 564, 1.0);
+	draw_img(&game()->return_menu_bt[game()->frame.return_menu_tg],
+		&temp, 754, 664, 1.0);
+	draw_img(&game()->quit_p_bt[game()->frame.quit_p_tg],
+		&temp, 754, 764, 1.0);
 	game()->frame.anim_tg++;
-	mlx_put_image_to_window(game()->mlx, game()->win, temp.img, 0, 0);	
+	mlx_put_image_to_window(game()->mlx, game()->win, temp.img, 0, 0);
 	ft_usleep(15000);
 	mlx_destroy_image(game()->mlx, temp.img);
 }
 
-void opt_g_put(void)
+void	opt_g_put_aux(t_data temp)
+{
+	if (game()->frame.diff_tg == 0)
+		draw_img(&game()->diff_nb[0], &temp, 1128, 579, 1.0);
+	else if (game()->frame.diff_tg == 1)
+		draw_img(&game()->diff_nb[1], &temp, 1095, 579, 1.0);
+	else if (game()->frame.diff_tg == 2)
+		draw_img(&game()->diff_nb[2], &temp, 1128, 579, 1.0);
+}
+
+void	opt_g_put(void)
 {
 	t_data	temp;
 
@@ -323,12 +375,7 @@ void opt_g_put(void)
 	draw_img(&game()->left_bt[game()->frame.dleft_tg], &temp, 1005, 579, 1.0);
 	draw_img(&game()->right_bt[game()->frame.dright_tg], &temp, 1353, 579, 1.0);
 	draw_img(&game()->sens_nb[game()->frame.sens_tg], &temp, 1178, 484, 1.0);
-	if (game()->frame.diff_tg == 0)
-		draw_img(&game()->diff_nb[0], &temp, 1128, 579, 1.0);
-	else if (game()->frame.diff_tg == 1)
-		draw_img(&game()->diff_nb[1], &temp, 1095, 579, 1.0);
-	else if (game()->frame.diff_tg == 2)
-		draw_img(&game()->diff_nb[2], &temp, 1128, 579, 1.0);
+	opt_g_put_aux(temp);
 	mlx_put_image_to_window(game()->mlx, game()->win, temp.img, 0, 0);
 	game()->frame.anim_tg++;
 	ft_usleep(15000);
@@ -347,7 +394,8 @@ void	ctrl_g_put(void)
 			&temp.endian);
 	draw_img(&game()->st_anim[game()->frame.anim_tg], &temp, 0, 0, 1.0);
 	draw_img(&game()->ctrl_menu, &temp, 0, 0, 1.0);
-	draw_img(&game()->ctrlback_bt[game()->frame.ctrlback_tg], &temp, 362, 914, 1.0);
+	draw_img(&game()->ctrlback_bt[game()->frame.ctrlback_tg],
+		&temp, 362, 914, 1.0);
 	mlx_put_image_to_window(game()->mlx, game()->win, temp.img, 0, 0);
 	game()->frame.anim_tg++;
 	ft_usleep(15000);

@@ -285,6 +285,7 @@ void	door_handle(void);
 # define P2 "Error\nToo many players found in the map.\n"
 # define E1 "Error\nExit not found in the map.\n"
 # define E2 "Error\nToo many exits found in the map.\n"
+# define E3 "Error\nThe map isn't closed.\n"
 
 # ifndef FS
 #  define FS 0
