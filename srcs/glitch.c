@@ -29,29 +29,29 @@ static void	spawn_glitch(int spawn_delay)
 	}
 }
 
-char	**copy_map(char **new_map, char **map_to_copy)
-{
-	int	y;
-	int	rows;
+// char	**copy_map(char **new_map, char **map_to_copy)
+// {
+// 	int	y;
+// 	int	rows;
 
-	y = 0;
-	rows = 0;
-	if (!map_to_copy && new_map)
-		return (new_map);
-	else if (!map_to_copy && !new_map)
-		return (NULL);
-	if (new_map)
-		ft_free(new_map);
-	while (map_to_copy[rows])
-		rows++;
-	new_map = ft_calloc(sizeof(char *), rows + 1);
-	while (map_to_copy[y])
-	{
-		new_map[y] = ft_strdup(map_to_copy[y]);
-		y++;
-	}
-	return (new_map);
-}
+// 	y = 0;
+// 	rows = 0;
+// 	if (!map_to_copy && new_map)
+// 		return (new_map);
+// 	else if (!map_to_copy && !new_map)
+// 		return (NULL);
+// 	if (new_map)
+// 		ft_free(new_map);
+// 	while (map_to_copy[rows])
+// 		rows++;
+// 	new_map = ft_calloc(sizeof(char *), rows + 1);
+// 	while (map_to_copy[y])
+// 	{
+// 		new_map[y] = ft_strdup(map_to_copy[y]);
+// 		y++;
+// 	}
+// 	return (new_map);
+// }
 
 static void	glitch_consume_block(char **temp_map, int y, int x)
 {
@@ -94,6 +94,25 @@ static void	glitch_consume_loop(char **temp_map)
 	}
 }
 
+char	**copy_map(char **map_to_copy)
+{
+	int		i;
+	int		rows;
+	char	**new_map;
+
+	i = 0;
+	rows = 0;
+	while (map_to_copy[rows])
+		rows++;
+	new_map = ft_calloc(sizeof(char *), rows + 1);
+	while (map_to_copy[i])
+	{
+		new_map[i] = ft_strdup(map_to_copy[i]);
+		i++;
+	}
+	return (new_map);
+}
+
 void	glitch_consume(int spawn_delay)
 {
 	char	**temp_map;
@@ -104,9 +123,10 @@ void	glitch_consume(int spawn_delay)
 	else if ((get_elapsed_sec() - game()->glitch.spread_delay)
 		- game()->time.pause_time >= game()->glitch.last_glitch_time)
 	{
-		temp_map = copy_map(temp_map, game()->map.map);
+		temp_map = copy_map(game()->map.map);
 		glitch_consume_loop(temp_map);
-		game()->map.map = copy_map(game()->map.map, temp_map);
+		ft_free(game()->map.map);
+		game()->map.map = copy_map(temp_map);
 		ft_free(temp_map);
 	}
 }

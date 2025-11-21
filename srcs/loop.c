@@ -15,21 +15,21 @@
 int	loop(void *nada)
 {
 	struct timeval	start;
-	long   paused_for;
-	(void)nada;
+	long			paused_for;
 
-	if(game()->state != GAME && FS == 1)
+	(void)nada;
+	if (game()->state != GAME && FS == 1)
 		mlx_mouse_show(game()->mlx, game()->win);
-	if(game()->state == MENU)
+	if (game()->state == MENU)
 		menu_put(0, NULL);
-	else if(game()->state == OPT_M)
+	else if (game()->state == OPT_M)
 		opt_m_put();
-	else if(game()->state == CTRL_M)
+	else if (game()->state == CTRL_M)
 		ctrl_m_put();
-	else if(game()->state == PAUSE)
+	else if (game()->state == PAUSE)
 	{
 		if (game()->time.pause_time_start == -1)
-		{	
+		{
 			gettimeofday(&start, NULL);
 			game()->time.pause_time_start = start.tv_sec;
 		}
@@ -41,7 +41,7 @@ int	loop(void *nada)
 		ctrl_p_put();
 	else if (game()->state == GAME)
 	{
-		if(FS == 1)
+		if (FS == 1)
 			mlx_mouse_hide(game()->mlx, game()->win);
 		if (game()->time.level_start == -1)
 		{
@@ -68,9 +68,15 @@ int	loop(void *nada)
 	return (0);
 }
 
-int game_over_check(void)
+int	game_over_check(void)
 {
-	if (game()->map.map[(int)game()->player.player_y][(int)game()->player.player_x] == 'G' || (game()->time.minutes == 0 && game()->time.seconds == 0))
+	int	player_y;
+	int	player_x;
+
+	player_y = game()->player.player_y;
+	player_x = game()->player.player_x;
+	if (game()->map.map[player_y][player_x] == 'G'
+		|| (game()->time.minutes == 0 && game()->time.seconds == 0))
 	{
 		darken(game()->canvas, 1.0, -0.05);
 		lighten(game()->st_anim[game()->frame.anim_tg], 0.0);
@@ -83,18 +89,21 @@ int game_over_check(void)
 void	game_loop(int change)
 {
 	timer(game()->time.level_start, game()->time.level_time);
-	glitch_consume(4);
-	if(game()->player.sprint_count == 0)
+	glitch_consume(6);
+	if (game()->player.sprint_count == 0)
 		game()->offset = 5;
 	else if (game()->player.sprint_count == 5)
 		game()->offset = 0;
-	if (game()->player.sprint == 1 && game()->player.sprint_count > game()->offset && (game()->player.moving_w == 1 || game()->player.moving_s == 1 || game()->player.moving_a == 1 || game()->player.moving_d == 1))
+	if (game()->player.sprint == 1
+		&& game()->player.sprint_count > game()->offset
+		&& (game()->player.moving_w == 1 || game()->player.moving_s == 1
+		|| game()->player.moving_a == 1 || game()->player.moving_d == 1))
 	{
 		game()->player.sprint_count -= 1;
 		change = 9;
 	}
 	else
-		if(game()->player.sprint_count < 100)
+		if (game()->player.sprint_count < 100)
 			game()->player.sprint_count += 0.25;
 	if (game()->player.moving_d == 1)
 		d_move(change);
@@ -104,28 +113,29 @@ void	game_loop(int change)
 		a_move(change);
 	if (game()->player.moving_w == 1)
 		w_move(change);
-	if(game()->player.rot_l == 1)
+	if (game()->player.rot_l == 1)
 		rotate_ray(-1);
-	if(game()->player.rot_r == 1)
+	if (game()->player.rot_r == 1)
 		rotate_ray(1);
 	door_handle();
 	ins_map();
-	if(!game_over_check())
-		mlx_put_image_to_window(game()->mlx, game()->win, game()->canvas.img, 0, 0);
+	if (!game_over_check())
+		mlx_put_image_to_window(game()->mlx,
+		game()->win, game()->canvas.img, 0, 0);
 }
 
 int	menu_put(int keycode, void *nada)
 {
+	t_data	temp;
+
 	(void)keycode;
 	(void)nada;
-	t_data temp;
-
-	if(game()->frame.anim_tg == 167)
+	if (game()->frame.anim_tg == 167)
 		game()->frame.anim_tg = 0;
 	temp.img = mlx_new_image(game()->mlx, 1920, 1080);
 	temp.addr = mlx_get_data_addr(temp.img,
-	&temp.bits_per_pixel, &temp.line_length,
-	&temp.endian);
+			&temp.bits_per_pixel, &temp.line_length,
+			&temp.endian);
 	draw_img(&game()->st_anim[game()->frame.anim_tg], &temp, 0, 0, 1.0);
 	draw_img(&game()->maze_nm, &temp, 404, 166, 1.0);
 	draw_img(&game()->play_bt[game()->frame.play_tg], &temp, 672, 500, 1.0);
@@ -140,14 +150,14 @@ int	menu_put(int keycode, void *nada)
 
 void opt_m_put(void)
 {
-	t_data temp;
+	t_data	temp;
 
-	if(game()->frame.anim_tg == 167)
+	if (game()->frame.anim_tg == 167)
 		game()->frame.anim_tg = 0;
 	temp.img = mlx_new_image(game()->mlx, 1920, 1080);
 	temp.addr = mlx_get_data_addr(temp.img,
-		&temp.bits_per_pixel, &temp.line_length,
-		&temp.endian);
+			&temp.bits_per_pixel, &temp.line_length,
+			&temp.endian);
 	draw_img(&game()->st_anim[game()->frame.anim_tg], &temp, 0, 0, 1.0);
 	draw_img(&game()->option_bt[1], &temp, 672, 234, 1.0);
 	draw_img(&game()->sens_bt, &temp, 532, 462, 1.0);
@@ -171,16 +181,16 @@ void opt_m_put(void)
 	mlx_destroy_image(game()->mlx, temp.img);
 }
 
-void ctrl_m_put(void)
+void	ctrl_m_put(void)
 {
-	t_data temp;
+	t_data	temp;
 
-	if(game()->frame.anim_tg == 167)
+	if (game()->frame.anim_tg == 167)
 		game()->frame.anim_tg = 0;
 	temp.img = mlx_new_image(game()->mlx, 1920, 1080);
 	temp.addr = mlx_get_data_addr(temp.img,
-		&temp.bits_per_pixel, &temp.line_length,
-		&temp.endian);
+			&temp.bits_per_pixel, &temp.line_length,
+			&temp.endian);
 	draw_img(&game()->st_anim[game()->frame.anim_tg], &temp, 0, 0, 1.0);
 	draw_img(&game()->ctrl_menu, &temp, 0, 0, 1.0);
 	draw_img(&game()->ctrlback_bt[game()->frame.ctrlback_tg], &temp, 362, 914, 1.0);
@@ -192,12 +202,12 @@ void ctrl_m_put(void)
 
 int	pause_put(void)
 {
-	t_data temp;
+	t_data	temp;
 
 	temp.img = mlx_new_image(game()->mlx, 1920, 1080);
 	temp.addr = mlx_get_data_addr(temp.img,
-	&temp.bits_per_pixel, &temp.line_length,
-	&temp.endian);
+			&temp.bits_per_pixel, &temp.line_length,
+			&temp.endian);
 	draw_img(&game()->canvas, &temp, 0, 0, 0.4);
 	draw_img(&game()->pause_bt, &temp, 672, 236, 1.0);
 	draw_img(&game()->continue_bt[game()->frame.continue_tg], &temp, 754, 412, 1.0);
@@ -207,17 +217,17 @@ int	pause_put(void)
 	draw_img(&game()->quit_p_bt[game()->frame.quit_p_tg], &temp, 754, 814, 1.0);
 	mlx_put_image_to_window(game()->mlx, game()->win, temp.img, 0, 0);
 	mlx_destroy_image(game()->mlx, temp.img);
-	return 0;
+	return (0);
 }
 
 void opt_p_put(void)
 {
-	t_data temp;
+	t_data	temp;
 
 	temp.img = mlx_new_image(game()->mlx, 1920, 1080);
 	temp.addr = mlx_get_data_addr(temp.img,
-		&temp.bits_per_pixel, &temp.line_length,
-		&temp.endian);
+			&temp.bits_per_pixel, &temp.line_length,
+			&temp.endian);
 	draw_img(&game()->canvas, &temp, 0, 0, 0.40);
 	draw_img(&game()->option_bt[1], &temp, 672, 286, 1.0);
 	draw_img(&game()->sens_bt, &temp, 531, 512, 1.0);
@@ -232,12 +242,12 @@ void opt_p_put(void)
 
 void ctrl_p_put(void)
 {
-	t_data temp;
+	t_data	temp;
 
 	temp.img = mlx_new_image(game()->mlx, 1920, 1080);
 	temp.addr = mlx_get_data_addr(temp.img,
-		&temp.bits_per_pixel, &temp.line_length,
-		&temp.endian);
+			&temp.bits_per_pixel, &temp.line_length,
+			&temp.endian);
 	draw_img(&game()->canvas, &temp, 0, 0, 0.4);
 	draw_img(&game()->ctrl_menu, &temp, 0, 0, 1.0);
 	draw_img(&game()->ctrlback_bt[game()->frame.ctrlback_tg], &temp, 362, 914, 1.0);
@@ -247,14 +257,16 @@ void ctrl_p_put(void)
 
 void g_win_put(void)
 {
-	t_data temp;
-	int	star = floor(game()->frame.star_tg /10);
-	if(game()->frame.anim_tg == 167)
+	t_data	temp;
+	int		star;
+
+	star = floor(game()->frame.star_tg /10);
+	if (game()->frame.anim_tg == 167)
 		game()->frame.anim_tg = 0;
 	temp.img = mlx_new_image(game()->mlx, 1920, 1080);
 	temp.addr = mlx_get_data_addr(temp.img,
-		&temp.bits_per_pixel, &temp.line_length,
-		&temp.endian);
+			&temp.bits_per_pixel, &temp.line_length,
+			&temp.endian);
 	draw_img(&game()->st_anim[game()->frame.anim_tg], &temp, 0, 0, 1.0);
 	draw_img(&game()->g_win_bg, &temp, 0, 0, 1.0);
 	draw_img(&game()->star[star], &temp, 701, 441, 1.0);
@@ -264,20 +276,20 @@ void g_win_put(void)
 	mlx_put_image_to_window(game()->mlx, game()->win, temp.img, 0, 0);
 	ft_usleep(15000);
 	mlx_destroy_image(game()->mlx, temp.img);
-	if(game()->frame.star_tg <( game()->frame.diff_tg + 1) * 10)
+	if (game()->frame.star_tg <( game()->frame.diff_tg + 1) * 10)
 		game()->frame.star_tg++;
 }
 
-void g_over_put(void)
+void	g_over_put(void)
 {
-	t_data temp;
+	t_data	temp;
 
-	if(game()->frame.anim_tg == 167)
+	if (game()->frame.anim_tg == 167)
 		game()->frame.anim_tg = 0;
 	temp.img = mlx_new_image(game()->mlx, 1920, 1080);
 	temp.addr = mlx_get_data_addr(temp.img,
-		&temp.bits_per_pixel, &temp.line_length,
-		&temp.endian);
+			&temp.bits_per_pixel, &temp.line_length,
+			&temp.endian);
 	draw_img(&game()->st_anim[game()->frame.anim_tg], &temp, 0, 0, 1.0);
 	draw_img(&game()->g_over, &temp, 0, 0, 1.0);
 	draw_img(&game()->restart_bt[game()->frame.restart_tg], &temp, 754, 464, 1.0);
@@ -292,14 +304,14 @@ void g_over_put(void)
 
 void opt_g_put(void)
 {
-	t_data temp;
+	t_data	temp;
 
-	if(game()->frame.anim_tg == 167)
+	if (game()->frame.anim_tg == 167)
 		game()->frame.anim_tg = 0;
 	temp.img = mlx_new_image(game()->mlx, 1920, 1080);
 	temp.addr = mlx_get_data_addr(temp.img,
-		&temp.bits_per_pixel, &temp.line_length,
-		&temp.endian);
+			&temp.bits_per_pixel, &temp.line_length,
+			&temp.endian);
 	draw_img(&game()->st_anim[game()->frame.anim_tg], &temp, 0, 0, 1.0);
 	draw_img(&game()->option_bt[1], &temp, 672, 234, 1.0);
 	draw_img(&game()->sens_bt, &temp, 532, 462, 1.0);
@@ -323,16 +335,16 @@ void opt_g_put(void)
 	mlx_destroy_image(game()->mlx, temp.img);
 }
 
-void ctrl_g_put(void)
+void	ctrl_g_put(void)
 {
-	t_data temp;
+	t_data	temp;
 
-	if(game()->frame.anim_tg == 167)
+	if (game()->frame.anim_tg == 167)
 		game()->frame.anim_tg = 0;
 	temp.img = mlx_new_image(game()->mlx, 1920, 1080);
 	temp.addr = mlx_get_data_addr(temp.img,
-		&temp.bits_per_pixel, &temp.line_length,
-		&temp.endian);
+			&temp.bits_per_pixel, &temp.line_length,
+			&temp.endian);
 	draw_img(&game()->st_anim[game()->frame.anim_tg], &temp, 0, 0, 1.0);
 	draw_img(&game()->ctrl_menu, &temp, 0, 0, 1.0);
 	draw_img(&game()->ctrlback_bt[game()->frame.ctrlback_tg], &temp, 362, 914, 1.0);

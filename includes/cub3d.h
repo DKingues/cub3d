@@ -254,6 +254,7 @@ void	door_handle(void);
 # define P2 "Error\nToo many players found in the map.\n"
 # define E1 "Error\nExit not found in the map.\n"
 # define E2 "Error\nToo many exits found in the map.\n"
+# define E3 "Error\nThe map isn't closed.\n"
 
 # ifndef FS
 #  define FS 0
@@ -409,7 +410,7 @@ int		count_zero(char **map);
 // glitch.c
 
 void	glitch_consume(int spawn_delay);
-char	**copy_map(char **new_map, char **map_to_copy);
+char	**copy_map(char **map_to_copy);
 void	set_difficulty(void);
 
 int	count_zero_r(char **map, int y, int x);

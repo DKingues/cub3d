@@ -119,18 +119,19 @@ int	tt_glitch_map(void)
 	int		y;
 
 	temp_map = NULL;
-	temp_map2 = NULL;
 	x = 0;
 	y = 0;
-	temp_map2 = copy_map(temp_map2, game()->map.map);
+	temp_map2 = copy_map(game()->map.map);
 	temp_map2[(int)game()->player.start_y][(int)game()->player.start_x] = 'G';
 	game()->glitch.glitch_i = 0;
 	while (game()->glitch.to_glitch - glitched_tiles(temp_map2) > 0)
 	{
-		temp_map = copy_map(temp_map, temp_map2);
+		ft_free(temp_map);
+		temp_map = copy_map(temp_map2);
 		tt_glitch_map_loop(temp_map, temp_map2);
 		game()->glitch.glitch_i++;
-		temp_map2 = copy_map(temp_map2, temp_map);
+		ft_free(temp_map2);
+		temp_map2 = copy_map(temp_map);
 	}
 	if (temp_map)
 		ft_free(temp_map);

@@ -24,7 +24,7 @@ void	reinit(void)
 	st_x = (int)game()->player.start_x;
 	reinit2();
 	reinit3();
-	temp_map = copy_map(temp_map, game()->map.map);
+	temp_map = copy_map(game()->map.map);
 	glitch = count_zero_r(temp_map, st_y, st_x);
 	game()->glitch.to_glitch = glitch;
 	ft_free(temp_map);
