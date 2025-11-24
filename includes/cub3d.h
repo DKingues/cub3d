@@ -411,6 +411,7 @@ int		map_name(char *av);
 void	rewrite_map(int var, int var2);
 void	orig_map(void);
 void	reset_map(void);
+
 // map_parse.c
 
 int		map_validate(char *av, int fd, int var, char *line);
@@ -431,16 +432,30 @@ int		fill(int x, int y);
 int		texture_name(char *av);
 char	*ft_strdupnonl(const char *s);
 
-// cleanup.c
+// singleton.c
 
 void	singleton_free(int parse);
+
+// cleanup.c
+
 int		clean_exit(void *nada);
+
+// dda_test.c
+
+void	dda_test(double rayDirX, double rayDirY, int drawX);
+t_dda	dda_test2(double raydirx, double raydiry, t_dda s_dda);
+t_dda	dda_test3(t_dda s_dda);
+t_dda	dda_test4(double raydirx, double raydiry, t_dda s_dda);
+t_dda	dda_test5(double raydirx, double raydiry, t_dda s_dda, int drawx);
+
+// dda_door.c
+
+void	dda_door(double raydirx, double raydiry, int drawx, t_dda s_dda);
+void	dda_fov(void);
 
 // dda.c
 
-void	dda_test(double rayDirX, double rayDirY, int drawX);
-void	dda_door(double raydirx, double raydiry, int drawx, t_dda s_dda);
-void	dda_fov(void);
+t_dda	change_dvalue(t_dda s_dda);
 void	rotate_ray(int dir);
 
 // door.c
@@ -500,17 +515,26 @@ int		pause_game(void);
 // m_move.c
 
 int		mouse_move(int keycode, t_game *null);
-void	main_move(void);
-void	opt_m_move(void);
-void	ctrl_m_move(void);
-void	pause_move(void);
-void	opt_p_move(void);
-void	ctrl_p_move(void);
-void	win_move(void);
+void	game_move(int *last_x);
+
+// menu_move_game.c
+
+void	gwin_move(void);
 void	gover_move(void);
 void	opt_g_move(void);
 void	ctrl_g_move(void);
-void	game_move(int *last_x);
+
+// menu_move_main.c
+
+void	main_move(void);
+void	opt_m_move(void);
+void	ctrl_m_move(void);
+
+// menu_move_pause.c
+
+void	pause_move(void);
+void	opt_p_move(void);
+void	ctrl_p_move(void);
 
 // keys.c
 
@@ -559,6 +583,10 @@ void	w_move(int change);
 void	a_move(int change);
 void	s_move(int change);
 void	d_move(int change);
-int		check_radius(char keycode, int change);
+
+// wall.c
+
+int		check_radius(char keycode, int change);  /*Esta nao e usada mas confirma se pode ser apagada*/
+void	change_pos(double x, double y);
 
 #endif

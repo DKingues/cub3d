@@ -31,23 +31,6 @@ static void	mlx_destroy_image_arr(void *mlx, t_data *texture, int quantity)
 	}
 }
 
-void	singleton_free(int parse)
-{
-	if (game()->map.map)
-		ft_free(game()->map.map);
-	if (game()->map.info)
-		ft_free(game()->map.info);
-	if (game()->map.orig)
-		ft_free(game()->map.orig);
-	if (parse == 1)
-	{
-		if (game()->map.map_c)
-			ft_free(game()->map.map_c);
-		if (game()->map.map_f)
-			ft_free(game()->map.map_f);
-	}
-}
-
 static void	clean_img_arr(void)
 {
 	mlx_destroy_image_arr(game()->mlx, game()->g_win, 4);
