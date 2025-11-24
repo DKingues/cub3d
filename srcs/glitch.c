@@ -18,13 +18,14 @@ static void	spawn_glitch(int spawn_delay)
 	int		start_y;
 	int		start_x;
 
-	now = get_elapsed_sec();
+	now = get_elapsed_sec() - game()->time.pause_time;
 	start_y = game()->player.start_y;
 	start_x = game()->player.start_x;
 	if (now == spawn_delay)
 	{
 		game()->map.map[start_y][start_x] = 'G';
-		game()->glitch.last_glitch_time = get_elapsed_sec();
+		game()->glitch.last_glitch_time = get_elapsed_sec()
+		- game()->time.pause_time;
 		game()->glitch.glitch_spawned = 1;
 	}
 }
@@ -120,7 +121,7 @@ void	glitch_consume(int spawn_delay)
 	temp_map = NULL;
 	if (game()->glitch.glitch_spawned == 0)
 		spawn_glitch(spawn_delay);
-	else if ((get_elapsed_sec() - game()->glitch.spread_delay)
+	else if ((get_elapsed_sec() - (game()->glitch.spread_delay))
 		- game()->time.pause_time >= game()->glitch.last_glitch_time)
 	{
 		temp_map = copy_map(game()->map.map);
