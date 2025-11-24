@@ -17,18 +17,18 @@ void	assign_f(void)
 	char	*temp;
 	char	*f_color;
 
-	temp = nbr_hx_clr(ft_atoi(game()->map.map_F[0]));
+	temp = nbr_hx_clr(ft_atoi(game()->map.map_f[0]));
 	f_color = ft_strdup("0x");
 	f_color = ft_strjoin(f_color, temp);
 	free(temp);
-	temp = nbr_hx_clr(ft_atoi(game()->map.map_F[1]));
+	temp = nbr_hx_clr(ft_atoi(game()->map.map_f[1]));
 	f_color = ft_strjoin(f_color, temp);
 	free(temp);
-	temp = nbr_hx_clr(ft_atoi(game()->map.map_F[2]));
+	temp = nbr_hx_clr(ft_atoi(game()->map.map_f[2]));
 	f_color = ft_strjoin(f_color, temp);
 	free(temp);
-	ft_free(game()->map.map_F);
-	game()->map.F = ft_strtol(f_color);
+	ft_free(game()->map.map_f);
+	game()->map.f = ft_strtol(f_color);
 	free(f_color);
 }
 

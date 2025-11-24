@@ -39,11 +39,11 @@ int	map_textures(void)
 int	assign2(int nbr, int var, char **temp23)
 {
 	temp23 = ft_split(game()->map.info[5], ',');
-	game()->map.map_C = temp23;
+	game()->map.map_c = temp23;
 	var = 0;
-	while (game()->map.map_C[var])
+	while (game()->map.map_c[var])
 	{
-		nbr = ft_atoi_check(game()->map.map_C[var]);
+		nbr = ft_atoi_check(game()->map.map_c[var]);
 		if (nbr < 0 || nbr > 255)
 			return (printf("Error\nInvalid row \"C %s\", \
 				every number should be between 0 and 255.\n",
@@ -60,11 +60,11 @@ int	assign2(int nbr, int var, char **temp23)
 int	assign_colors(int nbr, int var, char **temp22, char **temp23)
 {
 	temp22 = ft_split(game()->map.info[4], ',');
-	game()->map.map_F = temp22;
+	game()->map.map_f = temp22;
 	var = 0;
-	while (game()->map.map_F[var])
+	while (game()->map.map_f[var])
 	{
-		nbr = ft_atoi_check(game()->map.map_F[var]);
+		nbr = ft_atoi_check(game()->map.map_f[var]);
 		if (nbr < 0 || nbr > 255)
 			return (printf("Error\nInvalid row \"F %s\", \
 				every number should be between 0 and 255.\n",

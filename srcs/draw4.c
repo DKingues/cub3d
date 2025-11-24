@@ -85,7 +85,7 @@ void	draw_fc(int sx, int sy, float factor)
 		while (sx < 1920)
 		{
 			my_mlx_pixel_put2(&game()->canvas, sx, sy,
-				(dim_clr(game()->map.C, factor)));
+				(dim_clr(game()->map.c, factor)));
 			sx++;
 		}
 		if (factor > 0)
@@ -98,7 +98,7 @@ void	draw_fc(int sx, int sy, float factor)
 		while (sx < 1920)
 		{
 			my_mlx_pixel_put2(&game()->canvas, sx, sy,
-				(dim_clr(game()->map.F, 1.0)));
+				(dim_clr(game()->map.f, 1.0)));
 			sx++;
 		}
 		sy++;
@@ -110,17 +110,17 @@ void	assign_c(void)
 	char	*temp;
 	char	*c_color;
 
-	temp = nbr_hx_clr(ft_atoi(game()->map.map_C[0]));
+	temp = nbr_hx_clr(ft_atoi(game()->map.map_c[0]));
 	c_color = ft_strdup("0x");
 	c_color = ft_strjoin(c_color, temp);
 	free(temp);
-	temp = nbr_hx_clr(ft_atoi(game()->map.map_C[1]));
+	temp = nbr_hx_clr(ft_atoi(game()->map.map_c[1]));
 	c_color = ft_strjoin(c_color, temp);
 	free(temp);
-	temp = nbr_hx_clr(ft_atoi(game()->map.map_C[2]));
+	temp = nbr_hx_clr(ft_atoi(game()->map.map_c[2]));
 	c_color = ft_strjoin(c_color, temp);
 	free(temp);
-	ft_free(game()->map.map_C);
-	game()->map.C = ft_strtol(c_color);
+	ft_free(game()->map.map_c);
+	game()->map.c = ft_strtol(c_color);
 	free(c_color);
 }

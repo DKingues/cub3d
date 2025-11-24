@@ -41,10 +41,10 @@ void	singleton_free(int parse)
 		ft_free(game()->map.orig);
 	if (parse == 1)
 	{
-		if (game()->map.map_C)
-			ft_free(game()->map.map_C);
-		if (game()->map.map_F)
-			ft_free(game()->map.map_F);
+		if (game()->map.map_c)
+			ft_free(game()->map.map_c);
+		if (game()->map.map_f)
+			ft_free(game()->map.map_f);
 	}
 }
 

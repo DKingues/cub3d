@@ -12,33 +12,33 @@
 
 #include "../includes/cub3d.h"
 
-void	print_singleton(void)
+/* void	print_singleton(void)
 {
 	int	var;
 
 	var = 0;
-	while(game()->map.map[var])
+	while (game()->map.map[var])
 	{
 		printf("MAP: %s\n", game()->map.map[var]);
 		var++;
 	}
 	printf("\n\n");
 	var = 0;
-	while(game()->map.info[var])
+	while (game()->map.info[var])
 	{
 		printf("INFO: %s\n", game()->map.info[var]);
 		var++;
 	}
 	printf("\n\n");
 	var = 0;
-	while(game()->map.orig[var])
+	while (game()->map.orig[var])
 	{
 		printf("ORIG: %s\n", game()->map.orig[var]);
 		var++;
 	}
-}
+} */
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	if (ac < 2)
 		return (printf("Error\nInsert a map name.\n"), 1);
@@ -50,7 +50,7 @@ int main(int ac, char **av)
 	// singleton_free(1);
 	init();
 	gameplay();
-    return (0);
+	return (0);
 }
 /*
 	#textura do nmr 6

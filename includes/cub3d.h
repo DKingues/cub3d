@@ -28,22 +28,22 @@
 
 typedef struct s_raycast
 {
-	int		sx;
-	int		sy;
-	float	player_x;
-	float	player_y;
-	float	dir_x;
-	float	dir_y;
-	float	plane_x;
-	float	plane_y;
-	float	dx;
-	float	dy;
-	float	fx;
-	float	fy;
-	char	map_char;
-	unsigned int color;
-	int tex_x;
-	int tex_y;
+	int				sx;
+	int				sy;
+	float			player_x;
+	float			player_y;
+	float			dir_x;
+	float			dir_y;
+	float			plane_x;
+	float			plane_y;
+	float			dx;
+	float			dy;
+	float			fx;
+	float			fy;
+	char			map_char;
+	unsigned int	color;
+	int				tex_x;
+	int				tex_y;
 }	t_raycast;
 
 typedef struct s_point
@@ -64,8 +64,7 @@ typedef struct s_point
 	float	t_delta_y;
 }		t_point;
 
-
-typedef	struct s_frame
+typedef struct s_frame
 {
 	int			door_tg;
 	int			glitch_tg;
@@ -86,19 +85,19 @@ typedef	struct s_frame
 	int			sright_tg;
 	int			dleft_tg;
 	int			dright_tg;
-	int 		anim_tg;
+	int			anim_tg;
 	int			star_tg;
 }				t_frame;
 
-typedef	struct s_cord
+typedef struct s_cord
 {
 	float	x;
 	float	y;
 }				t_cord;
 
-typedef	struct s_mouse
+typedef struct s_mouse
 {
-	int tg_ar;
+	int	tg_ar;
 	int	x;
 	int	y;
 }				t_mouse;
@@ -116,7 +115,7 @@ typedef struct s_player
 	int		moving_d;
 	int		rot_r;
 	int		rot_l;
-	float 	sprint_count;
+	float	sprint_count;
 }				t_player;
 
 typedef struct s_data
@@ -135,14 +134,14 @@ typedef struct s_data
 	int		loaded;
 }				t_data;
 
-typedef	struct s_dda
+typedef struct s_dda
 {
-	int hitcheck;
+	int		hitcheck;
 	int		doorside;
 	double	sidedoorx;
 	double	sidedoory;
 	int		doorx;
-	int	doory;
+	int		doory;
 	int		mapx;
 	int		mapy;
 	int		stepx;
@@ -158,12 +157,12 @@ typedef	struct s_dda
 	double	deltadisty;
 	double	perpwalldist;
 	t_data	tex_clr;
-	int		lineHeight;
-	int		drawStart;
-	int		drawEnd;
-	int		texX;
-	int		texY;
-	int		texYY;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+	int		tex_x;
+	int		tex_y;
+	int		tex_yy;
 }			t_dda;
 
 typedef struct s_ray
@@ -179,10 +178,10 @@ typedef struct s_map
 	char	**orig;
 	char	**map;
 	char	**info;
-	char	**map_F;
-	char	**map_C;
-	long F;
-	long C;
+	char	**map_f;
+	char	**map_c;
+	long	f;
+	long	c;
 	int		max_y;
 	t_data	north;
 	t_data	south;
@@ -205,9 +204,9 @@ typedef enum s_state
 	CTRL_G,
 }				t_state;
 
-typedef	struct	s_glitch
+typedef struct s_glitch
 {
-	t_data 	glitch[20];
+	t_data	glitch[20];
 	int		glitch_spawned;
 	long	last_glitch_time;
 	int		glitch_i;
@@ -231,19 +230,19 @@ typedef struct s_game
 	t_dda		dda;
 	t_data		door[57];
 	long		anim;
-	t_data	minimap;
-	t_data	circle;
-	t_data	rays;
-	int offset;
+	t_data		minimap;
+	t_data		circle;
+	t_data		rays;
+	int			offset;
 	t_time		time;
-	int 		release;
+	int			release;
 	void		*mlx;
 	void		*win;
 	t_data		g_over;
 	t_data		g_win[4];
 	t_data		star[4];
 	t_data		g_win_bg;
-	t_data 		frcg;
+	t_data		frcg;
 	t_frame		frame;
 	t_state		state;
 	t_data		canvas;
@@ -253,7 +252,7 @@ typedef struct s_game
 	t_data		open_door;
 	t_data		timer;
 	t_data		timer_nbr[10];
-	t_glitch 	glitch;
+	t_glitch	glitch;
 	t_data		exit;
 	t_data		person;
 	t_data		pause_bt;
@@ -291,14 +290,16 @@ typedef struct s_game
 	t_player	player;
 }				t_game;
 
-//draw_utils2
+// draw_utils2.c
+
 t_data	load_img(char *path);
 float	sign(t_cord p1, t_cord p2, t_cord p3);
-int	find_point(t_cord pt, t_cord v1, t_cord v2, t_cord v3);
-int	ft_usleep(int micro);
+int		find_point(t_cord pt, t_cord v1, t_cord v2, t_cord v3);
+int		ft_usleep(int micro);
 char	*nbr_hx_clr(int nbr);
 
-//draws
+// draws.c
+
 long	ft_strtol(const char *str);
 void	draw_img(t_data *src, t_data *dst, int x, int y);
 void	draw_fc(int sx, int sy, float factor);
@@ -306,22 +307,25 @@ void	assign_c(void);
 void	assign_f(void);
 void	draw_minimap(int y, int x);
 void	draw_sprint(void);
-int	check_point(float fx, float fy);
+int		check_point(float fx, float fy);
 
-//time_utils.c
-int	int_size(long time);
-int	timer(long start, int timer);
+// time_utils.c
+
+int		int_size(long time);
+int		timer(long start, int timer);
 long	get_elapsed_sec(void);
 long	get_time(void);
-//loops
-int	game_over_check(void);
+
+// loops.c
+
+int		game_over_check(void);
 void	movement(int change);
 void	game_loop(int change);
-int	menu_put(int keycode, void *nada);
+int		menu_put(int keycode, void *nada);
 void	opt_m_put_aux(t_data temp);
 void	opt_m_put(void);
 void	ctrl_m_put(void);
-int	pause_put(void);
+int		pause_put(void);
 void	opt_p_put(void);
 void	ctrl_p_put(void);
 void	g_win_put(void);
@@ -330,11 +334,12 @@ void	opt_g_put_aux(t_data temp);
 void	opt_g_put(void);
 void	ctrl_g_put(void);
 
-//inits
+// inits.c
+
 char	**init_gameinfo(void);
 void	draw_loading(int i);
 void	init_vid(void);
-int	get_res(char id, char *path);
+int		get_res(char id, char *path);
 void	load_full_img(t_data *texture, char *path);
 void	load_images(void);
 void	new_img(t_data *src, int x, int y);
@@ -351,12 +356,15 @@ void	reinit3(void);
 void	set_difficulty(void);
 void	load_multiple_images(t_data *texture, char *path, int quantity);
 
-//fullscreen.c
-void	*my_mlx_new_window(t_xvar *xvar,int size_x,int size_y,char *title);
+// fullscreen.c
+
+void	*my_mlx_new_window(t_xvar *xvar, int size_x, int size_y, char *title);
 void	draw_fc(int sx, int sy, float factor);
 void	my_mlx_pixel_put2(t_data *data, int x, int y, int color);
 void	door_handle(void);
-//GNL
+
+// GNL
+
 # define BUFFER_SIZE 1
 # define PI 3.141592653589793
 # define P1 "Error\nPlayer not found in the map.\n"
@@ -368,6 +376,7 @@ void	door_handle(void);
 # ifndef FS
 #  define FS 0
 # endif
+
 char	*get_next_line(int fd);
 int		ft_linelen(char *str);
 char	*ft_strjoin_gnl(char *s1, char *s2);
@@ -377,89 +386,104 @@ char	*ft_strdup(const char *s);
 
 void	draw_sp_img(t_data *src, t_data *dst, int x, float factor);
 
-//init.c
+// init.c
+
 char	**init_gameinfo(void);
-void 	init(void);
-void 	set_fov(double fov_deg);
+void	init(void);
+void	set_fov(double fov_deg);
 void	set_rays(char dir);
 t_game	*game(void);
 void	reinit(void);
 t_data	choose_text(int side, double raydirx, double raydiry);
 
-//temp
+// temp.c
+
 void	rewrite_map(int var, int var2);
-int	fill2(int x, int y);
-int	check_map2(void);
+int		fill2(int x, int y);
+int		check_map2(void);
 void	find_exit(int var, int var2);
 
-//parsing.c
-int parsing(char **av);
-int map_exists(char *av);
-int map_name(char *av);
+// parsing.c
+
+int		parsing(char **av);
+int		map_exists(char *av);
+int		map_name(char *av);
 void	rewrite_map(int var, int var2);
 void	orig_map(void);
 void	reset_map(void);
-//map_parse.c
-int	map_validate(char *av, int fd, int var, char *line);
-int map_walls(char *av);
-int	map_chars(char *av, int var, int check, int check2);
+// map_parse.c
 
-//file_parse.c
-int	map_textures(void);
-int	map_colors(void);
-int texture_img(char *av);
+int		map_validate(char *av, int fd, int var, char *line);
+int		map_walls(char *av);
+int		map_chars(char *av, int var, int check, int check2);
 
-//mem_utils.c
+// file_parse.c
+
+int		map_textures(void);
+int		map_colors(void);
+int		texture_img(char *av);
+
+// mem_utils.c
+
 void	freeandcopy(int pos, char *line);
 void	set_gameinfo(char *line);
-int	fill(int x, int y);
-int texture_name(char *av);
+int		fill(int x, int y);
+int		texture_name(char *av);
 char	*ft_strdupnonl(const char *s);
 
-//cleanup.c
-void	singleton_free(int parse);
-int clean_exit(void *nada);
+// cleanup.c
 
-//dda.c
-void dda_test(double rayDirX, double rayDirY, int drawX);
+void	singleton_free(int parse);
+int		clean_exit(void *nada);
+
+// dda.c
+
+void	dda_test(double rayDirX, double rayDirY, int drawX);
 void	dda_door(double raydirx, double raydiry, int drawx, t_dda s_dda);
-void dda_fov(void);
+void	dda_fov(void);
 void	rotate_ray(int dir);
 
 // door.c
-int 	open_door(void);
-int 	int_size(long time);
-int 	timer(long start, int timer);
+
+int		open_door(void);
+int		int_size(long time);
+int		timer(long start, int timer);
 void	draw_time(void);
 
-//draw.c
+// draw.c
+
 void	draw_img(t_data *src, t_data *dst, int x, int y);
 void	ins_map(void);
 void	assign_f(void);
 void	assign_c(void);
 
-//str_help.c
-int	check_loop(char ***check, char *line, int *var, int var2);
-int	line_looping(int fd, int opt, char **line);
-int	line_helper(char **line, int var, int *check, int *check2);
-int	line_checks(int fd, char **line, int *check, int *check2);
-int	alloc_map(int fd, int var, char *av);
+// str_help.c
 
-//draw_utils.c
+int		check_loop(char ***check, char *line, int *var, int var2);
+int		line_looping(int fd, int opt, char **line);
+int		line_helper(char **line, int var, int *check, int *check2);
+int		line_checks(int fd, char **line, int *check, int *check2);
+int		alloc_map(int fd, int var, char *av);
+
+// draw_utils.c
+
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-int	my_mlx_pixel_get(t_data *data, int x, int y);
+int		my_mlx_pixel_get(t_data *data, int x, int y);
 t_data	load_img(char *path);
-int	my_mlx_pixel_get_dim(t_data *data, int x, int y, float factor);
+int		my_mlx_pixel_get_dim(t_data *data, int x, int y, float factor);
 t_data	load_img(char *path);
-float sign (t_cord p1, t_cord p2, t_cord p3);
-int find_point(t_cord pt, t_cord v1, t_cord v2, t_cord v3);
-int	ft_usleep(int micro);
-char *nbr_hx_clr(int nbr);
-int	dim_clr(unsigned int color, float factor);
-//handler.c
-void gameplay(void);
+float	sign(t_cord p1, t_cord p2, t_cord p3);
+int		find_point(t_cord pt, t_cord v1, t_cord v2, t_cord v3);
+int		ft_usleep(int micro);
+char	*nbr_hx_clr(int nbr);
+int		dim_clr(unsigned int color, float factor);
 
-//m_press.c
+// handler.c
+
+void	gameplay(void);
+
+// m_press.c
+
 int		mouse_press(int keycode, void *nada);
 void	main_press(int mx, int my);
 void	*opt_m_press(void);
@@ -473,8 +497,9 @@ void	*opt_g_press(void);
 void	ctrl_g_press(void);
 int		pause_game(void);
 
-//m_move.c
-int	mouse_move(int keycode, t_game *null);
+// m_move.c
+
+int		mouse_move(int keycode, t_game *null);
 void	main_move(void);
 void	opt_m_move(void);
 void	ctrl_m_move(void);
@@ -487,34 +512,36 @@ void	opt_g_move(void);
 void	ctrl_g_move(void);
 void	game_move(int *last_x);
 
-//keys.c
-int	key_press(int keycode, t_game *nada);
+// keys.c
+
+int		key_press(int keycode, t_game *nada);
 void	game_press(int keycode);
-int	key_release(int keycode, t_game *nada);
+int		key_release(int keycode, t_game *nada);
 
-//loop.c
-int	loop(void *nada);
+// loop.c
+
+int		loop(void *nada);
 void	game_loop(int change);
-int	menu_put(int keycode, void *nada);
-void opt_m_put(void);
-void ctrl_m_put(void);
-void opt_p_put(void);
-void ctrl_p_put(void);
-void g_win_put(void);
-void g_over_put(void);
-void opt_g_put(void);
-void ctrl_g_put(void);
-int	pause_put(void);
+int		menu_put(int keycode, void *nada);
+void	opt_m_put(void);
+void	ctrl_m_put(void);
+void	opt_p_put(void);
+void	ctrl_p_put(void);
+void	g_win_put(void);
+void	g_over_put(void);
+void	opt_g_put(void);
+void	ctrl_g_put(void);
+int		pause_put(void);
 
-//anim_utils.c
-void	draw_dim_img(t_data *src, t_data *dst, int x, int y, float factor);
+// anim_utils.c
+
+void	draw_dim_img(t_data *src, t_data *dst, int arr[2], float factor);
 void	darken(t_data src, float st_factor, float max_factor);
 void	lighten(t_data src, float st_factor);
 
-
 // time.c
 
-long 	get_elapsed_sec(void);
+long	get_elapsed_sec(void);
 long	get_time(void);
 int		tt_glitch_map(void);
 int		count_zero(char **map);
@@ -524,10 +551,9 @@ int		count_zero(char **map);
 void	glitch_consume(int spawn_delay);
 char	**copy_map(char **map_to_copy);
 void	set_difficulty(void);
+int		count_zero_r(char **map, int y, int x);
 
-int	count_zero_r(char **map, int y, int x);
-
-//movements.c
+// movements.c
 
 void	w_move(int change);
 void	a_move(int change);
@@ -535,4 +561,4 @@ void	s_move(int change);
 void	d_move(int change);
 int		check_radius(char keycode, int change);
 
-# endif
+#endif

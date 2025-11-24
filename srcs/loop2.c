@@ -60,7 +60,7 @@ void	movement(int change)
 void	game_loop(int change)
 {
 	timer(game()->time.level_start, game()->time.level_time);
-	glitch_consume(6);
+	glitch_consume(4);
 	if (game()->player.sprint_count == 0)
 		game()->offset = 5;
 	else if (game()->player.sprint_count == 5)

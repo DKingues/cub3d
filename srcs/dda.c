@@ -99,34 +99,34 @@ t_dda	dda_test4(double raydirx, double raydiry, t_dda s_dda)
 	else
 		s_dda.hitx = s_dda.posx + raydirx * s_dda.perpwalldist;
 	s_dda.hitx -= floor(s_dda.hitx);
-	s_dda.lineHeight = (int)(1080 / s_dda.perpwalldist);
+	s_dda.line_height = (int)(1080 / s_dda.perpwalldist);
 	return (s_dda);
 }
 
 t_dda	dda_test5(double raydirx, double raydiry, t_dda s_dda, int drawx)
 {
-	s_dda.drawStart = -s_dda.lineHeight / 2 + 1080 / 2;
-	if (s_dda.drawStart < 0)
-		s_dda.drawStart = 0;
-	s_dda.drawEnd = s_dda.lineHeight / 2 + 1080 / 2;
-	if (s_dda.drawEnd >= 1080)
-		s_dda.drawEnd = 1080 - 1;
-	s_dda.texX = (int)(s_dda.hitx * s_dda.tex_clr.res_x);
+	s_dda.draw_start = -s_dda.line_height / 2 + 1080 / 2;
+	if (s_dda.draw_start < 0)
+		s_dda.draw_start = 0;
+	s_dda.draw_end = s_dda.line_height / 2 + 1080 / 2;
+	if (s_dda.draw_end >= 1080)
+		s_dda.draw_end = 1080 - 1;
+	s_dda.tex_x = (int)(s_dda.hitx * s_dda.tex_clr.res_x);
 	if (s_dda.side == 0 && raydirx < 0)
-		s_dda.texX = s_dda.tex_clr.res_x - s_dda.texX - 1;
+		s_dda.tex_x = s_dda.tex_clr.res_x - s_dda.tex_x - 1;
 	if (s_dda.side == 1 && raydiry > 0)
-		s_dda.texX = s_dda.tex_clr.res_x - s_dda.texX - 1;
-	while (s_dda.drawStart <= s_dda.drawEnd)
+		s_dda.tex_x = s_dda.tex_clr.res_x - s_dda.tex_x - 1;
+	while (s_dda.draw_start <= s_dda.draw_end)
 	{
-		s_dda.texY = s_dda.drawStart * 256 - 1080 * 128 + s_dda.lineHeight
+		s_dda.tex_y = s_dda.draw_start * 256 - 1080 * 128 + s_dda.line_height
 			* 128;
-		s_dda.texYY = (((s_dda.texY * s_dda.tex_clr.res_y) / s_dda.lineHeight)
-				/ 256);
-		if (s_dda.texYY >= 1080)
-			s_dda.texYY = 1080 - 1;
-		my_mlx_pixel_put(&game()->canvas, drawx, s_dda.drawStart,
-			my_mlx_pixel_get(&s_dda.tex_clr, s_dda.texX, s_dda.texYY));
-		s_dda.drawStart++;
+		s_dda.tex_yy = (((s_dda.tex_y * s_dda.tex_clr.res_y)
+					/ s_dda.line_height) / 256);
+		if (s_dda.tex_yy >= 1080)
+			s_dda.tex_yy = 1080 - 1;
+		my_mlx_pixel_put(&game()->canvas, drawx, s_dda.draw_start,
+			my_mlx_pixel_get(&s_dda.tex_clr, s_dda.tex_x, s_dda.tex_yy));
+		s_dda.draw_start++;
 	}
 	return (s_dda);
 }
