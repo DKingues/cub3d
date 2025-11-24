@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 13:27:56 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/21 13:28:54 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/24 15:17:02 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,14 +103,14 @@ void	first_ins(void)
 	game()->mouse.tg_ar = norm;
 	main_move();
 	reinit();
-	draw_img(&game()->loading_bar[19], &game()->loading_screen, 351, 826, 1.0);
+	draw_img(&game()->loading_bar[19], &game()->loading_screen, 351, 826);
 	darken(game()->loading_screen, 1.0, -0.05);
 	new_img(&temp, 1920, 1080);
-	draw_img(&game()->st_anim[0], &temp, 0, 0, 1.0);
-	draw_img(&game()->maze_nm, &temp, 404, 166, 1.0);
-	draw_img(&game()->play_bt[game()->frame.play_tg], &temp, 672, 500, 1.0);
-	draw_img(&game()->option_bt[game()->frame.option_tg], &temp, 672, 666, 1.0);
-	draw_img(&game()->quit_bt[game()->frame.quit_tg], &temp, 672, 831, 1.0);
+	draw_img(&game()->st_anim[0], &temp, 0, 0);
+	draw_img(&game()->maze_nm, &temp, 404, 166);
+	draw_img(&game()->play_bt[game()->frame.play_tg], &temp, 672, 500);
+	draw_img(&game()->option_bt[game()->frame.option_tg], &temp, 672, 666);
+	draw_img(&game()->quit_bt[game()->frame.quit_tg], &temp, 672, 831);
 	lighten(temp, 0.0);
 	mlx_destroy_image(game()->mlx, temp.img);
 }

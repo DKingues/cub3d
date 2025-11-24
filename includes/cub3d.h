@@ -26,6 +26,45 @@
 # include "../minilibx-linux/mlx_int.h"
 # include "../includes/libft/libft.h"
 
+typedef struct s_raycast
+{
+	int		sx;
+	int		sy;
+	float	player_x;
+	float	player_y;
+	float	dir_x;
+	float	dir_y;
+	float	plane_x;
+	float	plane_y;
+	float	dx;
+	float	dy;
+	float	fx;
+	float	fy;
+	char	map_char;
+	unsigned int color;
+	int tex_x;
+	int tex_y;
+}	t_raycast;
+
+typedef struct s_point
+{
+	int		step_x;
+	int		step_y;
+	int		map_x;
+	int		map_y;
+	int		end_x;
+	int		end_y;
+	float	x0;
+	float	y0;
+	float	dx;
+	float	dy;
+	float	t_max_x;
+	float	t_max_y;
+	float	t_delta_x;
+	float	t_delta_y;
+}		t_point;
+
+
 typedef	struct s_frame
 {
 	int			door_tg;
@@ -252,6 +291,45 @@ typedef struct s_game
 	t_player	player;
 }				t_game;
 
+//draw_utils2
+t_data	load_img(char *path);
+float	sign(t_cord p1, t_cord p2, t_cord p3);
+int	find_point(t_cord pt, t_cord v1, t_cord v2, t_cord v3);
+int	ft_usleep(int micro);
+char	*nbr_hx_clr(int nbr);
+
+//draws
+long	ft_strtol(const char *str);
+void	draw_img(t_data *src, t_data *dst, int x, int y);
+void	draw_fc(int sx, int sy, float factor);
+void	assign_c(void);
+void	assign_f(void);
+void	draw_minimap(int y, int x);
+void	draw_sprint(void);
+int	check_point(float fx, float fy);
+
+//time_utils.c
+int	int_size(long time);
+int	timer(long start, int timer);
+long	get_elapsed_sec(void);
+long	get_time(void);
+//loops
+int	game_over_check(void);
+void	movement(int change);
+void	game_loop(int change);
+int	menu_put(int keycode, void *nada);
+void	opt_m_put_aux(t_data temp);
+void	opt_m_put(void);
+void	ctrl_m_put(void);
+int	pause_put(void);
+void	opt_p_put(void);
+void	ctrl_p_put(void);
+void	g_win_put(void);
+void	g_over_put(void);
+void	opt_g_put_aux(t_data temp);
+void	opt_g_put(void);
+void	ctrl_g_put(void);
+
 //inits
 char	**init_gameinfo(void);
 void	draw_loading(int i);
@@ -275,7 +353,7 @@ void	load_multiple_images(t_data *texture, char *path, int quantity);
 
 //fullscreen.c
 void	*my_mlx_new_window(t_xvar *xvar,int size_x,int size_y,char *title);
-void	draw_fc(void);
+void	draw_fc(int sx, int sy, float factor);
 void	my_mlx_pixel_put2(t_data *data, int x, int y, int color);
 void	door_handle(void);
 //GNL
@@ -296,6 +374,8 @@ char	*ft_strjoin_gnl(char *s1, char *s2);
 void	ft_free_bfr(char *str);
 void	ft_bzero(void *s, size_t n);
 char	*ft_strdup(const char *s);
+
+void	draw_sp_img(t_data *src, t_data *dst, int x, float factor);
 
 //init.c
 char	**init_gameinfo(void);
@@ -353,8 +433,7 @@ int 	timer(long start, int timer);
 void	draw_time(void);
 
 //draw.c
-void	draw_img(t_data *src, t_data *dst, int x, int y, float factor);
-void draw_line(double rayDirX, double rayDirY);
+void	draw_img(t_data *src, t_data *dst, int x, int y);
 void	ins_map(void);
 void	assign_f(void);
 void	assign_c(void);

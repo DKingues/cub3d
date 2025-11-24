@@ -6,29 +6,11 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 16:10:20 by dicosta-          #+#    #+#             */
-/*   Updated: 2025/11/19 16:52:00 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/24 15:10:43 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-long	get_elapsed_sec(void)
-{
-	struct timeval	current;
-
-	if (gettimeofday(&current, NULL))
-		return (0);
-	return (current.tv_sec - game()->time.level_start);
-}
-
-long	get_time(void)
-{
-	struct timeval	tv;
-
-	if (gettimeofday(&tv, NULL))
-		return (0);
-	return (tv.tv_sec * (long)1e3 + (tv.tv_usec / 1e3));
-}
 
 int	count_zero_r(char **temp_map, int y, int x)
 {

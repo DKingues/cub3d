@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 16:20:42 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/21 13:30:16 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/24 15:16:50 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	draw_loading(int i)
 		temp.addr = mlx_get_data_addr(temp.img,
 				&temp.bits_per_pixel, &temp.line_length,
 				&temp.endian);
-		draw_img(&game()->loading_bar[j++], &temp, 0, 0, 1.0);
+		draw_img(&game()->loading_bar[j++], &temp, 0, 0);
 		mlx_put_image_to_window(game()->mlx, game()->win, temp.img, 351, 826);
 		mlx_destroy_image(game()->mlx, temp.img);
 	}
