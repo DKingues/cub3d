@@ -6,7 +6,7 @@
 /*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 15:53:02 by rmota-ma          #+#    #+#             */
-/*   Updated: 2025/11/21 19:32:15 by rmota-ma         ###   ########.fr       */
+/*   Updated: 2025/11/25 14:45:49 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	dda_fov(void)
 		camerax = 2 * i / (double)(1920 - 1) - 1;
 		raydir[0] = dir[0] + plane[0] * camerax;
 		raydir[1] = dir[1] + plane[1] * camerax;
-		dda_test(raydir[0], raydir[1], i);
+		dda_calc(raydir[0], raydir[1], i);
 		i++;
 	}
 }

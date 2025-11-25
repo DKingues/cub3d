@@ -440,13 +440,13 @@ void	singleton_free(int parse);
 
 int		clean_exit(void *nada);
 
-// dda_test.c
+// dda_calc.c
 
-void	dda_test(double rayDirX, double rayDirY, int drawX);
-t_dda	dda_test2(double raydirx, double raydiry, t_dda s_dda);
-t_dda	dda_test3(t_dda s_dda);
-t_dda	dda_test4(double raydirx, double raydiry, t_dda s_dda);
-t_dda	dda_test5(double raydirx, double raydiry, t_dda s_dda, int drawx);
+void	dda_calc(double rayDirX, double rayDirY, int drawX);
+t_dda	dda_calc2(double raydirx, double raydiry, t_dda s_dda);
+t_dda	dda_calc3(t_dda s_dda);
+t_dda	dda_calc4(double raydirx, double raydiry, t_dda s_dda);
+t_dda	dda_calc5(double raydirx, double raydiry, t_dda s_dda, int drawx);
 
 // dda_door.c
 
@@ -586,7 +586,6 @@ void	d_move(int change);
 
 // wall.c
 
-int		check_radius(char keycode, int change);  /*Esta nao e usada mas confirma se pode ser apagada*/
 void	change_pos(double x, double y);
 
 #endif

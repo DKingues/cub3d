@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dda_test.c                                         :+:      :+:    :+:   */
+/*   dda_calc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dicosta- <dicosta-@student.42.fr>          #+#  +:+       +#+        */
+/*   By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-11-24 20:00:45 by dicosta-          #+#    #+#             */
-/*   Updated: 2025-11-24 20:00:45 by dicosta-         ###   ########.fr       */
+/*   Created: 2025/11/24 20:00:45 by dicosta-          #+#    #+#             */
+/*   Updated: 2025/11/25 14:46:01 by rmota-ma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	dda_test(double raydirx, double raydiry, int drawx)
+void	dda_calc(double raydirx, double raydiry, int drawx)
 {
 	t_dda	s_dda;
 
@@ -22,11 +22,11 @@ void	dda_test(double raydirx, double raydiry, int drawx)
 	s_dda.doory = -1;
 	s_dda.deltadistx = fabs(1.0 / raydirx);
 	s_dda.deltadisty = fabs(1.0 / raydiry);
-	s_dda = dda_test2(raydirx, raydiry, s_dda);
+	s_dda = dda_calc2(raydirx, raydiry, s_dda);
 	while (!s_dda.hit)
-		s_dda = dda_test3(s_dda);
-	s_dda = dda_test4(raydirx, raydiry, s_dda);
-	dda_test5(raydirx, raydiry, s_dda, drawx);
+		s_dda = dda_calc3(s_dda);
+	s_dda = dda_calc4(raydirx, raydiry, s_dda);
+	dda_calc5(raydirx, raydiry, s_dda, drawx);
 	if (s_dda.hitcheck != -1)
 	{
 		s_dda.side = s_dda.doorside;
@@ -38,7 +38,7 @@ void	dda_test(double raydirx, double raydiry, int drawx)
 	}
 }
 
-t_dda	dda_test2(double raydirx, double raydiry, t_dda s_dda)
+t_dda	dda_calc2(double raydirx, double raydiry, t_dda s_dda)
 {
 	s_dda.posx = game()->player.player_x;
 	s_dda.posy = game()->player.player_y;
@@ -67,7 +67,7 @@ t_dda	dda_test2(double raydirx, double raydiry, t_dda s_dda)
 	return (s_dda);
 }
 
-t_dda	dda_test3(t_dda s_dda)
+t_dda	dda_calc3(t_dda s_dda)
 {
 	if (s_dda.sidedistx < s_dda.sidedisty)
 	{
@@ -94,7 +94,7 @@ t_dda	dda_test3(t_dda s_dda)
 	return (s_dda);
 }
 
-t_dda	dda_test4(double raydirx, double raydiry, t_dda s_dda)
+t_dda	dda_calc4(double raydirx, double raydiry, t_dda s_dda)
 {
 	if (s_dda.side == 0)
 		s_dda.perpwalldist = (s_dda.mapx - s_dda.posx + (1 - s_dda.stepx) / 2.0)
@@ -118,7 +118,7 @@ t_dda	dda_test4(double raydirx, double raydiry, t_dda s_dda)
 	return (s_dda);
 }
 
-t_dda	dda_test5(double raydirx, double raydiry, t_dda s_dda, int drawx)
+t_dda	dda_calc5(double raydirx, double raydiry, t_dda s_dda, int drawx)
 {
 	s_dda.draw_start = -s_dda.line_height / 2 + 1080 / 2;
 	if (s_dda.draw_start < 0)

@@ -6,7 +6,7 @@
 #    By: rmota-ma <rmota-ma@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/21 15:04:39 by rmota-ma          #+#    #+#              #
-#    Updated: 2025/11/24 16:41:40 by rmota-ma         ###   ########.fr        #
+#    Updated: 2025/11/25 14:45:49 by rmota-ma         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ FS = 0
 
 LIBFT = includes/libft/libft.a
 
-SRCS = main.c glitch.c time.c time_utils.c init.c init2.c init3.c init4.c parsing.c map_parse.c file_parse.c mem_utils.c cleanup.c dda_test.c dda.c dda_door.c door.c draw.c draw2.c draw3.c draw4.c draw_utils.c draw_utils2.c anim_utils.c handler.c keys.c m_press.c singleton.c m_move.c menu_move_game.c menu_move_main.c menu_move_pause.c loop.c loop2.c loop3.c loop4.c fullscreen.c movements.c str_help.c helper_func.c m_press2.c m_press3.c wall.c
+SRCS = main.c glitch.c time.c time_utils.c init.c init2.c init3.c init4.c parsing.c map_parse.c file_parse.c mem_utils.c cleanup.c dda_calc.c dda.c dda_door.c door.c draw.c draw2.c draw3.c draw4.c draw_utils.c draw_utils2.c anim_utils.c handler.c keys.c m_press.c singleton.c m_move.c menu_move_game.c menu_move_main.c menu_move_pause.c loop.c loop2.c loop3.c loop4.c fullscreen.c movements.c str_help.c helper_func.c m_press2.c m_press3.c wall.c
 
 GNL = get_next_line.c get_next_line_utils.c
 
