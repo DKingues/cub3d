@@ -83,7 +83,7 @@ void	*opt_g_press(void)
 		&& (game()->mouse.y >= 764 && game()->mouse.y <= 843))
 		return (gover_move(), game()->state = G_OVER, NULL);
 	if (find_point(pos, game()->sleft_c[0], game()->sleft_c[1],
-			game()->sleft_c[2]), game()->frame.sens_tg != 0)
+			game()->sleft_c[2]) && game()->frame.sens_tg != 0)
 		game()->frame.sens_tg--;
 	if (find_point(pos, game()->sright_c[0], game()->sright_c[1],
 			game()->sright_c[2]) && game()->frame.sens_tg != 4)

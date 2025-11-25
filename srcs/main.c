@@ -12,31 +12,31 @@
 
 #include "../includes/cub3d.h"
 
-/* void	print_singleton(void)
-{
-	int	var;
+// void	print_singleton(void)
+// {
+// 	int	var;
 
-	var = 0;
-	while (game()->map.map[var])
-	{
-		printf("MAP: %s\n", game()->map.map[var]);
-		var++;
-	}
-	printf("\n\n");
-	var = 0;
-	while (game()->map.info[var])
-	{
-		printf("INFO: %s\n", game()->map.info[var]);
-		var++;
-	}
-	printf("\n\n");
-	var = 0;
-	while (game()->map.orig[var])
-	{
-		printf("ORIG: %s\n", game()->map.orig[var]);
-		var++;
-	}
-} */
+// 	var = 0;
+// 	while (game()->map.map[var])
+// 	{
+// 		printf("MAP: %s\n", game()->map.map[var]);
+// 		var++;
+// 	}
+// 	printf("\n\n");
+// 	var = 0;
+// 	while (game()->map.info[var])
+// 	{
+// 		printf("INFO: %s\n", game()->map.info[var]);
+// 		var++;
+// 	}
+// 	printf("\n\n");
+// 	var = 0;
+// 	while (game()->map.orig[var])
+// 	{
+// 		printf("ORIG: %s\n", game()->map.orig[var]);
+// 		var++;
+// 	}
+// }
 
 int	main(int ac, char **av)
 {
@@ -50,8 +50,3 @@ int	main(int ac, char **av)
 	gameplay();
 	return (0);
 }
-/*
-	#textura do nmr 6
-	#leaks??
-	#norm
-*/

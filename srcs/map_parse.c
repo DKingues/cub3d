@@ -138,5 +138,5 @@ int	map_chars(char *av, int var, int check, int check2)
 	{
 		line = get_next_line(fd);
 	}
-	return (close(fd), line_helper(&line, -1, &check, &check2), 0);
+	return (close(fd), line_helper(&line, -1, &check, &check2));
 }
