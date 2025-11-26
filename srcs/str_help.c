@@ -44,7 +44,7 @@ int	line_looping(int fd, int opt, char **line)
 {
 	if (!opt)
 	{
-		if (line[0][0] == '\n')
+		if (line[0] && line[0][0] == '\n')
 		{
 			free(line[0]);
 			line[0] = get_next_line(fd);
